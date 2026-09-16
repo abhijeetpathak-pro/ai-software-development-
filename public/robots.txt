@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /admin-blog/
+Disallow: /admin/
+Disallow: /api/
+
+Sitemap: https://www.witqualis.com/sitemap.xml
+

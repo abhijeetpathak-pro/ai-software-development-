@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <!-- Top arc path for "CERTIFIED" (Clockwise) -->
+    <path id="path-top" d="M 50,200 A 150,150 0 0,1 350,200" fill="none" />
+    <!-- Bottom arc path for "COMPANY" (Clockwise to keep text upright) -->
+    <path id="path-bottom" d="M 50,200 A 150,150 0 0,0 350,200" fill="none" />
+  </defs>
+
+  <!-- Outer Ring -->
+  <circle cx="200" cy="200" r="192" fill="#ffffff" stroke="#004d87" stroke-width="8" />
+
+  <!-- Inner Blue Circular Badge -->
+  <circle cx="200" cy="200" r="126" fill="#004d87" />
+  <!-- Inner White Outline Ring -->
+  <circle cx="200" cy="200" r="122" fill="none" stroke="#ffffff" stroke-width="3.5" />
+
+  <!-- Top Curved Text: CERTIFIED -->
+  <text fill="#004d87" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="39" letter-spacing="4">
+    <textPath href="#path-top" startOffset="50%" text-anchor="middle">CERTIFIED</textPath>
+  </text>
+
+  <!-- Bottom Curved Text: COMPANY -->
+  <text fill="#004d87" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="39" letter-spacing="4">
+    <textPath href="#path-bottom" startOffset="50%" text-anchor="middle">COMPANY</textPath>
+  </text>
+
+  <!-- Center Text: ISO -->
+  <text x="200" y="202" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="78" text-anchor="middle" letter-spacing="1">ISO</text>
+
+  <!-- Center Text: 27001:2022 -->
+  <text x="200" y="250" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-weight="bold" font-size="27" text-anchor="middle" letter-spacing="1">27001:2022</text>
+</svg>

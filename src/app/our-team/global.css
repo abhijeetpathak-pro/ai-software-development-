@@ -1,0 +1,607 @@
+:root {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #18202b;
+  background: #fff;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+/* Page Layout */
+.wq-team-page {
+  width: 100%;
+  overflow: hidden;
+}
+
+.wq-team-container {
+  width: min(1180px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+/* Typography & Components */
+.wq-eyebrow {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: 0.19em;
+  font-weight: 800;
+  color: #ef5a3c;
+  margin-bottom: 18px;
+}
+
+.wq-section-heading {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto 56px;
+}
+
+.wq-section-heading h2,
+.wq-team-intro h2,
+.wq-team-why h2,
+.wq-faq-intro h2,
+.wq-contact-copy h2 {
+  margin: 0;
+  color: #121b29;
+  font-size: clamp(36px, 5vw, 62px);
+  line-height: 1.03;
+  letter-spacing: -0.045em;
+  font-weight: 750;
+}
+
+.wq-section-heading h2 span,
+.wq-team-intro h2 span,
+.wq-team-why h2 span,
+.wq-faq-intro h2 span,
+.wq-contact-copy h2 span,
+.wq-team-hero h1 span {
+  color: #ef5a3c;
+}
+
+.wq-section-heading p,
+.wq-copy,
+.wq-lead,
+.wq-faq-intro > p,
+.wq-contact-copy > p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #687384;
+}
+
+/* Sections */
+.wq-light-section {
+  background: #f7f8fa;
+}
+
+.wq-dark-section {
+  background: #111b29;
+}
+
+/* Primary Button */
+.wq-primary-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 22px;
+  border: 0;
+  background: #ef5a3c;
+  color: #fff;
+  padding: 15px 22px;
+  border-radius: 3px;
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.wq-primary-btn span {
+  font-size: 19px;
+  line-height: 1;
+}
+
+.wq-primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(239, 90, 60, 0.22);
+}
+
+/* Additional styles you might need */
+
+/* Hero Section */
+.wq-team-hero {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #f7f8fa 0%, #ffffff 100%);
+}
+
+.wq-team-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.wq-team-hero-copy h1 {
+  font-size: clamp(42px, 6vw, 72px);
+  line-height: 1.05;
+  letter-spacing: -0.045em;
+  font-weight: 750;
+  margin: 0 0 20px;
+  color: #121b29;
+}
+
+.wq-team-hero-copy p {
+  font-size: 18px;
+  line-height: 1.8;
+  color: #687384;
+  margin-bottom: 32px;
+  max-width: 540px;
+}
+
+.wq-team-hero-art {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.wq-hero-orbit {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid rgba(239, 90, 60, 0.1);
+}
+
+.wq-hero-orbit.orbit-one {
+  width: 400px;
+  height: 400px;
+  animation: spin 20s linear infinite;
+}
+
+.wq-hero-orbit.orbit-two {
+  width: 300px;
+  height: 300px;
+  animation: spin 15s linear infinite reverse;
+}
+
+.wq-hero-panel {
+  position: relative;
+  z-index: 2;
+}
+
+.wq-hero-panel img {
+  max-width: 100%;
+  height: auto;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Why Choose Us */
+.wq-team-why {
+  padding: 80px 0;
+}
+
+.wq-why-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.wq-why-card {
+  background: #fff;
+  padding: 40px 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.wq-why-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+.wq-why-card h3 {
+  font-size: 20px;
+  margin: 0 0 12px;
+  color: #121b29;
+}
+
+.wq-why-card p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #687384;
+  margin: 0;
+}
+
+/* FAQ Section */
+.wq-team-faq {
+  padding: 80px 0;
+}
+
+.wq-faq-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 60px;
+  align-items: start;
+}
+
+.wq-faq-intro h2 {
+  margin: 0 0 16px;
+}
+
+.wq-faq-intro p {
+  margin: 0 0 24px;
+}
+
+.wq-faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.wq-faq-item {
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #e8eaed;
+  overflow: hidden;
+  transition: border-color 0.3s ease;
+}
+
+.wq-faq-item.is-open {
+  border-color: #ef5a3c;
+}
+
+.wq-faq-item h3 {
+  margin: 0;
+}
+
+.wq-faq-item button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  color: #121b29;
+  text-align: left;
+  transition: background 0.2s ease;
+}
+
+.wq-faq-item button:hover {
+  background: #f7f8fa;
+}
+
+.wq-faq-item button span:first-child {
+  color: #ef5a3c;
+  font-weight: 800;
+  font-size: 14px;
+  min-width: 30px;
+}
+
+.wq-faq-item button b {
+  margin-left: auto;
+  font-size: 24px;
+  color: #ef5a3c;
+  font-weight: 300;
+}
+
+.wq-faq-panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.wq-faq-item.is-open .wq-faq-panel {
+  max-height: 500px;
+  padding: 0 24px 24px;
+}
+
+.wq-faq-panel p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.8;
+  color: #687384;
+}
+
+/* Contact Section */
+.wq-team-contact {
+  padding: 80px 0;
+}
+
+.wq-contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 60px;
+}
+
+.wq-contact-copy h2 {
+  margin: 0 0 16px;
+}
+
+.wq-contact-copy p {
+  margin: 0 0 32px;
+}
+
+.wq-contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.wq-contact-details div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.wq-contact-details small {
+  font-size: 12px;
+  font-weight: 700;
+  color: #ef5a3c;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.wq-contact-details a {
+  font-size: 15px;
+  color: #121b29;
+  transition: color 0.2s ease;
+}
+
+.wq-contact-details a:hover {
+  color: #ef5a3c;
+}
+
+.wq-contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.wq-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.wq-contact-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #121b29;
+}
+
+.wq-contact-form input,
+.wq-contact-form select,
+.wq-contact-form textarea {
+  padding: 12px 16px;
+  border: 1px solid #e0e2e6;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+  background: #fff;
+}
+
+.wq-contact-form input:focus,
+.wq-contact-form select:focus,
+.wq-contact-form textarea:focus {
+  outline: none;
+  border-color: #ef5a3c;
+}
+
+.wq-contact-form textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.wq-form-message {
+  padding: 12px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  margin: 0;
+}
+
+.wq-form-error {
+  background: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+}
+
+.wq-form-success {
+  background: #f0fdf4;
+  color: #16a34a;
+  border: 1px solid #bbf7d0;
+}
+
+/* Album Section */
+.wq-team-album {
+  padding: 80px 0;
+}
+
+.wq-album-heading {
+  margin-bottom: 40px;
+}
+
+.wq-album-slider {
+  overflow: hidden;
+  position: relative;
+}
+
+.wq-album-track {
+  display: flex;
+  gap: 24px;
+  animation: scroll 30s linear infinite;
+}
+
+.wq-album-slide {
+  flex: 0 0 280px;
+  margin: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.wq-album-slide img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.wq-album-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 32px;
+}
+
+.wq-album-dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #d1d5db;
+  transition: background 0.3s ease;
+  cursor: pointer;
+}
+
+.wq-album-dots span.is-active {
+  background: #ef5a3c;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .wq-team-hero-grid,
+  .wq-faq-layout,
+  .wq-contact-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .wq-why-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .wq-team-hero-art {
+    order: -1;
+  }
+
+  .wq-hero-orbit.orbit-one {
+    width: 250px;
+    height: 250px;
+  }
+
+  .wq-hero-orbit.orbit-two {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .wq-team-container {
+    width: min(100%, calc(100% - 32px));
+  }
+
+  .wq-why-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .wq-form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .wq-team-hero {
+    padding: 40px 0;
+  }
+
+  .wq-team-hero-copy h1 {
+    font-size: clamp(32px, 8vw, 42px);
+  }
+
+  .wq-album-slide {
+    flex: 0 0 200px;
+  }
+
+  .wq-album-slide img {
+    height: 150px;
+  }
+
+  .wq-faq-item button {
+    font-size: 14px;
+    padding: 16px 20px;
+  }
+
+  .wq-contact-details {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .wq-album-slide {
+    flex: 0 0 160px;
+  }
+
+  .wq-album-slide img {
+    height: 120px;
+  }
+
+  .wq-hero-orbit.orbit-one {
+    width: 180px;
+    height: 180px;
+  }
+
+  .wq-hero-orbit.orbit-two {
+    width: 140px;
+    height: 140px;
+  }
+
+  .wq-primary-btn {
+    padding: 12px 18px;
+    font-size: 12px;
+    gap: 16px;
+  }
+}

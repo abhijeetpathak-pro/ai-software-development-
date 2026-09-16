@@ -1,0 +1,54 @@
+/* src/app/components/ClientLogos.module.css */
+
+.logoCard {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: all 0.4s ease;
+}
+
+.logoCard.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hide scrollbar */
+.scrollHide::-webkit-scrollbar {
+  display: none;
+}
+.scrollHide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Client logos container */
+.clientGrid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .clientGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .clientGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .clientGrid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+/* src/app/page.css */
+.tech-grid {
+  background: radial-gradient(ellipse at 50% 0%, rgba(45, 212, 191, 0.05), transparent 70%);
+}
+
+.tech-card {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}

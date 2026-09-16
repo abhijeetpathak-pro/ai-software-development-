@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <!-- Top Arc for CERTIFIED (clockwise) -->
+    <path id="arc-top" d="M 75 250 A 175 175 0 1 1 425 250" fill="none" />
+    
+    <!-- Bottom Arc for COMPANY (counter-clockwise so text sits upright) -->
+    <path id="arc-bottom" d="M 75 250 A 175 175 0 0 0 425 250" fill="none" />
+  </defs>
+
+  <!-- Outer Ring -->
+  <circle cx="250" cy="250" r="238" fill="#ffffff" stroke="#004d8c" stroke-width="13" />
+
+  <!-- Inner Thin Ring Frame around solid blue -->
+  <circle cx="250" cy="250" r="162" fill="none" stroke="#004d8c" stroke-width="5" />
+
+  <!-- Solid Blue Center Circle -->
+  <circle cx="250" cy="250" r="150" fill="#004d8c" stroke="#ffffff" stroke-width="4.5" />
+
+  <!-- Inner White Accent Ring inside Blue Disc -->
+  <circle cx="250" cy="250" r="144" fill="none" stroke="#ffffff" stroke-width="2.5" />
+
+  <!-- Curved Text: CERTIFIED -->
+  <text fill="#004d8c" font-family="'Arial Black', Impact, Arial, sans-serif" font-weight="900" font-size="52" letter-spacing="4">
+    <textPath href="#arc-top" startOffset="50%" text-anchor="middle">CERTIFIED</textPath>
+  </text>
+
+  <!-- Curved Text: COMPANY -->
+  <text fill="#004d8c" font-family="'Arial Black', Impact, Arial, sans-serif" font-weight="900" font-size="52" letter-spacing="4">
+    <textPath href="#arc-bottom" startOffset="50%" text-anchor="middle">COMPANY</textPath>
+  </text>
+
+  <!-- Center Text: ISO (Bold Serif Style like the original badge) -->
+  <text x="250" y="258" fill="#ffffff" font-family="'Georgia', 'Times New Roman', serif" font-weight="900" font-size="96" letter-spacing="2" text-anchor="middle">ISO</text>
+
+  <!-- Center Text: 27001:2022 -->
+  <text x="250" y="316" fill="#ffffff" font-family="'Arial Black', Arial, sans-serif" font-weight="900" font-size="33" letter-spacing="1" text-anchor="middle">27001:2022</text>
+</svg>

@@ -1,0 +1,250 @@
+/* src/components/IndustriesSection.module.css */
+
+.industriesSection {
+  padding: 60px 0;
+  background: linear-gradient(180deg, #f8f9fa, #ffffff);
+  overflow: hidden;
+}
+
+.industriesContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ===== HEADING ===== */
+.industriesHeading {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.trustedTitle {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  color: #6c5ce7;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  background: rgba(108, 92, 231, 0.1);
+  padding: 4px 16px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+
+.industriesHeading h1 {
+  font-size: 42px;
+  font-weight: 800;
+  color: #1a1a2e;
+  margin: 0;
+}
+
+.industriesHeading h1 span {
+  color: #6c5ce7;
+}
+
+.subHeading {
+  font-size: 14px;
+  color: #777184;
+  margin-top: 8px;
+}
+
+.headingDecoration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.headingDecoration .line {
+  width: 30px;
+  height: 2px;
+  background: #6c5ce7;
+  border-radius: 2px;
+}
+
+.headingDecoration .mainLine {
+  width: 60px;
+  background: linear-gradient(90deg, #6c5ce7, #a29bfe);
+}
+
+.headingDecoration .dot {
+  width: 6px;
+  height: 6px;
+  background: #6c5ce7;
+  border-radius: 50%;
+}
+
+/* ===== INDUSTRY SLIDER ===== */
+.industrySlider {
+  width: 100%;
+  overflow: hidden;
+  margin: 8px 0;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.industryTrack {
+  display: flex;
+  align-items: center;
+  padding: 16px 0;
+  gap: 30px;
+  width: max-content;
+}
+
+/* ===== ANIMATIONS ===== */
+.slideLeft {
+  animation: scrollLeft 25s linear infinite;
+}
+
+.slideRight {
+  animation: scrollRight 25s linear infinite;
+}
+
+.slideLeft.slow,
+.slideRight.slow {
+  animation-duration: 35s;
+}
+
+@keyframes scrollLeft {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes scrollRight {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+/* ===== INDUSTRY CARD ===== */
+.industryCard {
+  flex-shrink: 0;
+  padding: 8px 20px;
+  min-width: 120px;
+  text-align: center;
+}
+
+.industryLogo {
+  font-size: 14px;
+  font-weight: 700;
+  color: #2d3436;
+  text-align: center;
+  line-height: 1.3;
+  letter-spacing: 0.5px;
+}
+
+.industryLogo small {
+  font-size: 10px;
+  font-weight: 400;
+  color: #636e72;
+}
+
+.industryLogo span {
+  color: #6c5ce7;
+}
+
+.industryLogo br {
+  display: block;
+  content: "";
+  margin: 2px 0;
+}
+
+/* ===== CUSTOM INDUSTRY STYLES ===== */
+.indHealthcare { font-size: 16px; font-weight: 700; color: #e17055; }
+.indFintech { font-size: 16px; font-weight: 700; color: #6c5ce7; }
+.indEcommerce { font-size: 16px; font-weight: 700; color: #00b894; }
+.indEdtech { font-size: 16px; font-weight: 700; color: #0984e3; }
+.indRealestate { font-size: 16px; font-weight: 700; color: #fdcb6e; }
+.indLogistics { font-size: 16px; font-weight: 700; color: #d63031; }
+.indTravel { font-size: 16px; font-weight: 700; color: #6c5ce7; }
+.indFood { font-size: 15px; font-weight: 700; color: #e17055; }
+.indAutomotive { font-size: 16px; font-weight: 700; color: #0984e3; }
+.indMedia { font-size: 16px; font-weight: 700; color: #00b894; }
+
+/* Row 2 */
+.indRetail { font-size: 16px; font-weight: 700; color: #6c5ce7; }
+.indManufacturing { font-size: 15px; font-weight: 700; color: #d63031; }
+.indInsurance { font-size: 16px; font-weight: 700; color: #0984e3; }
+.indEnergy { font-size: 16px; font-weight: 700; color: #fdcb6e; }
+.indAgriculture { font-size: 15px; font-weight: 700; color: #00b894; }
+.indPharma { font-size: 16px; font-weight: 700; color: #e17055; }
+.indTelecom { font-size: 16px; font-weight: 700; color: #6c5ce7; }
+.indBanking { font-size: 16px; font-weight: 700; color: #0984e3; }
+.indEntertainment { font-size: 15px; font-weight: 700; color: #d63031; }
+.indSaas { font-size: 16px; font-weight: 700; color: #00b894; }
+
+/* Row 3 */
+.indCyber { font-size: 15px; font-weight: 700; color: #6c5ce7; }
+.indAI { font-size: 16px; font-weight: 700; color: #0984e3; }
+.indGaming { font-size: 16px; font-weight: 700; color: #e17055; }
+.indNonprofit { font-size: 15px; font-weight: 700; color: #00b894; }
+.indConstruction { font-size: 15px; font-weight: 700; color: #d63031; }
+.indHospitality { font-size: 15px; font-weight: 700; color: #6c5ce7; }
+.indSports { font-size: 16px; font-weight: 700; color: #0984e3; }
+.indFashion { font-size: 16px; font-weight: 700; color: #e17055; }
+.indLegal { font-size: 16px; font-weight: 700; color: #6c5ce7; }
+.indEducation { font-size: 16px; font-weight: 700; color: #00b894; }
+
+/* Row 4 */
+.indHR { font-size: 16px; font-weight: 700; color: #0984e3; }
+.indMarTech { font-size: 15px; font-weight: 700; color: #6c5ce7; }
+.indCleanTech { font-size: 15px; font-weight: 700; color: #00b894; }
+.indBioTech { font-size: 16px; font-weight: 700; color: #e17055; }
+.indGovTech { font-size: 16px; font-weight: 700; color: #d63031; }
+.indHealthTech { font-size: 15px; font-weight: 700; color: #6c5ce7; }
+.indPropTech { font-size: 16px; font-weight: 700; color: #0984e3; }
+.indFoodTech { font-size: 15px; font-weight: 700; color: #00b894; }
+.indAgriTech { font-size: 15px; font-weight: 700; color: #e17055; }
+.indEdTech { font-size: 16px; font-weight: 700; color: #6c5ce7; }
+
+/* Row 5 */
+.indSpace { font-size: 15px; font-weight: 700; color: #0984e3; }
+.indBlockchain { font-size: 15px; font-weight: 700; color: #6c5ce7; }
+.indIoT { font-size: 16px; font-weight: 700; color: #00b894; }
+.indRobotics { font-size: 16px; font-weight: 700; color: #e17055; }
+.indARVR { font-size: 16px; font-weight: 700; color: #6c5ce7; }
+.indQuantum { font-size: 14px; font-weight: 700; color: #0984e3; }
+.indNano { font-size: 16px; font-weight: 700; color: #00b894; }
+.indRenewable { font-size: 15px; font-weight: 700; color: #fdcb6e; }
+.indSmartCities { font-size: 15px; font-weight: 700; color: #6c5ce7; }
+.indBigData { font-size: 16px; font-weight: 700; color: #d63031; }
+
+/* ===== DOTS ===== */
+.industryDots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.industryDots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #dfe6e9;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.industryDots span.active {
+  background: #6c5ce7;
+  width: 30px;
+  border-radius: 5px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .industriesHeading h1 {
+    font-size: 28px;
+  }
+  
+  .industryCard {
+    padding: 4px 12px;
+    min-width: 80px;
+  }
+  
+  .industryLogo {
+    font-size: 12px !important;
+  }
+}
