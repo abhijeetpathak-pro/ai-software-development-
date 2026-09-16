@@ -13,10 +13,12 @@ const DATA_FILE_PATH = path.join(process.cwd(), 'src', 'data', 'posts.json');
 export async function getAllBlogPosts(): Promise<Post[]> {
   try {
     if (fs.existsSync(DATA_FILE_PATH)) {
-      const fileData = await fs.promises.readFile(DATA_FILE_PATH, 'utf-8');
-      const parsed: Post[] = JSON.parse(fileData);
-      if (Array.isArray(parsed) && parsed.length > 0) {
-        return parsed;
+      const fileData = (await fs.promises.readFile(DATA_FILE_PATH, 'utf-8')).trim();
+      if (fileData) {
+        const parsed: Post[] = JSON.parse(fileData);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed;
+        }
       }
     }
   } catch (error) {
