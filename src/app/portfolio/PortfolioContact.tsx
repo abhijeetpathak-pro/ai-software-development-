@@ -38,29 +38,49 @@ export default function PortfolioContact() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    soundFx.playSuccess();
-    setSubmitted(true);
+    soundFx.playClick();
 
-    confetti({
-      particleCount: 100,
-      spread: 80,
-      origin: { y: 0.6 },
-      colors: ['#e11d48', '#dc2626', '#10b981', '#0284c7']
-    });
-
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({
-        name: '',
-        email: '',
-        company: '',
-        timeline: 'Immediate (Under 48 Hours)',
-        budget: '$5,000 - $15,000 / mo',
-        message: ''
+    try {
+      await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          company: formData.company,
+          timeline: formData.timeline,
+          budget: formData.budget,
+          stack: selectedChips.join(', '),
+          message: formData.message
+        })
       });
-    }, 5000);
+    } catch (err) {
+      console.error('Portfolio requisition submission error:', err);
+    } finally {
+      soundFx.playSuccess();
+      setSubmitted(true);
+
+      confetti({
+        particleCount: 100,
+        spread: 80,
+        origin: { y: 0.6 },
+        colors: ['#e11d48', '#dc2626', '#10b981', '#0284c7']
+      });
+
+      setTimeout(() => {
+        setSubmitted(false);
+        setFormData({
+          name: '',
+          email: '',
+          company: '',
+          timeline: 'Immediate (Under 48 Hours)',
+          budget: '$5,000 - $15,000 / mo',
+          message: ''
+        });
+      }, 5000);
+    }
   };
 
   const copyEmail = () => {

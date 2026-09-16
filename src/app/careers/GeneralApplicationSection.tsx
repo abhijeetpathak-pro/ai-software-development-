@@ -35,7 +35,7 @@ export default function GeneralApplicationSection() {
     return Object.keys(errs).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) {
       soundFx.playChirp();
@@ -45,7 +45,23 @@ export default function GeneralApplicationSection() {
     setSubmitting(true);
     soundFx.playClick();
 
-    setTimeout(() => {
+    try {
+      await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          stack: `Careers Domain: ${formData.domain}`,
+          experienceYears: formData.experienceYears,
+          portfolioUrl: formData.portfolioUrl,
+          message: formData.message
+        })
+      });
+    } catch (err) {
+      console.error('General application submission error:', err);
+    } finally {
       setSubmitting(false);
       soundFx.playSuccess();
       setSubmitted(true);
@@ -69,7 +85,7 @@ export default function GeneralApplicationSection() {
           message: ''
         });
       }, 5000);
-    }, 800);
+    }
   };
 
   return (

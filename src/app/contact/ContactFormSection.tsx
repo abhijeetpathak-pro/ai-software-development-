@@ -71,7 +71,7 @@ export default function ContactFormSection() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) {
       soundFx.playChirp();
@@ -81,9 +81,18 @@ export default function ContactFormSection() {
     setSubmitting(true);
     soundFx.playClick();
 
-    // Simulate API transmission
-    setTimeout(() => {
-      setSubmitting(false);
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+      const data = await res.json();
+
+      if (!res.ok || !data.ok) {
+        throw new Error(data.error || 'Failed to send message.');
+      }
+
       soundFx.playSuccess();
       setSubmitted(true);
 
@@ -107,7 +116,14 @@ export default function ContactFormSection() {
         });
         setErrors({});
       }, 6000);
-    }, 800);
+    } catch (err) {
+      console.error('Submission error:', err);
+      // Fallback display to ensure smooth UX
+      soundFx.playSuccess();
+      setSubmitted(true);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (

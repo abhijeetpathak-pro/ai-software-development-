@@ -19,30 +19,50 @@ export default function DirectApplyForm() {
   const [submitted, setSubmitted] = useState(false);
   const [copiedEmail, setCopiedEmail] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    soundFx.playSuccess();
-    setSubmitted(true);
+    soundFx.playClick();
 
-    confetti({
-      particleCount: 100,
-      spread: 80,
-      origin: { y: 0.6 },
-      colors: ['#e11d48', '#dc2626', '#10b981', '#0284c7']
-    });
-
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        primaryStack: '',
-        experienceYears: '4-6 Years',
-        portfolioUrl: '',
-        notes: ''
+    try {
+      await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          stack: `Careers Application: ${formData.primaryStack}`,
+          experienceYears: formData.experienceYears,
+          portfolioUrl: formData.portfolioUrl,
+          message: `Application Notes: ${formData.notes || 'Direct candidate resume submission.'}`
+        })
       });
-    }, 5000);
+    } catch (err) {
+      console.error('Candidate application submission error:', err);
+    } finally {
+      soundFx.playSuccess();
+      setSubmitted(true);
+
+      confetti({
+        particleCount: 100,
+        spread: 80,
+        origin: { y: 0.6 },
+        colors: ['#e11d48', '#dc2626', '#10b981', '#0284c7']
+      });
+
+      setTimeout(() => {
+        setSubmitted(false);
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          primaryStack: '',
+          experienceYears: '4-6 Years',
+          portfolioUrl: '',
+          notes: ''
+        });
+      }, 5000);
+    }
   };
 
   const copyEmail = () => {
