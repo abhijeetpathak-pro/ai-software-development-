@@ -37,26 +37,26 @@ export default function HomeClient() {
         {/* 4. Core Technology Capabilities & Stacks (AI, Cloud, Data Engineer, Frontend, Backend, etc.) */}
         <TechCapabilities />
 
-        {/* 5. Client & Global Office Locations (India, UAE, Australia, USA, Canada) */}
-        <GlobalTeam />
-
-        {/* 6. Volume I: Telemetry HUD & Interactive Specialization Pillars */}
+        {/* 5. Volume I: Telemetry HUD & Interactive Specialization Pillars */}
         <AboutTelemetry />
 
-        {/* 7. Volume II: 3-Card Grid with Staggered Scroll-Reveal Case Studies */}
+        {/* 6. Volume II: 3-Card Grid with Staggered Scroll-Reveal Case Studies */}
         <ProjectsSection />
 
-        {/* 8. Volume III: Glowing Laser Company Evolution Timeline (Founded 2020) */}
+        {/* 7. Volume III: Glowing Laser Company Evolution Timeline (Founded 2020) */}
         <ExperienceLaserTimeline />
 
-        {/* 9. Volume IV: Live Python Code Typewriter Engine & Telemetry */}
+        {/* 8. Volume IV: Live Python Code Typewriter Engine & Telemetry */}
         <InteractiveTerminal />
 
-        {/* 10. Volume V: Client Reputation & Reviews Testimonials */}
+        {/* 9. Volume V: Client Reputation & Reviews Testimonials */}
         <HomepageTestimonials />
 
-        {/* 11. Volume VI: Technical Consultation Transmission & Confetti Celebration */}
+        {/* 10. Volume VI: Technical Consultation Transmission & Confetti Celebration */}
         <ContactSection />
+
+        {/* 11. Client & Global Office Locations (India, UAE, Australia, USA, Canada) */}
+        <GlobalTeam />
       </div>
     </div>
   );
