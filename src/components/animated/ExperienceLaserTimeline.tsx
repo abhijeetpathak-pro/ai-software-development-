@@ -78,7 +78,7 @@ const companyMilestones: MilestoneItem[] = [
     year: '2021 — 2022',
     title: 'Cloud-Native Engineering & Microservice Architecture',
     category: 'INFRASTRUCTURE EXCELLENCE',
-    location: 'New Delhi & Remote Engineering Force',
+    location: 'Faridabad (HQ) & Remote Engineering Force',
     achievements: [
       'Transitioned legacy monolithic client applications to modern micro-frontend and serverless backends.',
       'Implemented automated continuous integration, testing pipelines, and Dockerized deployments.',
@@ -96,7 +96,7 @@ const companyMilestones: MilestoneItem[] = [
     year: '2020 — 2021',
     title: 'Foundation & Inception of WitQualis Technologies',
     category: 'FOUNDATIONAL MILESTONE',
-    location: 'New Delhi, India',
+    location: 'Faridabad, India',
     achievements: [
       'Founded with a mission to deliver world-class bespoke software engineering and creative digital craftsmanship.',
       'Onboarded the initial core engineering squad of senior full-stack architects and UI/UX designers.',

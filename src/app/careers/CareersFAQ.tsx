@@ -17,7 +17,7 @@ const candidateFaqs = [
   },
   {
     q: 'Do you offer remote working positions?',
-    a: 'Yes. Most of our software engineering and design positions are remote-first, allowing you to work from anywhere. We also have collaborative physical office hubs in Delhi NCR for engineers who prefer hybrid or in-office setups.'
+    a: 'Yes. Most of our software engineering and design positions are remote-first, allowing you to work from anywhere. We also have collaborative physical office hubs in Faridabad (HQ) for engineers who prefer hybrid or in-office setups.'
   },
   {
     q: 'What is the interview process like?',

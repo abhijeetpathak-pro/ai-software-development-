@@ -85,7 +85,7 @@ export default function AnimatedFooter() {
             <span className="text-xs font-mono font-bold text-foreground uppercase tracking-wider">
               HEADQUARTERS
             </span>
-            <span className="text-xs text-muted-foreground">New Delhi, India / Global</span>
+            <span className="text-xs text-muted-foreground">Faridabad, Haryana, India / Global</span>
             <span className="text-xs font-mono text-emerald-400 flex items-center gap-1.5 mt-1">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
               STATUS: OPERATIONAL

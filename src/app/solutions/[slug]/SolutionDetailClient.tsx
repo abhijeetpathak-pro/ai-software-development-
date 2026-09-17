@@ -268,7 +268,7 @@ export default function SolutionDetailClient({ solution, relatedSolutions }: Pro
                   <p className="text-[11px] text-slate-500 uppercase mt-0.5">Private VPC Data Isolation</p>
                 </div>
                 <div>
-                  <p className="text-2xl sm:text-3xl font-black text-[#E31E24]">15 Days</p>
+                  <p className="text-2xl sm:text-3xl font-black text-[#E31E24]">7 Days</p>
                   <p className="text-[11px] text-slate-500 uppercase mt-0.5">Trial Sprint</p>
                 </div>
               </>

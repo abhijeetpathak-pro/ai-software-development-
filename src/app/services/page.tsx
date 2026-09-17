@@ -123,7 +123,7 @@ const hubBenefits = [
   {
     title: 'Trial Sprint',
     badge: 'ZERO RISK',
-    desc: 'Evaluate matched senior engineers on your active sprint backlog for 15 days. Pay only when completely satisfied.'
+    desc: 'Evaluate matched senior engineers on your active sprint backlog for 7 days. Pay only when completely satisfied.'
   },
   {
     title: 'Client Code & IP Rights',
@@ -159,7 +159,7 @@ const hubFaqs = [
   },
   {
     q: 'How quickly can we ramp up or ramp down team capacity?',
-    a: 'We offer unmatched agility. You can add specialized engineers within 48 to 72 hours. Scaling down or pausing requires a standard 15-day notice window with zero cancellation penalties.'
+    a: 'We offer unmatched agility. You can add specialized engineers within 48 to 72 hours. Scaling down or pausing requires a standard 7-day notice window with zero cancellation penalties.'
   },
   {
     q: 'Who owns the intellectual property and source code?',
@@ -221,7 +221,7 @@ export default function ServicesPage() {
                 [FULL-LIFECYCLE SOFTWARE DELIVERY]
               </span>
               <span className="text-[11px] font-mono text-slate-500 block tracking-wider uppercase">
-                24+ SPECIALIZED TECH STACKS • 15-DAY SPRINT TRIAL
+                24+ SPECIALIZED TECH STACKS • 7-DAY SPRINT TRIAL
               </span>
             </motion.div>
           </div>

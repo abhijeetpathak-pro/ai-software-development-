@@ -164,7 +164,7 @@ export default function InteractiveTerminal() {
       responseText = `CONTACT WITQUALIS:
   Email:    sales@witqualis.com
   Web:      https://www.witqualis.com
-  Offices:  Delhi (HQ), Dubai (UAE), Sydney (AU), New York (USA), Toronto (CA)`;
+  Offices:  Faridabad (HQ), Dubai (UAE), Sydney (AU), New York (USA), Toronto (CA)`;
     } else if (trimmed === 'status' || trimmed === 'health' || trimmed === 'ping') {
       responseText = `SYSTEM TELEMETRY:
   Daemon:     witqualis_support_daemon (PID: 4096)

@@ -241,7 +241,7 @@ export default function StaffAugmentationPage() {
               <p className="text-[11px] text-slate-500 uppercase mt-0.5">Developer Match Speed</p>
             </div>
             <div>
-              <p className="text-2xl sm:text-3xl font-black text-red-600">15 Days</p>
+              <p className="text-2xl sm:text-3xl font-black text-red-600">7 Days</p>
               <p className="text-[11px] text-slate-500 uppercase mt-0.5">Trial Sprint</p>
             </div>
             <div>

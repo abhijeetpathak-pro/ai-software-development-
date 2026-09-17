@@ -39,7 +39,7 @@ const coreValues = [
     icon: Globe,
     title: 'Remote / Hybrid Flexibility',
     subtitle: 'Work Where You Are Best',
-    desc: 'Complete freedom to work remotely or from our state-of-the-art office hubs in Delhi NCR. We prioritize outcomes, clear documentation, and sprint deliverables over physical hours.'
+    desc: 'Complete freedom to work remotely or from our state-of-the-art office hubs in Faridabad (HQ). We prioritize outcomes, clear documentation, and sprint deliverables over physical hours.'
   },
   {
     icon: DollarSign,

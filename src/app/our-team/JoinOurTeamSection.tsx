@@ -63,7 +63,7 @@ const perks = [
   },
   {
     icon: <Rocket className="w-5 h-5 text-red-600" />,
-    title: '15-Day Paid Evaluation Sprint',
+    title: '7-Day Paid Evaluation Sprint',
     description: 'A transparent paid trial period to ensure mutual technical and cultural alignment before full lock-in.'
   },
   {

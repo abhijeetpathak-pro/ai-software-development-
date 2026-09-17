@@ -274,57 +274,6 @@ export default function Footer() {
 
         </div>
       </footer>
-
-      {/* FLOATING ACTION SIDEBAR */}
-      <aside className="fixed right-5 top-1/2 -translate-y-1/2 flex flex-col gap-3 z-50">
-        <a 
-          href="tel:+919289633637" 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          className="h-12 w-12 rounded-full bg-[#10b981] text-white flex items-center justify-center shadow-xl hover:scale-110 transition-transform p-2.5"
-          aria-label="Call Us"
-        >
-          <Image 
-            src="/images/social/call.svg" 
-            alt="Call Us" 
-            width={24} 
-            height={24} 
-            className="w-6 h-6 filter brightness-0 invert" 
-          />
-        </a>
-
-        <a 
-          href="https://calendly.com/witqualis_services" 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          className="h-12 w-12 rounded-full bg-white text-white flex items-center justify-center shadow-xl hover:scale-110 transition-transform p-2 border border-slate-200"
-          aria-label="Book Meeting on Calendly"
-        >
-          <Image 
-            src="/images/social/calendly-icon.svg" 
-            alt="Calendly" 
-            width={28} 
-            height={28} 
-            className="w-7 h-7" 
-          />
-        </a>
-
-        <a 
-          href="https://wa.me/919289633637" 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          className="h-12 w-12 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-xl hover:scale-110 transition-transform p-2.5"
-          aria-label="Chat on WhatsApp"
-        >
-          <Image 
-            src="/images/social/whatsapp.svg" 
-            alt="WhatsApp" 
-            width={24} 
-            height={24} 
-            className="w-6 h-6" 
-          />
-        </a>
-      </aside>
     </>
   );
 }

@@ -104,7 +104,7 @@ const faqs: FAQItem[] = [
     highlights: [
       'Dedicated monthly squad pricing, quoted per engagement',
       'Fixed-price milestone deliverables for greenfield projects',
-      'Flexible 15-day scaling notice without lock-in penalties'
+      'Flexible 7-day scaling notice without lock-in penalties'
     ],
     keywords: ['pricing', 'engagement model', 'dedicated developer cost', 'fixed price', 'hourly rate', 'invoice']
   },

@@ -223,7 +223,7 @@ export default function HireStackClient({ stack, relatedStacks }: Props) {
                   </div>
                   <div className="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
                     <span className="text-[10px] text-slate-400 block uppercase">Contract</span>
-                    <span className="text-[10px] font-bold text-emerald-400">15-Day Trial</span>
+                    <span className="text-[10px] font-bold text-emerald-400">7-Day Trial</span>
                   </div>
                 </div>
 

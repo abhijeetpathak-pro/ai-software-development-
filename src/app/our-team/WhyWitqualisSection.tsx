@@ -16,7 +16,7 @@ const companyPillars = [
   {
     num: '02',
     title: 'Trial Sprint Available',
-    desc: 'Evaluate developers directly inside your Jira and GitHub sprints for 15 days with zero financial commitment or risk.',
+    desc: 'Evaluate developers directly inside your Jira and GitHub sprints for 7 days with zero financial commitment or risk.',
     icon: <ShieldCheck className="w-5 h-5 text-red-600" />,
   },
   {

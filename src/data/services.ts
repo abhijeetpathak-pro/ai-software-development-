@@ -168,7 +168,7 @@ export const services: ServiceItem[] = [
       {
         title: 'Trial Sprint Available',
         badge: 'ZERO RISK',
-        desc: 'Test our dedicated UI/UX designers on real sprint wireframes for 15 days before making a long-term commitment.'
+        desc: 'Test our dedicated UI/UX designers on real sprint wireframes for 7 days before making a long-term commitment.'
       },
       {
         title: 'Client IP & Asset Ownership',
@@ -350,7 +350,7 @@ export const services: ServiceItem[] = [
       {
         title: 'Trial Sprint Available',
         badge: 'ZERO RISK',
-        desc: 'Test our matched full-stack developers in your live sprint for 15 days. Pay only when completely satisfied.'
+        desc: 'Test our matched full-stack developers in your live sprint for 7 days. Pay only when completely satisfied.'
       },
       {
         title: 'Client Code & IP Ownership',
@@ -1035,7 +1035,7 @@ export const solutions: SolutionItem[] = [
       {
         title: 'Trial Sprint Available',
         badge: 'ZERO RISK',
-        desc: 'Evaluate our dedicated AI engineers in your live sprint for 15 days before making any long-term commitment.'
+        desc: 'Evaluate our dedicated AI engineers in your live sprint for 7 days before making any long-term commitment.'
       },
       {
         title: 'Client Code & Model Ownership',
@@ -1095,7 +1095,7 @@ export const solutions: SolutionItem[] = [
     heroBadge: 'ENTERPRISE GENERATIVE AI',
     heroStats: [
       { label: 'Document Ingestion Speed', value: '10K pgs/min' },
-      { label: 'Trial Period', value: '15 Days' }
+      { label: 'Trial Period', value: '7 Days' }
     ],
     capabilities: [
       'Enterprise Copilots & Conversational Knowledge Agents',
@@ -1264,7 +1264,7 @@ export const solutions: SolutionItem[] = [
       {
         title: 'Trial Sprint Available',
         badge: 'ZERO RISK',
-        desc: 'Test our generative AI developers in your sprint for 15 days before making a long-term commitment.'
+        desc: 'Test our generative AI developers in your sprint for 7 days before making a long-term commitment.'
       },
       {
         title: 'Private Data Boundary',
@@ -1548,7 +1548,7 @@ export const solutions: SolutionItem[] = [
     heroBadge: 'PREDICTIVE & APPLIED ML',
     heroStats: [
       { label: 'Model Inference Latency', value: '< 25ms' },
-      { label: 'Sprint Trial', value: '15 Days' }
+      { label: 'Sprint Trial', value: '7 Days' }
     ],
     capabilities: [
       'Supervised & Unsupervised Predictive Modeling',
@@ -1715,7 +1715,7 @@ export const solutions: SolutionItem[] = [
       {
         title: 'Trial Sprint Available',
         badge: 'ZERO RISK',
-        desc: 'Test our matched ML engineers in your sprint for 15 days before making a long-term commitment.'
+        desc: 'Test our matched ML engineers in your sprint for 7 days before making a long-term commitment.'
       },
       {
         title: 'Client Proprietary IP Rights',
@@ -1997,7 +1997,7 @@ export const solutions: SolutionItem[] = [
     heroStats: [
       { label: 'User-Centered Design', value: 'Included' },
       { label: 'API Transaction Concurrency', value: '100K/sec' },
-      { label: 'Trial Period', value: '15 Days' }
+      { label: 'Trial Period', value: '7 Days' }
     ],
     capabilities: [
       'Custom ERP, CRM & Supply Chain Platforms',

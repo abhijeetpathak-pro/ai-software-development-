@@ -245,7 +245,7 @@ export default function HeroSection() {
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
             </span>
             <div className="text-xs font-mono font-medium tracking-widest text-muted-foreground uppercase">
-              <span className="text-foreground font-semibold">DELHI &amp; GLOBAL HUBS</span> — {timeStr || 'LIVE TIME'}
+              <span className="text-foreground font-semibold">FARIDABAD &amp; GLOBAL HUBS</span> — {timeStr || 'LIVE TIME'}
             </div>
           </div>
 

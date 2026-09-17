@@ -43,7 +43,7 @@ const FestivalAlbum: React.FC = () => {
       image: 'https://images.unsplash.com/photo-1592754862818-824262d0b45b?w=600&h=400&fit=crop',
       description: 'Colorful rangoli designs decorating the entrance for Diwali.',
       date: '2024-10-30',
-      location: 'Delhi, India'
+      location: 'Faridabad, India'
     },
     {
       id: 3,
@@ -105,7 +105,7 @@ const FestivalAlbum: React.FC = () => {
       image: 'https://images.unsplash.com/photo-1546521343-4eb2a0f3d5f4?w=600&h=300&fit=crop',
       description: 'Friends enjoying the colorful festival of Holi together.',
       date: '2024-03-25',
-      location: 'Delhi, India'
+      location: 'Faridabad, India'
     },
 
     // ===== CHRISTMAS =====
@@ -221,7 +221,7 @@ const FestivalAlbum: React.FC = () => {
       image: 'https://images.unsplash.com/photo-1565207910453-44b26ca6aa68?w=600&h=400&fit=crop',
       description: 'Beautifully decorated Ganesh idol for the festival.',
       date: '2024-09-18',
-      location: 'Delhi, India'
+      location: 'Faridabad, India'
     },
     {
       id: 20,

@@ -154,7 +154,7 @@ export default function ContactSection(): JSX.Element {
               <div className="grid grid-cols-2 gap-3 text-xs font-mono text-slate-700">
                 <div className="flex items-center gap-2">
                   <MapPin className="w-3.5 h-3.5 text-red-600 shrink-0" />
-                  <span>New Delhi (HQ)</span>
+                  <span>Faridabad (HQ)</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <MapPin className="w-3.5 h-3.5 text-red-600 shrink-0" />

@@ -42,7 +42,7 @@ export const initialJobs: JobRole[] = [
     id: 'frontend-dev-react',
     title: 'Frontend Developer',
     department: 'Engineering',
-    location: 'Remote / Delhi NCR',
+    location: 'Remote / Faridabad (HQ)',
     type: 'Full-Time',
     experience: '2–4 years',
     salary: '₹8,00,000 – ₹16,00,000 / year',
@@ -66,7 +66,7 @@ export const initialJobs: JobRole[] = [
     id: 'fullstack-architect',
     title: 'Senior Full-Stack Architect',
     department: 'Engineering',
-    location: 'Remote / Delhi NCR',
+    location: 'Remote / Faridabad (HQ)',
     type: 'Full-Time',
     experience: '4–7 years',
     salary: '₹18,00,000 – ₹32,00,000 / year',
@@ -88,7 +88,7 @@ export const initialJobs: JobRole[] = [
     id: 'ai-llm-engineer',
     title: 'AI & LLM Solutions Engineer',
     department: 'Engineering',
-    location: 'Remote / Delhi NCR',
+    location: 'Remote / Faridabad (HQ)',
     type: 'Full-Time',
     experience: '2–5 years',
     salary: '₹16,00,000 – ₹28,00,000 / year',
@@ -110,7 +110,7 @@ export const initialJobs: JobRole[] = [
     id: 'ui-ux-designer',
     title: 'Senior UI/UX Product Designer',
     department: 'Design',
-    location: 'Remote / Delhi NCR',
+    location: 'Remote / Faridabad (HQ)',
     type: 'Full-Time',
     experience: '3–6 years',
     salary: '₹12,00,000 – ₹20,00,000 / year',
@@ -131,7 +131,7 @@ export const initialJobs: JobRole[] = [
     id: 'qa-automation-lead',
     title: 'QA Automation Engineer',
     department: 'QA & Testing',
-    location: 'Remote / Delhi NCR',
+    location: 'Remote / Faridabad (HQ)',
     type: 'Full-Time',
     experience: '2–4 years',
     salary: '₹7,00,000 – ₹14,00,000 / year',
@@ -152,7 +152,7 @@ export const initialJobs: JobRole[] = [
     id: 'cloud-devops-sre',
     title: 'Cloud & DevOps SRE',
     department: 'Engineering',
-    location: 'Remote / Delhi NCR',
+    location: 'Remote / Faridabad (HQ)',
     type: 'Full-Time',
     experience: '3–6 years',
     salary: '₹14,00,000 – ₹26,00,000 / year',
@@ -173,7 +173,7 @@ export const initialJobs: JobRole[] = [
     id: 'graduate-engineer-trainee',
     title: 'Software Engineer Trainee (Freshers)',
     department: 'Engineering',
-    location: 'Delhi NCR (In-Office) / Hybrid',
+    location: 'Faridabad (HQ) (In-Office) / Hybrid',
     type: 'Internship / Fresher',
     experience: 'Freshers (0–1 year)',
     salary: '₹4,00,000 – ₹6,50,000 / year (Stipend during training)',
@@ -195,7 +195,7 @@ export const initialJobs: JobRole[] = [
     id: 'b2b-sales-marketing',
     title: 'Enterprise Technical Sales Executive',
     department: 'Sales & Marketing',
-    location: 'Delhi NCR / Remote',
+    location: 'Faridabad (HQ) / Remote',
     type: 'Full-Time',
     experience: '2–5 years',
     salary: '₹8,00,000 – ₹18,00,000 + Attractive Commission',
@@ -268,7 +268,7 @@ export default function OpenRolesSection() {
     const matchLocation =
       selectedLocation === 'All' ||
       (selectedLocation === 'Remote' && job.location.includes('Remote')) ||
-      (selectedLocation === 'Delhi NCR' && job.location.includes('Delhi NCR'));
+      (selectedLocation === 'Faridabad (HQ)' && job.location.includes('Faridabad'));
 
     const matchExp =
       selectedExp === 'All' ||
@@ -432,7 +432,7 @@ export default function OpenRolesSection() {
               >
                 <option value="All">All Locations</option>
                 <option value="Remote">Remote Only</option>
-                <option value="Delhi NCR">Delhi NCR Hub / Hybrid</option>
+                <option value="Faridabad (HQ)">Faridabad (HQ) / Hybrid</option>
               </select>
             </div>
 

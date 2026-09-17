@@ -87,7 +87,7 @@ export default function QuantumChatbot() {
   return (
     <>
       {/* Floating Corner Launcher Button */}
-      <div className="fixed bottom-6 right-6 z-[9990]">
+      <div className="fixed bottom-10 right-6 sm:bottom-12 sm:right-8 z-[9990]">
         <motion.button
           onClick={toggleOpen}
           onMouseEnter={() => soundFx.playHover()}
@@ -112,7 +112,7 @@ export default function QuantumChatbot() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 30, scale: 0.92 }}
             transition={{ type: 'spring', damping: 25, stiffness: 350 }}
-            className="fixed bottom-24 right-4 sm:right-6 w-[calc(100vw-2rem)] sm:w-[400px] h-[520px] rounded-3xl bg-zinc-950/95 border border-zinc-800 shadow-2xl backdrop-blur-2xl z-[9990] flex flex-col overflow-hidden"
+            className="fixed bottom-28 right-4 sm:bottom-32 sm:right-8 w-[calc(100vw-2rem)] sm:w-[400px] h-[520px] rounded-3xl bg-zinc-950/95 border border-zinc-800 shadow-2xl backdrop-blur-2xl z-[9990] flex flex-col overflow-hidden"
           >
             {/* Chat Header */}
             <div className="p-4 bg-zinc-900/90 border-b border-zinc-800 flex items-center justify-between">
