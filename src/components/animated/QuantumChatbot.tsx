@@ -3,7 +3,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Bot, Send, X, Sparkles, User, RefreshCw } from 'lucide-react';
+import { Bot, Send, X, Sparkles, User, RefreshCw, Phone, Calendar, MessageCircle } from 'lucide-react';
 import { soundFx } from '@/lib/AudioEngine';
 
 interface Message {
@@ -86,14 +86,61 @@ export default function QuantumChatbot() {
 
   return (
     <>
-      {/* Floating Corner Launcher Button */}
-      <div className="fixed bottom-10 right-6 sm:bottom-12 sm:right-8 z-[9990]">
+      {/* Floating Corner Stack: Call, Calendly, WhatsApp & AI Bot Launcher */}
+      <div className="fixed bottom-8 right-5 sm:bottom-10 sm:right-7 z-[9990] flex flex-col items-center gap-2.5">
+        
+        {/* 1. Direct Call Us */}
+        <a
+          href="tel:+919289633637"
+          target="_blank"
+          rel="noopener noreferrer"
+          onMouseEnter={() => soundFx.playHover()}
+          className="h-10 w-10 sm:h-11 sm:w-11 rounded-full bg-[#10b981] text-white flex items-center justify-center shadow-lg hover:scale-110 hover:shadow-emerald-500/40 transition-all p-2.5 group relative"
+          aria-label="Call Us"
+        >
+          <Phone className="w-5 h-5" />
+          <span className="absolute right-full mr-3 px-2.5 py-1 rounded-lg bg-slate-900 text-white text-[11px] font-mono whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-xl border border-slate-700">
+            Call (+91 9289633637)
+          </span>
+        </a>
+
+        {/* 2. Calendly 30-Min Discovery */}
+        <a
+          href="https://calendly.com/witqualis_services"
+          target="_blank"
+          rel="noopener noreferrer"
+          onMouseEnter={() => soundFx.playHover()}
+          className="h-10 w-10 sm:h-11 sm:w-11 rounded-full bg-white text-slate-800 border border-slate-300 flex items-center justify-center shadow-lg hover:scale-110 hover:border-blue-500 transition-all p-2.5 group relative"
+          aria-label="Book 30-Min Discovery Call"
+        >
+          <Calendar className="w-5 h-5 text-blue-600" />
+          <span className="absolute right-full mr-3 px-2.5 py-1 rounded-lg bg-slate-900 text-white text-[11px] font-mono whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-xl border border-slate-700">
+            Book Discovery Call
+          </span>
+        </a>
+
+        {/* 3. Direct WhatsApp Chat */}
+        <a
+          href="https://wa.me/919289633637"
+          target="_blank"
+          rel="noopener noreferrer"
+          onMouseEnter={() => soundFx.playHover()}
+          className="h-10 w-10 sm:h-11 sm:w-11 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-lg hover:scale-110 hover:shadow-green-500/40 transition-all p-2.5 group relative"
+          aria-label="Chat on WhatsApp"
+        >
+          <MessageCircle className="w-5 h-5" />
+          <span className="absolute right-full mr-3 px-2.5 py-1 rounded-lg bg-slate-900 text-white text-[11px] font-mono whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-xl border border-slate-700">
+            WhatsApp Direct
+          </span>
+        </a>
+
+        {/* 4. AI Bot Toggle Button */}
         <motion.button
           onClick={toggleOpen}
           onMouseEnter={() => soundFx.playHover()}
           whileHover={{ scale: 1.08 }}
           whileTap={{ scale: 0.95 }}
-          className="relative group p-4 rounded-full bg-gradient-to-tr from-sky-500 via-indigo-500 to-emerald-400 text-white shadow-2xl shadow-sky-500/30 flex items-center justify-center cursor-pointer"
+          className="relative group p-3.5 sm:p-4 rounded-full bg-gradient-to-tr from-sky-500 via-indigo-500 to-emerald-400 text-white shadow-2xl shadow-sky-500/40 flex items-center justify-center cursor-pointer"
           aria-label="Toggle Quantum AI Assistant"
         >
           {/* Animated Neon Pulse Ring */}
@@ -101,6 +148,9 @@ export default function QuantumChatbot() {
           <div className="relative flex items-center justify-center">
             {isOpen ? <X className="w-6 h-6" /> : <Bot className="w-6 h-6" />}
           </div>
+          <span className="absolute right-full mr-3 px-2.5 py-1 rounded-lg bg-slate-900 text-white text-[11px] font-mono whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-xl border border-slate-700">
+            Quantum AI Assistant
+          </span>
         </motion.button>
       </div>
 

@@ -145,8 +145,29 @@ export const clientCaseStudies: ClientCaseStudy[] = [
     serviceCategory: 'UI/UX Design'
   },
   {
-    id: 'jangubuzz',
+    id: 'synkup',
     caseNumber: 'CASE STUDY 07',
+    client: 'synKup',
+    industry: 'EdTech & AI — Campus-to-Career Ecosystem',
+    category: 'AI & Digital Transformation',
+    tagline: 'Building an AI-powered campus-to-career recruitment and talent ecosystem',
+    description:
+      'synKup is an innovative career-tech platform that connects students, college campuses, and enterprise recruiters into a unified ecosystem. By leveraging data-grounded AI assistance for candidate matching, automated shortlisting, profile summarization, and recruiter outreach drafting, synKup streamlines campus placements and hiring workflows with humans retaining final decision control.',
+    highlights: [
+      'Unified ecosystem connecting Students, Campuses & Recruiters',
+      'Data-grounded AI matching, summarization & outreach drafting',
+      'Centralized campus placement programmes & student project portfolios'
+    ],
+    stack: ['Next.js 15', 'Python', 'FastAPI', 'LangChain', 'PostgreSQL', 'Docker', 'AWS'],
+    metrics: 'AI-Assisted',
+    metricsLabel: 'Campus-to-Career Platform',
+    logo: '/images/client/synkup.webp',
+    image: '/images/client/synkup.webp',
+    serviceCategory: 'Web Development'
+  },
+  {
+    id: 'jangubuzz',
+    caseNumber: 'CASE STUDY 08',
     client: 'Jangubuzz',
     industry: 'Events & Marketplace',
     category: 'Social & Community',
@@ -167,7 +188,7 @@ export const clientCaseStudies: ClientCaseStudy[] = [
   },
   {
     id: 'educomp',
-    caseNumber: 'CASE STUDY 08',
+    caseNumber: 'CASE STUDY 09',
     client: 'Educomp',
     industry: 'Education — Global EdTech Group',
     category: 'EdTech & Learning',
@@ -188,7 +209,7 @@ export const clientCaseStudies: ClientCaseStudy[] = [
   },
   {
     id: 'petluvs',
-    caseNumber: 'CASE STUDY 09',
+    caseNumber: 'CASE STUDY 10',
     client: 'Petluvs',
     industry: 'Social Platform — Pet Community',
     category: 'Social & Community',
@@ -209,7 +230,7 @@ export const clientCaseStudies: ClientCaseStudy[] = [
   },
   {
     id: 'strategic-erp',
-    caseNumber: 'CASE STUDY 10',
+    caseNumber: 'CASE STUDY 11',
     client: 'Strategic ERP',
     industry: 'Enterprise SaaS — Real Estate & Infrastructure',
     category: 'SaaS & Enterprise',
@@ -230,7 +251,7 @@ export const clientCaseStudies: ClientCaseStudy[] = [
   },
   {
     id: 'floofers',
-    caseNumber: 'CASE STUDY 11',
+    caseNumber: 'CASE STUDY 12',
     client: 'Floofers',
     industry: 'Pet-Care Platform',
     category: 'Social & Community',
@@ -245,8 +266,8 @@ export const clientCaseStudies: ClientCaseStudy[] = [
     stack: ['Next.js 15', 'Shopify Plus API', 'Node.js', 'PostgreSQL', 'Stripe Billing'],
     metrics: 'iOS & Android',
     metricsLabel: 'Pet Care Ecosystem',
-    logo: '/images/client/petlav.webp',
-    image: '/images/client/petlav.webp',
+    logo: '/images/client/floofers.webp',
+    image: '/images/client/floofers.webp',
     serviceCategory: 'App Development'
   }
 ];
@@ -260,11 +281,11 @@ export function getCaseStudiesByService(serviceSlug: string): ClientCaseStudy[] 
     case 'design':
       return clientCaseStudies.filter((c) => c.id === 'sutherland' || c.id === 'bakingo');
     case 'web-development':
-      return clientCaseStudies.filter((c) => ['cardekho', 'bakingo', 'floweraura', 'strategic-erp', 'vengreso', 'educomp'].includes(c.id));
+      return clientCaseStudies.filter((c) => ['synkup', 'cardekho', 'bakingo', 'floweraura', 'strategic-erp', 'vengreso', 'educomp'].includes(c.id));
     case 'app-development':
       return clientCaseStudies.filter((c) => ['floofers', 'petluvs', 'vengreso'].includes(c.id));
     case 'cross-platform-app-development':
-      return clientCaseStudies.filter((c) => ['fliplearn', 'jangubuzz', 'petluvs', 'floofers'].includes(c.id));
+      return clientCaseStudies.filter((c) => ['fliplearn', 'jangubuzz', 'petluvs', 'floofers', 'synkup'].includes(c.id));
     default:
       return clientCaseStudies;
   }

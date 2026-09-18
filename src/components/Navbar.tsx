@@ -502,7 +502,7 @@ export default function Navbar() {
                       <p className="text-xs text-ink/60">Shortlist within 24–48 hours, with a trial sprint available.</p>
                     </div>
                     <Link 
-                      href="/contact/" 
+                      href="/hire/" 
                       onClick={() => setActiveMenu(null)}
                       className="rounded-lg bg-[#E31E24] hover:bg-red-700 text-white px-4 py-2 text-xs font-semibold shadow-sm transition"
                     >
@@ -594,6 +594,9 @@ export default function Navbar() {
           <details className="border-b border-ink/10 py-3">
             <summary className="cursor-pointer text-sm font-semibold text-ink">Dedicated Team</summary>
             <div className="mt-3 space-y-1 pl-2">
+              <Link href="/hire/" onClick={() => setMobileOpen(false)} className="block py-2 text-sm font-bold text-[#E31E24]">
+                Hire Developers (All Stacks) &rarr;
+              </Link>
               {(stacksByCategory || []).map(({ category, stacks }) => (
                 <div key={category} className="pl-2">
                   <p className="mt-2 text-xs font-semibold uppercase tracking-wide text-ink/40">{category}</p>

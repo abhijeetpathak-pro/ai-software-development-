@@ -33,10 +33,12 @@ export default function ProjectsSection() {
   const [selectedCat, setSelectedCat] = useState('All');
   const [activeModalProject, setActiveModalProject] = useState<ClientCaseStudy | null>(null);
 
+  const homeProjects = clientCaseStudies.filter((p) => p.id !== 'jangubuzz');
+
   const filteredProjects =
     selectedCat === 'All'
-      ? clientCaseStudies
-      : clientCaseStudies.filter((p) => p.category === selectedCat);
+      ? homeProjects
+      : homeProjects.filter((p) => p.category === selectedCat);
 
   return (
     <section id="projects" className="relative py-28 px-6 sm:px-8 lg:px-12 max-w-7xl mx-auto w-full selection:bg-primary/20">

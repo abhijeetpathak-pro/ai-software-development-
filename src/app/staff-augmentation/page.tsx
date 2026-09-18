@@ -59,9 +59,9 @@ const onboardingRoadmap = [
 
 const popularRoles = [
   { title: 'Full-Stack Next.js 15 Lead', exp: '6+ Years', rate: '$28-$42 / hr', badge: 'HIGH DEMAND', href: '/hire/react-js-developers/' },
-  { title: 'AI & LLM / RAG Architect', exp: '8+ Years', rate: '$35-$50 / hr', badge: 'HOT', href: '/hire/python-developers/' },
+  { title: 'AI & LLM / RAG Architect', exp: '8+ Years', rate: '$35-$50 / hr', badge: 'HOT', href: '/hire/hire-ai-developers/' },
   { title: 'Cloud DevOps & Kubernetes SRE', exp: '7+ Years', rate: '$32-$48 / hr', badge: 'CRITICAL', href: '/hire/devops-engineers/' },
-  { title: 'Python Data Lakehouse Engineer', exp: '6+ Years', rate: '$30-$45 / hr', badge: 'SCALE READY', href: '/hire/python-developers/' },
+  { title: 'Python Data Lakehouse Engineer', exp: '6+ Years', rate: '$30-$45 / hr', badge: 'SCALE READY', href: '/hire/hire-python-developers/' },
   { title: 'React Native Mobile Architect', exp: '5+ Years', rate: '$25-$38 / hr', badge: 'POPULAR', href: '/hire/react-native-developers/' },
   { title: 'Backend Node / Go Microservices', exp: '6+ Years', rate: '$28-$42 / hr', badge: 'ENTERPRISE', href: '/hire/node-js-developers/' }
 ];

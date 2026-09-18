@@ -234,6 +234,11 @@ export default function AboutPage() {
                   </div>
 
                   <div className="flex items-center justify-between p-3 rounded-2xl bg-slate-50 border border-slate-100">
+                    <span className="text-xs text-slate-500 uppercase">Team size</span>
+                    <span className="text-sm font-black text-slate-900">150+ Engineers & Architects</span>
+                  </div>
+
+                  <div className="flex items-center justify-between p-3 rounded-2xl bg-slate-50 border border-slate-100">
                     <span className="text-xs text-slate-500 uppercase">Core stack</span>
                     <span className="text-sm font-black text-slate-900">Web, mobile, cloud & AI</span>
                   </div>
@@ -261,8 +266,8 @@ export default function AboutPage() {
               <p className="text-[11px] text-slate-500 uppercase mt-0.5">Office Locations</p>
             </div>
             <div>
-              <p className="text-2xl sm:text-3xl font-black text-slate-900">4+</p>
-              <p className="text-[11px] text-slate-500 uppercase mt-0.5">Regions Served</p>
+              <p className="text-2xl sm:text-3xl font-black text-slate-900">150+</p>
+              <p className="text-[11px] text-slate-500 uppercase mt-0.5">In-House Engineers</p>
             </div>
             <div>
               <p className="text-2xl sm:text-3xl font-black text-red-600">Web · Mobile · AI</p>

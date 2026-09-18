@@ -8,25 +8,31 @@ export default function Footer() {
   const [showMore, setShowMore] = useState(false);
 
   const extraResources = [
-    { name: 'Android Developers', href: '/hire/android/' },
-    { name: 'iOS Developers', href: '/hire/ios/' },
-    { name: 'PHP Developer', href: '/hire/php/' },
-    { name: 'Codeigniter Developers', href: '/hire/codeigniter/' },
-    { name: 'Laravel Developers', href: '/hire/laravel/' },
-    { name: 'Magento Developers', href: '/hire/magento/' },
-    { name: '.NET Developers', href: '/hire/net/' },
-    { name: 'Python Developers', href: '/hire/python/' },
-    { name: 'Drupal Developers', href: '/hire/drupal/' },
-    { name: 'BigCommerce Developers', href: '/hire/bigcommerce/' },
-    { name: 'Ecommerce Developers', href: '/hire/ecommerce/' },
-    { name: 'NodeJS Developers', href: '/hire/nodejs/' },
-    { name: 'Joomla Developers', href: '/hire/joomla/' },
-    { name: 'MEAN Developers', href: '/hire/mean/' },
-    { name: 'MERN Stack Developers', href: '/hire/mern-stack/' },
-    { name: 'Power BI Consultants', href: '/hire/power-bi/' },
-    { name: 'SQL Developers', href: '/hire/sql/' },
-    { name: 'Database Developers', href: '/hire/database/' },
-    { name: 'Azure Developers', href: '/hire/azure/' }
+    { name: 'AngularJS Developers', href: '/hire/angular-js-developers/' },
+    { name: 'VueJS Developers', href: '/hire/vue-js-developers/' },
+    { name: 'React Native Developers', href: '/hire/react-native-developers/' },
+    { name: 'Android Developers', href: '/hire/android-developers/' },
+    { name: 'iOS Developers', href: '/hire/ios-app-developers/' },
+    { name: 'PHP Developers', href: '/hire/php-web-developers/' },
+    { name: 'Codeigniter Developers', href: '/hire/codeigniter-developers/' },
+    { name: 'Laravel Developers', href: '/hire/laravel-developers/' },
+    { name: 'Magento Developers', href: '/hire/magento-developers/' },
+    { name: '.NET Developers', href: '/hire/asp-net-developers/' },
+    { name: 'Drupal Developers', href: '/hire/drupal-developers/' },
+    { name: 'BigCommerce Developers', href: '/hire/bigcommerce-developers/' },
+    { name: 'Ecommerce Developers', href: '/hire/ecommerce-developers/' },
+    { name: 'Joomla Developers', href: '/hire/joomla-developers/' },
+    { name: 'MEAN Developers', href: '/hire/mean-stack-developers/' },
+    { name: 'MERN Stack Developers', href: '/hire/mern-stack-developers/' },
+    { name: 'Power BI Consultants', href: '/hire/power-bi-consultants/' },
+    { name: 'SQL Developers', href: '/hire/sql-developers/' },
+    { name: 'Database Developers', href: '/hire/database-developers/' },
+    { name: 'Azure Developers', href: '/hire/azure-developers/' },
+    { name: 'GCP Developers', href: '/hire/gcp-developers/' },
+    { name: 'DevOps & SRE', href: '/hire/devops-engineers/' },
+    { name: 'QA Automation', href: '/hire/qa-automation/' },
+    { name: 'Cybersecurity Experts', href: '/hire/cybersecurity-experts/' },
+    { name: 'Gen AI & LLM Engineers', href: '/hire/gen-ai-developers/' }
   ];
 
   return (
@@ -131,28 +137,33 @@ export default function Footer() {
               </ul>
             </div>
 
-            {/* COLUMN 3: HIRE RESOURCE (WITH TOGGLE) */}
+            {/* COLUMN 3: DEDICATED TEAM (WITH TOGGLE & LINK TO HIRE HUB) */}
             <div className="lg:col-span-3 space-y-4">
-              <h4 className="text-[#E31E24] font-bold text-sm tracking-wider uppercase">Hire Resource</h4>
+              <h4 className="text-[#E31E24] font-bold text-sm tracking-wider uppercase">Dedicated Team</h4>
               <ul className="space-y-2 text-xs text-gray-300">
-                <li>
-                  <Link href="/hire/angular-js-developers/" className="hover:text-[#E31E24] hover:translate-x-1 transition-all inline-flex items-center gap-1.5">
-                    <span className="text-[10px] text-gray-400">&gt;</span> AngularJS Developers
-                  </Link>
-                </li>
                 <li>
                   <Link href="/hire/react-js-developers/" className="hover:text-[#E31E24] hover:translate-x-1 transition-all inline-flex items-center gap-1.5">
                     <span className="text-[10px] text-gray-400">&gt;</span> React JS Developers
                   </Link>
                 </li>
                 <li>
-                  <Link href="/hire/vue-js-developers/" className="hover:text-[#E31E24] hover:translate-x-1 transition-all inline-flex items-center gap-1.5">
-                    <span className="text-[10px] text-gray-400">&gt;</span> VueJS Developers
+                  <Link href="/hire/node-js-developers/" className="hover:text-[#E31E24] hover:translate-x-1 transition-all inline-flex items-center gap-1.5">
+                    <span className="text-[10px] text-gray-400">&gt;</span> Node.js Developers
                   </Link>
                 </li>
                 <li>
-                  <Link href="/hire/react-native-developers/" className="hover:text-[#E31E24] hover:translate-x-1 transition-all inline-flex items-center gap-1.5">
-                    <span className="text-[10px] text-gray-400">&gt;</span> React Native Developers
+                  <Link href="/hire/hire-ai-developers/" className="hover:text-[#E31E24] hover:translate-x-1 transition-all inline-flex items-center gap-1.5">
+                    <span className="text-[10px] text-gray-400">&gt;</span> AI & ML Developers
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/hire/hire-python-developers/" className="hover:text-[#E31E24] hover:translate-x-1 transition-all inline-flex items-center gap-1.5">
+                    <span className="text-[10px] text-gray-400">&gt;</span> Python Developers
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/hire/flutter-developers/" className="hover:text-[#E31E24] hover:translate-x-1 transition-all inline-flex items-center gap-1.5">
+                    <span className="text-[10px] text-gray-400">&gt;</span> Flutter Developers
                   </Link>
                 </li>
 
@@ -164,14 +175,20 @@ export default function Footer() {
                   </li>
                 ))}
 
-                <li>
+                <li className="pt-2 flex items-center justify-between border-t border-gray-800">
                   <button 
                     type="button"
                     onClick={() => setShowMore(!showMore)} 
-                    className="text-white hover:text-[#E31E24] font-semibold text-xs pt-1 underline cursor-pointer"
+                    className="text-white hover:text-[#E31E24] font-semibold text-xs underline cursor-pointer"
                   >
                     {showMore ? 'See Less...' : 'See More...'}
                   </button>
+                  <Link 
+                    href="/hire/" 
+                    className="text-[#E31E24] hover:text-white font-bold text-xs inline-flex items-center gap-1 transition-colors"
+                  >
+                    Hire Developers &rarr;
+                  </Link>
                 </li>
               </ul>
             </div>

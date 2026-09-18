@@ -30,7 +30,7 @@ export const whyChooseUs = [
 
 export const faqItems = [
   { question: 'What areas of expertise does the WitQualis team cover?', answer: 'Our specialists work across front-end and back-end development, cloud solutions, custom software, and UI/UX design.' },
-  { question: 'How large is the team and how is it structured?', answer: 'We operate with a multi-disciplinary group of developers, designers, project managers, and QA engineers, organized into agile squads for flexibility.' },
+  { question: 'How large is the team and how is it structured?', answer: 'We operate with a team of 150+ in-house developers, designers, cloud architects, project managers, and QA engineers, organized into specialized agile squads.' },
   { question: 'Can your team work remotely or on-site?', answer: 'Yes. We adapt to each client’s needs—remote, hybrid, or on-site models are all possible.' },
   { question: 'Will clients have direct communication with developers or designers?', answer: 'Absolutely. Clients can interact directly through scheduled meetings and project-management tools for full transparency.' },
   { question: 'How does WitQualis initiate a new project?', answer: 'Our process begins with a comprehensive discovery phase, involving detailed discussions to fully understand your specific requirements and objectives. Following this, we craft a tailor-made solution, which may include product design, development, or a bespoke staff augmentation plan. Our commitment to transparency and effective communication is paramount throughout the entire project lifecycle.' }
