@@ -139,7 +139,7 @@ export default function Footer() {
                 { name: 'Generative AI Solutions', href: '/solutions/generative-ai-solutions/' },
                 { name: 'AI Consulting', href: '/solutions/ai-consulting/' },
                 { name: 'Machine Learning Development', href: '/solutions/machine-learning-development/' },
-                { name: 'Cloud Solution & Migration', href: '/solutions/cloud-solutions/' },
+                { name: 'Cloud Solutions & Migration', href: '/solutions/cloud-solutions/' },
                 { name: 'Enterprise Software', href: '/solutions/enterprise-software/' }
               ].map((item) => (
                 <li key={item.name}>
