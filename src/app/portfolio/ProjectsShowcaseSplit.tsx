@@ -67,7 +67,7 @@ export default function ProjectsShowcaseSplit() {
 
           <div className="md:text-right max-w-sm">
             <p className="text-xs font-mono text-slate-500 uppercase leading-relaxed">
-              Explore how WitQualis engineering teams solve complex architectural bottlenecks across 11 major client deliveries.
+              Explore how WitQualis engineering teams solve complex architectural bottlenecks across {clientCaseStudies.length} major client deliveries.
             </p>
           </div>
         </div>

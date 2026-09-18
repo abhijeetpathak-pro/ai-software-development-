@@ -188,7 +188,7 @@ export default function QuantumChatbot() {
             animate={{ opacity: 1, scale: 1, x: 0 }}
             exit={{ opacity: 0, scale: 0.9, x: 20 }}
             transition={{ type: 'spring', damping: 25, stiffness: 350 }}
-            className="fixed right-3 sm:right-20 top-1/2 -translate-y-1/2 w-[calc(100vw-1.5rem)] sm:w-[400px] h-[540px] max-h-[85vh] rounded-3xl bg-zinc-950/95 border border-zinc-800 shadow-2xl backdrop-blur-2xl z-[9990] flex flex-col overflow-hidden"
+            className="fixed right-3 sm:right-20 bottom-4 sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 w-[calc(100vw-1.5rem)] sm:w-[400px] h-[520px] sm:h-[540px] max-h-[85vh] rounded-3xl bg-zinc-950/95 border border-zinc-800 shadow-2xl backdrop-blur-2xl z-[9990] flex flex-col overflow-hidden"
           >
             {/* Chat Header */}
             <div className="p-4 bg-zinc-900/90 border-b border-zinc-800 flex items-center justify-between">
