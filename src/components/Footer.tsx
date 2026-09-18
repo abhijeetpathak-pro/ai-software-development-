@@ -132,14 +132,14 @@ export default function Footer() {
 
           {/* COLUMN 3: SOLUTION (lg:col-span-2) */}
           <div className="space-y-3 lg:col-span-2">
-            <h4 className="text-[#E31E24] font-bold text-xs sm:text-sm tracking-wider uppercase">Solutions</h4>
+            <h4 className="text-[#E31E24] font-bold text-xs sm:text-sm tracking-wider uppercase">Solution</h4>
             <ul className="space-y-1.5 text-xs text-gray-300">
               {[
                 { name: 'AI Development', href: '/solutions/ai-development/' },
                 { name: 'Generative AI Solutions', href: '/solutions/generative-ai-solutions/' },
                 { name: 'AI Consulting', href: '/solutions/ai-consulting/' },
-                { name: 'Machine Learning', href: '/solutions/machine-learning-development/' },
-                { name: 'Cloud Solutions', href: '/solutions/cloud-solutions/' },
+                { name: 'Machine Learning Development', href: '/solutions/machine-learning-development/' },
+                { name: 'Cloud Solution & Migration', href: '/solutions/cloud-solutions/' },
                 { name: 'Enterprise Software', href: '/solutions/enterprise-software/' }
               ].map((item) => (
                 <li key={item.name}>
