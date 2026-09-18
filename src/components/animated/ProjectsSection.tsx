@@ -118,17 +118,17 @@ export default function ProjectsSection() {
             className="group relative rounded-3xl border border-border/70 bg-card/70 backdrop-blur-xl hover:border-primary/50 transition-all duration-500 shadow-xl hover:shadow-2xl hover:shadow-primary/10 flex flex-col justify-between overflow-hidden cursor-pointer"
           >
             {/* Top: Full-Bleed Project Image Box */}
-            <div className="relative h-60 sm:h-64 w-full overflow-hidden bg-zinc-950 border-b border-border/50">
+            <div className="relative h-60 sm:h-64 w-full overflow-hidden bg-gradient-to-br from-zinc-900 via-zinc-950 to-slate-950 border-b border-border/50 flex items-center justify-center p-8">
               {project.image && (
                 <img
                   src={project.image}
                   alt={project.client}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                  className="max-h-24 max-w-[75%] object-contain group-hover:scale-110 transition-transform duration-500 ease-out drop-shadow-lg"
                 />
               )}
 
               {/* Gradient Overlays for High-Contrast Badges & Text Readability */}
-              <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/90 via-zinc-950/20 to-zinc-950/60 pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-zinc-950/40 pointer-events-none" />
 
               {/* Top Floating Category Pill */}
               <div className="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-zinc-950/90 backdrop-blur-md border border-white/20 text-[10px] font-mono font-bold text-white uppercase flex items-center gap-1.5 shadow-md z-10">
@@ -145,7 +145,7 @@ export default function ProjectsSection() {
 
               {/* Bottom Client Watermark on Image */}
               <div className="absolute bottom-3 left-4 z-10">
-                <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-300 bg-black/50 backdrop-blur-sm px-2.5 py-1 rounded-md border border-white/10">
+                <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-300 bg-black/60 backdrop-blur-sm px-2.5 py-1 rounded-md border border-white/10">
                   {project.client}
                 </span>
               </div>

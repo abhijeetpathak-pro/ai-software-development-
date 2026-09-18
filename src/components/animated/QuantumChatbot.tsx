@@ -2,8 +2,9 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Bot, Send, X, Sparkles, User, RefreshCw, Phone, Calendar, MessageCircle } from 'lucide-react';
+import { Bot, Send, X, Sparkles, User, RefreshCw } from 'lucide-react';
 import { soundFx } from '@/lib/AudioEngine';
 
 interface Message {
@@ -86,8 +87,11 @@ export default function QuantumChatbot() {
 
   return (
     <>
-      {/* Floating Corner Stack: Call, Calendly, WhatsApp & AI Bot Launcher */}
-      <div className="fixed bottom-8 right-5 sm:bottom-10 sm:right-7 z-[9990] flex flex-col items-center gap-2.5">
+      {/* Floating Action Sidebar - Vertically Centered on the Right */}
+      <aside 
+        className="fixed right-3 sm:right-5 top-1/2 -translate-y-1/2 z-[9990] flex flex-col items-center gap-3"
+        aria-label="Quick Communication & AI Assistant"
+      >
         
         {/* 1. Direct Call Us */}
         <a
@@ -95,12 +99,19 @@ export default function QuantumChatbot() {
           target="_blank"
           rel="noopener noreferrer"
           onMouseEnter={() => soundFx.playHover()}
-          className="h-10 w-10 sm:h-11 sm:w-11 rounded-full bg-[#10b981] text-white flex items-center justify-center shadow-lg hover:scale-110 hover:shadow-emerald-500/40 transition-all p-2.5 group relative"
-          aria-label="Call Us"
+          className="h-11 w-11 sm:h-12 sm:w-12 rounded-full bg-[#10b981] text-white flex items-center justify-center shadow-xl hover:scale-110 hover:shadow-emerald-500/50 transition-all duration-300 p-2.5 group relative"
+          aria-label="Call Us Directly"
         >
-          <Phone className="w-5 h-5" />
-          <span className="absolute right-full mr-3 px-2.5 py-1 rounded-lg bg-slate-900 text-white text-[11px] font-mono whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-xl border border-slate-700">
+          <Image 
+            src="/images/social/call.svg" 
+            alt="Call Us" 
+            width={24} 
+            height={24} 
+            className="w-5 h-5 filter brightness-0 invert" 
+          />
+          <span className="absolute right-full mr-3.5 px-3 py-1.5 rounded-xl bg-zinc-950/95 text-white text-[11px] font-mono whitespace-nowrap opacity-0 group-hover:opacity-100 group-hover:-translate-x-1 transition-all duration-200 pointer-events-none shadow-2xl border border-zinc-700/80 backdrop-blur-md">
             Call (+91 9289633637)
+            <span className="absolute -right-1 top-1/2 -translate-y-1/2 w-2 h-2 bg-zinc-950 rotate-45 border-r border-t border-zinc-700/80" />
           </span>
         </a>
 
@@ -110,12 +121,19 @@ export default function QuantumChatbot() {
           target="_blank"
           rel="noopener noreferrer"
           onMouseEnter={() => soundFx.playHover()}
-          className="h-10 w-10 sm:h-11 sm:w-11 rounded-full bg-white text-slate-800 border border-slate-300 flex items-center justify-center shadow-lg hover:scale-110 hover:border-blue-500 transition-all p-2.5 group relative"
+          className="h-11 w-11 sm:h-12 sm:w-12 rounded-full bg-white flex items-center justify-center shadow-xl hover:scale-110 hover:shadow-blue-500/30 hover:border-blue-400 border border-slate-200 transition-all duration-300 p-2.5 group relative"
           aria-label="Book 30-Min Discovery Call"
         >
-          <Calendar className="w-5 h-5 text-blue-600" />
-          <span className="absolute right-full mr-3 px-2.5 py-1 rounded-lg bg-slate-900 text-white text-[11px] font-mono whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-xl border border-slate-700">
+          <Image 
+            src="/images/social/calendly-icon.svg" 
+            alt="Calendly Discovery" 
+            width={26} 
+            height={26} 
+            className="w-6 h-6 object-contain" 
+          />
+          <span className="absolute right-full mr-3.5 px-3 py-1.5 rounded-xl bg-zinc-950/95 text-white text-[11px] font-mono whitespace-nowrap opacity-0 group-hover:opacity-100 group-hover:-translate-x-1 transition-all duration-200 pointer-events-none shadow-2xl border border-zinc-700/80 backdrop-blur-md">
             Book Discovery Call
+            <span className="absolute -right-1 top-1/2 -translate-y-1/2 w-2 h-2 bg-zinc-950 rotate-45 border-r border-t border-zinc-700/80" />
           </span>
         </a>
 
@@ -125,12 +143,19 @@ export default function QuantumChatbot() {
           target="_blank"
           rel="noopener noreferrer"
           onMouseEnter={() => soundFx.playHover()}
-          className="h-10 w-10 sm:h-11 sm:w-11 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-lg hover:scale-110 hover:shadow-green-500/40 transition-all p-2.5 group relative"
+          className="h-11 w-11 sm:h-12 sm:w-12 rounded-full bg-[#25D366] flex items-center justify-center shadow-xl hover:scale-110 hover:shadow-green-500/50 transition-all duration-300 p-2.5 group relative"
           aria-label="Chat on WhatsApp"
         >
-          <MessageCircle className="w-5 h-5" />
-          <span className="absolute right-full mr-3 px-2.5 py-1 rounded-lg bg-slate-900 text-white text-[11px] font-mono whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-xl border border-slate-700">
+          <Image 
+            src="/images/social/whatsapp.svg" 
+            alt="WhatsApp Chat" 
+            width={24} 
+            height={24} 
+            className="w-6 h-6 object-contain" 
+          />
+          <span className="absolute right-full mr-3.5 px-3 py-1.5 rounded-xl bg-zinc-950/95 text-white text-[11px] font-mono whitespace-nowrap opacity-0 group-hover:opacity-100 group-hover:-translate-x-1 transition-all duration-200 pointer-events-none shadow-2xl border border-zinc-700/80 backdrop-blur-md">
             WhatsApp Direct
+            <span className="absolute -right-1 top-1/2 -translate-y-1/2 w-2 h-2 bg-zinc-950 rotate-45 border-r border-t border-zinc-700/80" />
           </span>
         </a>
 
@@ -138,31 +163,32 @@ export default function QuantumChatbot() {
         <motion.button
           onClick={toggleOpen}
           onMouseEnter={() => soundFx.playHover()}
-          whileHover={{ scale: 1.08 }}
-          whileTap={{ scale: 0.95 }}
-          className="relative group p-3.5 sm:p-4 rounded-full bg-gradient-to-tr from-sky-500 via-indigo-500 to-emerald-400 text-white shadow-2xl shadow-sky-500/40 flex items-center justify-center cursor-pointer"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.94 }}
+          className="relative group h-11 w-11 sm:h-12 sm:w-12 rounded-full bg-gradient-to-tr from-sky-500 via-indigo-600 to-emerald-400 text-white shadow-2xl shadow-sky-500/40 flex items-center justify-center cursor-pointer transition-transform"
           aria-label="Toggle Quantum AI Assistant"
         >
           {/* Animated Neon Pulse Ring */}
           <span className="absolute -inset-1 rounded-full bg-gradient-to-r from-sky-400 to-indigo-500 opacity-70 blur-md group-hover:opacity-100 transition-opacity animate-pulse" />
           <div className="relative flex items-center justify-center">
-            {isOpen ? <X className="w-6 h-6" /> : <Bot className="w-6 h-6" />}
+            {isOpen ? <X className="w-5 h-5" /> : <Bot className="w-5 h-5" />}
           </div>
-          <span className="absolute right-full mr-3 px-2.5 py-1 rounded-lg bg-slate-900 text-white text-[11px] font-mono whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-xl border border-slate-700">
+          <span className="absolute right-full mr-3.5 px-3 py-1.5 rounded-xl bg-zinc-950/95 text-white text-[11px] font-mono whitespace-nowrap opacity-0 group-hover:opacity-100 group-hover:-translate-x-1 transition-all duration-200 pointer-events-none shadow-2xl border border-zinc-700/80 backdrop-blur-md">
             Quantum AI Assistant
+            <span className="absolute -right-1 top-1/2 -translate-y-1/2 w-2 h-2 bg-zinc-950 rotate-45 border-r border-t border-zinc-700/80" />
           </span>
         </motion.button>
-      </div>
+      </aside>
 
       {/* Expandable Chat Drawer */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 30, scale: 0.92 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 30, scale: 0.92 }}
+            initial={{ opacity: 0, scale: 0.9, x: 20 }}
+            animate={{ opacity: 1, scale: 1, x: 0 }}
+            exit={{ opacity: 0, scale: 0.9, x: 20 }}
             transition={{ type: 'spring', damping: 25, stiffness: 350 }}
-            className="fixed bottom-28 right-4 sm:bottom-32 sm:right-8 w-[calc(100vw-2rem)] sm:w-[400px] h-[520px] rounded-3xl bg-zinc-950/95 border border-zinc-800 shadow-2xl backdrop-blur-2xl z-[9990] flex flex-col overflow-hidden"
+            className="fixed right-3 sm:right-20 top-1/2 -translate-y-1/2 w-[calc(100vw-1.5rem)] sm:w-[400px] h-[540px] max-h-[85vh] rounded-3xl bg-zinc-950/95 border border-zinc-800 shadow-2xl backdrop-blur-2xl z-[9990] flex flex-col overflow-hidden"
           >
             {/* Chat Header */}
             <div className="p-4 bg-zinc-900/90 border-b border-zinc-800 flex items-center justify-between">

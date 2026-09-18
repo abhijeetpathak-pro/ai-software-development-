@@ -66,10 +66,13 @@ const clientLogos = [
   { name: 'Fliplearn', logo: '/images/client/fliplearn.webp' },
   { name: 'Vengreso', logo: '/images/client/vengreso.webp' },
   { name: 'Sutherland', logo: '/images/client/sutherland.webp' },
+  { name: 'synKup', logo: '/images/client/synkup.webp' },
   { name: 'Strategic ERP', logo: '/images/client/Strategic ERP.webp' },
   { name: 'Educomp', logo: '/images/client/educomp-school.webp' },
   { name: 'Jangubuzz', logo: '/images/client/Jangubuzz.webp' },
-  { name: 'Floofers', logo: '/images/client/petlav.webp' }
+  { name: 'Floofers', logo: '/images/client/floofers.webp' },
+  { name: 'Petluvs', logo: '/images/client/petlav.webp' },
+  { name: 'SYML', logo: '/images/client/syml.webp' }
 ];
 
 export default function ClientsAndStats() {

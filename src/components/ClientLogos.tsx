@@ -50,6 +50,13 @@ const clients = [
     projects: 20
   },
   { 
+    name: 'synKup', 
+    image: '/images/client/synkup.webp', 
+    link: '/portfolio/',
+    category: 'AI & Career-Tech',
+    projects: 10
+  },
+  { 
     name: 'Jangubuzz', 
     image: '/images/client/Jangubuzz.webp', 
     link: '/portfolio/',
@@ -79,11 +86,18 @@ const clients = [
   },
   { 
     name: 'Floofers', 
-    image: '/images/client/petlav.webp', 
+    image: '/images/client/floofers.webp', 
     link: '/portfolio/',
     category: 'Pet Care Platform',
     projects: 9
   },
+  { 
+    name: 'SYML', 
+    image: '/images/client/syml.webp', 
+    link: '/portfolio/',
+    category: 'Healthcare & SaaS',
+    projects: 8
+  }
 ];
 
 export default function ClientLogos() {
