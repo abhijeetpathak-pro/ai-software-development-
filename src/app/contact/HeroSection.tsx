@@ -17,7 +17,7 @@ export default function HeroSection() {
       <div className="absolute bottom-0 left-1/4 w-[500px] h-[300px] bg-rose-50/60 rounded-full blur-3xl pointer-events-none" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8 w-full my-auto">
-        
+
         {/* Top Eyebrow Tag */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8 pb-6 border-b border-slate-200">
           <motion.div
@@ -49,7 +49,7 @@ export default function HeroSection() {
 
         {/* Central Headline & Two-Column Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center my-6">
-          
+
           <div className="lg:col-span-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -174,7 +174,7 @@ export default function HeroSection() {
             <p className="text-[11px] text-slate-500 uppercase mt-0.5">Proposal Speed</p>
           </div>
           <div>
-            <p className="text-2xl sm:text-3xl font-black text-slate-900">250+</p>
+            <p className="text-2xl sm:text-3xl font-black text-slate-900">150+</p>
             <p className="text-[11px] text-slate-500 uppercase mt-0.5">Senior Developers</p>
           </div>
           <div>

@@ -99,7 +99,7 @@ const teamMembers: TeamMember[] = [
   {
     id: 'sonam-jainwal',
     name: 'Sonam Jainwal',
-    role: 'Head of Human Resources',
+    role: 'Human Resources',
     category: 'operations',
     categoryLabel: 'Growth & Operations',
     image: '/images/team/Sonam.webp',
@@ -116,7 +116,7 @@ const teamMembers: TeamMember[] = [
   {
     id: 'abhijeet-pathak',
     name: 'Abhijeet Pathak',
-    role: 'Digital Marketing & Growth Lead',
+    role: 'Digital Marketing & Web Developer',
     category: 'operations',
     categoryLabel: 'Growth & Operations',
     image: '/images/team/Akhil.webp',
@@ -174,7 +174,7 @@ export default function TeamShowcase() {
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-r from-sky-500/10 via-indigo-500/10 to-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
-        
+
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-mono font-bold tracking-widest uppercase mb-4">
@@ -203,11 +203,10 @@ export default function TeamShowcase() {
                   setActiveCategory(cat.id);
                 }}
                 onMouseEnter={() => soundFx.playHover()}
-                className={`relative px-5 py-2.5 rounded-full font-mono text-xs font-bold transition-all duration-300 ${
-                  isActive
+                className={`relative px-5 py-2.5 rounded-full font-mono text-xs font-bold transition-all duration-300 ${isActive
                     ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/25 scale-105'
                     : 'bg-card/70 hover:bg-card text-muted-foreground hover:text-foreground border border-border/60 hover:border-primary/40'
-                }`}
+                  }`}
               >
                 <span>{cat.label}</span>
               </button>

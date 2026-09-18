@@ -72,7 +72,7 @@ export default function HeroSection() {
       <div className="absolute top-24 right-10 w-[500px] h-[300px] bg-rose-100/40 rounded-full blur-3xl pointer-events-none" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8 w-full">
-        
+
         {/* Top Header Bar */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8 pb-5 border-b border-slate-200">
           <motion.div
@@ -106,10 +106,10 @@ export default function HeroSection() {
         {/* TWO-COLUMN SPLIT LAYOUT: CONTENT ON LEFT + GLASS CARD ON RIGHT             */}
         {/* ========================================================================= */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center mb-4">
-          
+
           {/* LEFT COLUMN: TYPOGRAPHY & INTRO */}
           <div className="lg:col-span-7 flex flex-col items-start text-left">
-            
+
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -141,13 +141,13 @@ export default function HeroSection() {
             >
               <div>
                 <p className="text-xl sm:text-2xl font-black text-red-600">
-                  <AnimatedCounter value={250} suffix="+" />
+                  <AnimatedCounter value={150} suffix="+" />
                 </p>
                 <p className="text-[10px] text-slate-500 uppercase mt-0.5">Vetted Engineers</p>
               </div>
               <div className="border-x border-slate-200 px-3">
                 <p className="text-xl sm:text-2xl font-black text-slate-900">
-                  <AnimatedCounter value={15} suffix="-Day" />
+                  <AnimatedCounter value={7} suffix="-Day" />
                 </p>
                 <p className="text-[10px] text-slate-500 uppercase mt-0.5">Trial Sprint</p>
               </div>
@@ -221,7 +221,7 @@ export default function HeroSection() {
 
               {/* Main Team Showcase Collage with Glass Badges */}
               <div className="relative z-10 grid grid-cols-2 gap-3.5 mb-5">
-                
+
                 {/* 1. AI Brain */}
                 <div className="relative rounded-2xl overflow-hidden border border-slate-200 bg-slate-100 aspect-[4/3] group/item shadow-md">
                   <img
