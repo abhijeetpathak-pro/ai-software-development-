@@ -702,20 +702,32 @@ export default function ServicesPage() {
                   soundFx.playClick();
                   setSelectedCaseStudy(cs);
                 }}
-                className="group relative flex flex-col justify-between p-8 rounded-3xl bg-slate-50/70 border border-slate-200 hover:bg-white hover:border-[#E31E24]/50 hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden"
+                className="group relative flex flex-col justify-between rounded-3xl bg-slate-50/70 border border-slate-200 hover:bg-white hover:border-[#E31E24]/50 hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden"
               >
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between gap-4">
-                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#E31E24] bg-red-50 px-3 py-1 rounded-full border border-red-100">
+                {/* Top: Full-Box Project Image with White BG */}
+                <div className="relative h-52 sm:h-60 w-full bg-white border-b border-slate-200 flex items-center justify-center p-6 overflow-hidden">
+                  {cs.image && (
+                    <img
+                      src={cs.image}
+                      alt={cs.client}
+                      className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                    />
+                  )}
+                  <div className="absolute top-3.5 left-3.5">
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#E31E24] bg-red-50/90 px-3 py-1 rounded-full border border-red-200/80 shadow-xs">
                       {cs.caseNumber}
                     </span>
-                    {cs.logo && (
-                      <div className="h-8 w-auto flex items-center">
-                        <Image src={cs.logo} alt={cs.client} width={90} height={32} className="h-7 w-auto object-contain" />
-                      </div>
-                    )}
                   </div>
+                  {cs.metrics && (
+                    <div className="absolute top-3.5 right-3.5">
+                      <span className="text-[10px] font-mono font-bold text-white bg-emerald-600 px-2.5 py-1 rounded-lg shadow-xs">
+                        {cs.metrics}
+                      </span>
+                    </div>
+                  )}
+                </div>
 
+                <div className="p-6 sm:p-8 space-y-4 flex-1 flex flex-col justify-between">
                   <div>
                     <h3 className="text-2xl font-black text-slate-950 font-display group-hover:text-[#E31E24] transition-colors">
                       {cs.client}

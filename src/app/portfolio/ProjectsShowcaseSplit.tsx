@@ -110,13 +110,12 @@ export default function ProjectsShowcaseSplit() {
               <div className="lg:col-span-6 relative rounded-3xl overflow-hidden border border-slate-300 bg-white shadow-2xl group flex flex-col justify-between min-h-[380px] sm:min-h-[460px]">
                 
                 {/* Full Box Image Area */}
-                <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-slate-50 via-white to-red-50/40 flex items-center justify-center p-6 sm:p-12">
-                  <div className="absolute inset-0 bg-[radial-gradient(#cbd5e1_1px,_transparent_1px)] [background-size:20px_20px] opacity-60 pointer-events-none" />
+                <div className="absolute inset-0 w-full h-full bg-white flex items-center justify-center p-6 sm:p-10">
                   {activeProject.image && (
                     <img
                       src={activeProject.image}
                       alt={activeProject.client}
-                      className="w-full h-full max-h-[220px] sm:max-h-[260px] object-contain group-hover:scale-110 transition-transform duration-700 relative z-10 drop-shadow-xl"
+                      className="w-full h-full max-h-[280px] sm:max-h-[320px] object-contain group-hover:scale-105 transition-transform duration-700 relative z-10 drop-shadow-md"
                     />
                   )}
                 </div>

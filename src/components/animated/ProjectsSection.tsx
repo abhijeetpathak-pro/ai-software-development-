@@ -118,37 +118,27 @@ export default function ProjectsSection() {
             className="group relative rounded-3xl border border-border/70 bg-card/70 backdrop-blur-xl hover:border-primary/50 transition-all duration-500 shadow-xl hover:shadow-2xl hover:shadow-primary/10 flex flex-col justify-between overflow-hidden cursor-pointer"
           >
             {/* Top: Full-Bleed Project Image Box */}
-            <div className="relative h-60 sm:h-64 w-full overflow-hidden bg-gradient-to-br from-zinc-900 via-zinc-950 to-slate-950 border-b border-border/50 flex items-center justify-center p-8">
+            <div className="relative h-64 sm:h-72 w-full overflow-hidden bg-white border-b border-border/50 flex items-center justify-center p-4 sm:p-6">
               {project.image && (
                 <img
                   src={project.image}
                   alt={project.client}
-                  className="max-h-24 max-w-[75%] object-contain group-hover:scale-110 transition-transform duration-500 ease-out drop-shadow-lg"
+                  className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500 ease-out drop-shadow-sm"
                 />
               )}
 
-              {/* Gradient Overlays for High-Contrast Badges & Text Readability */}
-              <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-zinc-950/40 pointer-events-none" />
-
               {/* Top Floating Category Pill */}
-              <div className="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-zinc-950/90 backdrop-blur-md border border-white/20 text-[10px] font-mono font-bold text-white uppercase flex items-center gap-1.5 shadow-md z-10">
+              <div className="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-slate-950/90 backdrop-blur-md border border-white/20 text-[10px] font-mono font-bold text-white uppercase flex items-center gap-1.5 shadow-md z-10">
                 <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
                 <span>{project.caseNumber}</span>
               </div>
 
               {/* Verified Metric Pill Top Right */}
               {project.metrics && (
-                <div className="absolute top-3.5 right-3.5 px-2.5 py-1 rounded-lg bg-emerald-950/90 backdrop-blur-md border border-emerald-500/40 text-[10px] font-mono font-bold text-emerald-300 shadow-md z-10">
+                <div className="absolute top-3.5 right-3.5 px-2.5 py-1 rounded-lg bg-emerald-600 text-white font-mono text-[10px] font-bold shadow-md z-10">
                   {project.metrics}
                 </div>
               )}
-
-              {/* Bottom Client Watermark on Image */}
-              <div className="absolute bottom-3 left-4 z-10">
-                <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-300 bg-black/60 backdrop-blur-sm px-2.5 py-1 rounded-md border border-white/10">
-                  {project.client}
-                </span>
-              </div>
             </div>
 
             {/* Middle: Title, Description & Highlights */}
@@ -247,7 +237,7 @@ export default function ProjectsSection() {
               {/* Modal Top Banner */}
               <div className="flex items-start justify-between gap-4 pb-6 border-b border-border/40 mb-6">
                 <div className="flex items-center gap-4">
-                  <div className="w-16 h-16 rounded-2xl bg-zinc-950 border border-border p-2 flex items-center justify-center shrink-0">
+                  <div className="w-16 h-16 rounded-2xl bg-white border border-slate-200 p-2 flex items-center justify-center shrink-0 shadow-sm">
                     {activeModalProject.image && (
                       <img
                         src={activeModalProject.image}
