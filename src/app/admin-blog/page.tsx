@@ -91,6 +91,7 @@ export default function AdminBlogPage() {
   const [showInsertImageModal, setShowInsertImageModal] = useState(false);
   const [insertImageUrl, setInsertImageUrl] = useState('');
   const [insertImageCaption, setInsertImageCaption] = useState('');
+  const [imageLoadError, setImageLoadError] = useState(false);
   const [copiedSlug, setCopiedSlug] = useState<string | null>(null);
 
   // Check saved PIN in sessionStorage on mount
@@ -189,6 +190,7 @@ export default function AdminBlogPage() {
   const startCreateNew = () => {
     setEditingSlug(null);
     setFormData(INITIAL_FORM);
+    setImageLoadError(false);
     setActiveTab('editor');
     setEditorSubTab('content');
     setPreviewMode(false);
@@ -197,6 +199,7 @@ export default function AdminBlogPage() {
 
   const startEditPost = (post: Post) => {
     setEditingSlug(post.slug);
+    setImageLoadError(false);
     setFormData({
       title: post.title,
       slug: post.slug,
@@ -222,6 +225,56 @@ export default function AdminBlogPage() {
     return pin || (typeof window !== 'undefined' ? sessionStorage.getItem('witqualis_admin_pin') || 'witqualis2026' : 'witqualis2026');
   };
 
+  const compressImageFile = (file: File, maxWidth = 1200, quality = 0.88): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (event) => {
+        const rawData = event.target?.result as string;
+        try {
+          const img = new (window as any).Image();
+          img.src = rawData;
+          img.onload = () => {
+            try {
+              const canvas = document.createElement('canvas');
+              let width = img.width;
+              let height = img.height;
+
+              if (width > maxWidth) {
+                height = Math.round((height * maxWidth) / width);
+                width = maxWidth;
+              }
+
+              canvas.width = width;
+              canvas.height = height;
+              const ctx = canvas.getContext('2d');
+              if (!ctx) {
+                resolve(rawData);
+                return;
+              }
+              ctx.drawImage(img, 0, 0, width, height);
+
+              try {
+                const webpData = canvas.toDataURL('image/webp', quality);
+                if (webpData && webpData.startsWith('data:image/webp')) {
+                  resolve(webpData);
+                  return;
+                }
+              } catch {}
+              resolve(canvas.toDataURL('image/jpeg', quality));
+            } catch (e) {
+              resolve(rawData);
+            }
+          };
+          img.onerror = () => resolve(rawData);
+        } catch (e) {
+          resolve(rawData);
+        }
+      };
+      reader.onerror = (err) => reject(err);
+    });
+  };
+
   const uploadFileToServer = async (file: File): Promise<string> => {
     const form = new FormData();
     form.append('file', file);
@@ -238,7 +291,7 @@ export default function AdminBlogPage() {
     if (res.ok && data.url) {
       return data.url;
     } else {
-      throw new Error(data.error || 'Failed to upload image. Passcode might be expired or file is invalid.');
+      throw new Error(data.error || 'Upload error');
     }
   };
 
@@ -247,10 +300,24 @@ export default function AdminBlogPage() {
     if (!file) return;
 
     setUploadingImage(true);
+    setImageLoadError(false);
     try {
-      const url = await uploadFileToServer(file);
-      setFormData(prev => ({ ...prev, image: url }));
-      setCustomImageUrl(url);
+      // 1. Instant client-side compression for zero-lag instant preview
+      const compressedData = await compressImageFile(file, 1200, 0.88);
+      setFormData(prev => ({ ...prev, image: compressedData }));
+      setCustomImageUrl(compressedData);
+
+      // 2. Also try uploading file to server
+      try {
+        const serverUrl = await uploadFileToServer(file);
+        if (serverUrl) {
+          setFormData(prev => ({ ...prev, image: serverUrl }));
+          setCustomImageUrl(serverUrl);
+        }
+      } catch (serverErr) {
+        console.warn('Server storage fallback to Base64 (works permanently):', serverErr);
+      }
+
       setStatusMessage({ type: 'success', text: 'Cover image uploaded and set successfully!' });
     } catch (err: any) {
       setStatusMessage({ type: 'error', text: err?.message || 'Failed to upload cover image' });
@@ -266,9 +333,15 @@ export default function AdminBlogPage() {
 
     setUploadingContentImage(true);
     try {
-      const url = await uploadFileToServer(file);
+      let finalUrl = '';
+      try {
+        finalUrl = await uploadFileToServer(file);
+      } catch (err) {
+        finalUrl = await compressImageFile(file, 1000, 0.85);
+      }
+
       const cleanLabel = file.name.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ');
-      const mdSnippet = `\n\n![${cleanLabel}](${url})\n\n`;
+      const mdSnippet = `\n\n![${cleanLabel}](${finalUrl})\n\n`;
       setFormData(prev => ({
         ...prev,
         content: prev.content ? prev.content.trim() + mdSnippet : mdSnippet.trim()
@@ -1201,13 +1274,21 @@ export default function AdminBlogPage() {
                   </div>
                 </div>
 
-                <div className="relative w-full aspect-[16/9] rounded-xl overflow-hidden bg-slate-100 border border-slate-200">
-                  <Image
-                    src={formData.image}
-                    alt={formData.title || 'Cover'}
-                    fill
-                    className="object-cover"
-                  />
+                <div className="relative w-full aspect-[16/9] rounded-xl overflow-hidden bg-slate-950 border border-slate-200">
+                  {formData.image && !imageLoadError ? (
+                    /* eslint-disable-next-line @next/next/no-img-element */
+                    <img
+                      src={formData.image}
+                      alt={formData.title || 'Cover'}
+                      className="w-full h-full object-cover"
+                      onError={() => setImageLoadError(true)}
+                    />
+                  ) : (
+                    <div className="w-full h-full flex flex-col items-center justify-center bg-slate-900 text-slate-400 text-xs">
+                      <ImageIcon className="w-8 h-8 mb-1 text-slate-500" />
+                      <span>No cover image</span>
+                    </div>
+                  )}
                 </div>
 
                 <div className="space-y-4 text-slate-700 text-base leading-relaxed">
@@ -1601,17 +1682,19 @@ export default function AdminBlogPage() {
 
                         {/* Preview */}
                         <div className="relative w-full aspect-[16/9] rounded-xl overflow-hidden bg-slate-100 border border-slate-200">
-                          {formData.image ? (
-                            <Image
+                          {formData.image && !imageLoadError ? (
+                            /* eslint-disable-next-line @next/next/no-img-element */
+                            <img
                               src={formData.image}
                               alt="Cover Preview"
-                              fill
-                              className="object-cover"
+                              className="w-full h-full object-cover"
+                              onError={() => setImageLoadError(true)}
                             />
                           ) : (
-                            <div className="w-full h-full flex flex-col items-center justify-center text-slate-400 text-xs">
-                              <ImageIcon className="w-8 h-8 mb-1 opacity-50" />
-                              <span>No cover photo selected</span>
+                            <div className="w-full h-full flex flex-col items-center justify-center text-slate-400 text-xs p-4 text-center bg-slate-50">
+                              <ImageIcon className="w-8 h-8 mb-1 text-slate-400" />
+                              <span className="font-semibold text-slate-700">No cover photo selected</span>
+                              <span className="text-[11px] text-slate-500 mt-0.5">Click &quot;📁 Upload Photo from Computer&quot; below</span>
                             </div>
                           )}
                         </div>
