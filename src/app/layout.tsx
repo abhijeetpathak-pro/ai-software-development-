@@ -15,6 +15,14 @@ export const metadata: Metadata = {
   },
   description:
     'WitQualis Technologies is a staff augmentation and software development company. Hire dedicated developers or engage our teams for web, mobile, cloud and AI product development.',
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+    ],
+    apple: '/apple-touch-icon.png',
+  },
   keywords: [
     'hire developers India',
     'IT staff augmentation services',
