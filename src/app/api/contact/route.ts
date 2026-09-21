@@ -50,21 +50,42 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ ok: false, error: 'Please provide a valid email address.' }, { status: 400 });
     }
 
-    const smtpUser = process.env.SMTP_USER || 'codewithakhil6@gmail.com';
-    const rawPass = process.env.SMTP_PASS || 'iwgj gfxz uwbx tjoq';
-    const smtpPass = rawPass.replace(/\s+/g, '');
+    const smtpHost = process.env.SMTP_HOST?.trim();
+    const smtpUser = process.env.SMTP_USER?.trim();
+    const smtpPass = process.env.SMTP_PASS?.replace(/\s+/g, '');
+    const smtpPort = Number(process.env.SMTP_PORT || 587);
+    const smtpSecure = process.env.SMTP_SECURE === 'true' || smtpPort === 465;
+
+    if (!smtpHost || !smtpUser || !smtpPass || !Number.isFinite(smtpPort)) {
+      console.error('Contact form email error: SMTP environment variables are not configured.');
+      return NextResponse.json(
+        { ok: false, error: 'Email service is temporarily unavailable. Please try again later or email us directly.' },
+        { status: 503 }
+      );
+    }
 
     const transporter = nodemailer.createTransport({
-      service: 'gmail',
+      host: smtpHost,
+      port: smtpPort,
+      secure: smtpSecure,
       auth: {
         user: smtpUser,
         pass: smtpPass
       }
     });
 
-    const recipientList = process.env.CONTACT_TO_EMAIL
-      ? process.env.CONTACT_TO_EMAIL.split(',').map((e) => e.trim())
-      : ['codewithakhil6@gmail.com', 'aslam@witqualis.com'];
+    const recipientList = (process.env.CONTACT_TO_EMAIL || smtpUser)
+      .split(',')
+      .map((e) => e.trim())
+      .filter(Boolean);
+
+    if (recipientList.length === 0) {
+      console.error('Contact form email error: CONTACT_TO_EMAIL is empty.');
+      return NextResponse.json(
+        { ok: false, error: 'Email service is temporarily unavailable. Please try again later or email us directly.' },
+        { status: 503 }
+      );
+    }
 
     const subjectTitle = senderRoleOrStack
       ? `[WitQualis Inquiry] ${senderName} — ${senderRoleOrStack}`
@@ -198,4 +219,3 @@ function escapeHtml(str: string) {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
 }
-

@@ -26,7 +26,8 @@ npm run start
   - /solutions/machine-learning-development/
   - plus a dedicated /hire/hire-ai-developers/ page
 - Contact form API route (`/api/contact`) — set these env vars for it to actually send email:
-  - `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_USER`, `SMTP_PASS`
+  - `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_USER`, `SMTP_PASS`, `CONTACT_TO_EMAIL`
+  - For Gmail, use a 16-character App Password. Never commit SMTP credentials to the repository.
 
 ## Fixes made to the original build
 
