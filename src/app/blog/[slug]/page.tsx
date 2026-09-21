@@ -173,15 +173,83 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
       {/* 2. Article Content Body */}
       <section className="py-20 bg-white border-b border-slate-200">
-        <div className="mx-auto max-w-3xl px-6 lg:px-8 space-y-8 text-slate-700 text-base sm:text-lg leading-relaxed font-sans font-normal">
-          {post.content.map((para, i) => (
-            <p key={i} className="p-6 rounded-2xl bg-slate-50/70 border border-slate-200/80 leading-relaxed">
-              {para}
-            </p>
-          ))}
+        <div className="mx-auto max-w-3xl px-6 lg:px-8 space-y-6 text-slate-700 text-base sm:text-lg leading-relaxed font-sans font-normal">
+          {post.content.map((block, i) => {
+            const trimmed = block.trim();
+
+            // Check for markdown image: ![Alt](url)
+            const mdImgMatch = trimmed.match(/^!\[(.*?)\]\((.*?)\)$/);
+            if (mdImgMatch) {
+              const altText = mdImgMatch[1] || post.title;
+              const imgSrc = mdImgMatch[2].trim();
+              return (
+                <figure key={i} className="my-8 rounded-3xl overflow-hidden border border-slate-200 bg-slate-950 shadow-xl">
+                  <div className="relative w-full aspect-[16/9]">
+                    <Image
+                      src={imgSrc}
+                      alt={altText}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  {altText && altText !== post.title && (
+                    <figcaption className="p-3 text-center text-xs font-mono text-slate-400 bg-slate-900/90 border-t border-slate-800">
+                      {altText}
+                    </figcaption>
+                  )}
+                </figure>
+              );
+            }
+
+            // Check for direct image URL line
+            if (
+              trimmed.startsWith('/') ||
+              trimmed.startsWith('http://') ||
+              trimmed.startsWith('https://')
+            ) {
+              if (/\.(jpg|jpeg|png|webp|gif|svg|avif)(\?.*)?$/i.test(trimmed)) {
+                return (
+                  <figure key={i} className="my-8 rounded-3xl overflow-hidden border border-slate-200 bg-slate-950 shadow-xl">
+                    <div className="relative w-full aspect-[16/9]">
+                      <Image
+                        src={trimmed}
+                        alt={`Figure ${i + 1}`}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  </figure>
+                );
+              }
+            }
+
+            // Check for headings
+            if (trimmed.startsWith('## ')) {
+              return (
+                <h2 key={i} className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-slate-950 font-display mt-10 mb-4 pt-4 border-t border-slate-100">
+                  {trimmed.replace(/^##\s+/, '')}
+                </h2>
+              );
+            }
+
+            if (trimmed.startsWith('### ')) {
+              return (
+                <h3 key={i} className="text-xl sm:text-2xl font-bold uppercase tracking-tight text-slate-900 font-display mt-6 mb-3">
+                  {trimmed.replace(/^###\s+/, '')}
+                </h3>
+              );
+            }
+
+            // Standard paragraph
+            return (
+              <p key={i} className="p-6 rounded-2xl bg-slate-50/70 border border-slate-200/80 leading-relaxed text-slate-800">
+                {block}
+              </p>
+            );
+          })}
 
           {post.relatedLinks && post.relatedLinks.length > 0 && (
-            <div className="p-6 rounded-2xl bg-red-50/60 border border-red-100">
+            <div className="p-6 rounded-2xl bg-red-50/60 border border-red-100 mt-10">
               <p className="text-xs font-mono font-bold uppercase tracking-wider text-red-700 mb-3">Related Witqualis Pages</p>
               <ul className="flex flex-wrap gap-3">
                 {post.relatedLinks.map((link) => (

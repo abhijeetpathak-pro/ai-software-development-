@@ -10,7 +10,8 @@ import {
   BookOpen, Calendar, Clock, User, ArrowLeft,
   FileText, Link2, Copy, Check, LogOut, CheckCircle,
   HelpCircle, Globe, Smartphone, Monitor, BarChart3,
-  Sliders, ShieldCheck, Sparkles, ChevronDown, ChevronUp
+  Sliders, ShieldCheck, Sparkles, ChevronDown, ChevronUp,
+  Image as ImageIcon, Link as LinkIcon
 } from 'lucide-react';
 import { Post, RelatedLink } from '@/data/blog';
 
@@ -84,6 +85,12 @@ export default function AdminBlogPage() {
   const [statusMessage, setStatusMessage] = useState<{ type: 'success' | 'error'; text: string; link?: string } | null>(null);
   const [deleteConfirmSlug, setDeleteConfirmSlug] = useState<string | null>(null);
   const [uploadingImage, setUploadingImage] = useState(false);
+  const [uploadingContentImage, setUploadingContentImage] = useState(false);
+  const [showUrlInput, setShowUrlInput] = useState(false);
+  const [customImageUrl, setCustomImageUrl] = useState('');
+  const [showInsertImageModal, setShowInsertImageModal] = useState(false);
+  const [insertImageUrl, setInsertImageUrl] = useState('');
+  const [insertImageCaption, setInsertImageCaption] = useState('');
   const [copiedSlug, setCopiedSlug] = useState<string | null>(null);
 
   // Check saved PIN in sessionStorage on mount
@@ -211,33 +218,82 @@ export default function AdminBlogPage() {
     setStatusMessage(null);
   };
 
+  const getEffectivePin = () => {
+    return pin || (typeof window !== 'undefined' ? sessionStorage.getItem('witqualis_admin_pin') || 'witqualis2026' : 'witqualis2026');
+  };
+
+  const uploadFileToServer = async (file: File): Promise<string> => {
+    const form = new FormData();
+    form.append('file', file);
+    const currentPin = getEffectivePin();
+    form.append('pin', currentPin);
+
+    const res = await fetch('/api/admin/upload', {
+      method: 'POST',
+      headers: { 'x-admin-pin': currentPin },
+      body: form
+    });
+
+    const data = await res.json();
+    if (res.ok && data.url) {
+      return data.url;
+    } else {
+      throw new Error(data.error || 'Failed to upload image. Passcode might be expired or file is invalid.');
+    }
+  };
+
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
     setUploadingImage(true);
     try {
-      const form = new FormData();
-      form.append('file', file);
-
-      const res = await fetch('/api/admin/upload', {
-        method: 'POST',
-        headers: { 'x-admin-pin': pin },
-        body: form
-      });
-
-      const data = await res.json();
-      if (res.ok && data.url) {
-        setFormData(prev => ({ ...prev, image: data.url }));
-        setStatusMessage({ type: 'success', text: 'Image uploaded successfully!' });
-      } else {
-        setStatusMessage({ type: 'error', text: data.error || 'Failed to upload image' });
-      }
-    } catch (err) {
-      setStatusMessage({ type: 'error', text: 'Image upload failed' });
+      const url = await uploadFileToServer(file);
+      setFormData(prev => ({ ...prev, image: url }));
+      setCustomImageUrl(url);
+      setStatusMessage({ type: 'success', text: 'Cover image uploaded and set successfully!' });
+    } catch (err: any) {
+      setStatusMessage({ type: 'error', text: err?.message || 'Failed to upload cover image' });
     } finally {
       setUploadingImage(false);
+      e.target.value = '';
     }
+  };
+
+  const handleContentImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploadingContentImage(true);
+    try {
+      const url = await uploadFileToServer(file);
+      const cleanLabel = file.name.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ');
+      const mdSnippet = `\n\n![${cleanLabel}](${url})\n\n`;
+      setFormData(prev => ({
+        ...prev,
+        content: prev.content ? prev.content.trim() + mdSnippet : mdSnippet.trim()
+      }));
+      setStatusMessage({ type: 'success', text: 'Photo uploaded and inserted into article content!' });
+    } catch (err: any) {
+      setStatusMessage({ type: 'error', text: err?.message || 'Failed to upload article photo' });
+    } finally {
+      setUploadingContentImage(false);
+      e.target.value = '';
+    }
+  };
+
+  const handleInsertImageUrlToContent = () => {
+    if (!insertImageUrl.trim()) return;
+    const caption = insertImageCaption.trim() || 'Blog Image';
+    const mdSnippet = `\n\n![${caption}](${insertImageUrl.trim()})\n\n`;
+    setFormData(prev => ({
+      ...prev,
+      content: prev.content ? prev.content.trim() + mdSnippet : mdSnippet.trim()
+    }));
+    setInsertImageUrl('');
+    setInsertImageCaption('');
+    setShowInsertImageModal(false);
+    setStatusMessage({ type: 'success', text: 'Image inserted into article!' });
   };
 
   // --- LIVE YOAST-STYLE SEO & CONTENT ANALYSIS ENGINE ---
@@ -1156,11 +1212,45 @@ export default function AdminBlogPage() {
 
                 <div className="space-y-4 text-slate-700 text-base leading-relaxed">
                   {formData.content ? (
-                    formData.content.split('\n\n').map((para, i) => (
-                      <p key={i} className="p-4 rounded-xl bg-slate-50 border border-slate-200/80 leading-relaxed">
-                        {para}
-                      </p>
-                    ))
+                    formData.content.split('\n\n').map((para, i) => {
+                      const trimmed = para.trim();
+                      const mdImgMatch = trimmed.match(/^!\[(.*?)\]\((.*?)\)$/);
+                      if (mdImgMatch) {
+                        const altText = mdImgMatch[1] || 'Blog Photo';
+                        const imgSrc = mdImgMatch[2].trim();
+                        return (
+                          <figure key={i} className="my-6 rounded-2xl overflow-hidden border border-slate-200 bg-slate-900 shadow-md">
+                            <div className="relative w-full aspect-[16/9]">
+                              <Image src={imgSrc} alt={altText} fill className="object-cover" />
+                            </div>
+                            {altText && (
+                              <figcaption className="p-2.5 text-center text-xs text-slate-400 bg-slate-900 border-t border-slate-800">
+                                {altText}
+                              </figcaption>
+                            )}
+                          </figure>
+                        );
+                      }
+                      if (trimmed.startsWith('## ')) {
+                        return (
+                          <h2 key={i} className="text-xl sm:text-2xl font-black uppercase text-slate-950 font-display mt-6 mb-2">
+                            {trimmed.replace(/^##\s+/, '')}
+                          </h2>
+                        );
+                      }
+                      if (trimmed.startsWith('### ')) {
+                        return (
+                          <h3 key={i} className="text-lg sm:text-xl font-bold uppercase text-slate-900 font-display mt-4 mb-2">
+                            {trimmed.replace(/^###\s+/, '')}
+                          </h3>
+                        );
+                      }
+                      return (
+                        <p key={i} className="p-4 rounded-xl bg-slate-50 border border-slate-200/80 leading-relaxed">
+                          {para}
+                        </p>
+                      );
+                    })
                   ) : (
                     <p className="text-slate-400 italic">No content written yet.</p>
                   )}
@@ -1232,20 +1322,132 @@ export default function AdminBlogPage() {
                       </div>
 
                       {/* Content Editor */}
-                      <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs">
-                        <div className="flex items-center justify-between mb-1.5">
+                      <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-3">
+                        <div className="flex flex-wrap items-center justify-between gap-2">
                           <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700">
-                            Blog Content (Paragraphs)
+                            Blog Content (Paragraphs & Images)
                           </label>
                           <span className="text-[11px] text-slate-500">
                             Word Count: <strong className={seoAnalysis.wordCount >= 300 ? 'text-emerald-600' : 'text-amber-600'}>{seoAnalysis.wordCount}</strong> words
                           </span>
                         </div>
+
+                        {/* Article Quick Formatting & Media Toolbar */}
+                        <div className="flex flex-wrap items-center gap-2 p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+                          <span className="text-[11px] font-semibold text-slate-500 uppercase mr-1">Insert:</span>
+
+                          {/* Upload Photo from PC into Content */}
+                          <label className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-800 border border-slate-300 font-medium cursor-pointer shadow-2xs transition-colors">
+                            {uploadingContentImage ? (
+                              <RefreshCw className="w-3.5 h-3.5 text-red-600 animate-spin" />
+                            ) : (
+                              <Upload className="w-3.5 h-3.5 text-red-600" />
+                            )}
+                            <span>{uploadingContentImage ? 'Uploading...' : 'Upload Photo'}</span>
+                            <input
+                              type="file"
+                              accept="image/*"
+                              onChange={handleContentImageUpload}
+                              className="hidden"
+                              disabled={uploadingContentImage}
+                            />
+                          </label>
+
+                          {/* Insert Image URL button */}
+                          <button
+                            type="button"
+                            onClick={() => setShowInsertImageModal(prev => !prev)}
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-800 border border-slate-300 font-medium cursor-pointer shadow-2xs transition-colors"
+                          >
+                            <ImageIcon className="w-3.5 h-3.5 text-red-600" />
+                            <span>Photo Link / URL</span>
+                          </button>
+
+                          {/* Heading button */}
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const headingSnippet = '\n\n## New Section Heading\n\n';
+                              setFormData(prev => ({ ...prev, content: (prev.content ? prev.content.trim() + headingSnippet : headingSnippet).trim() }));
+                            }}
+                            className="px-2.5 py-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-mono font-bold cursor-pointer"
+                            title="Add H2 Heading"
+                          >
+                            H2
+                          </button>
+
+                          {/* Subheading button */}
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const headingSnippet = '\n\n### Section Sub-heading\n\n';
+                              setFormData(prev => ({ ...prev, content: (prev.content ? prev.content.trim() + headingSnippet : headingSnippet).trim() }));
+                            }}
+                            className="px-2.5 py-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-mono font-bold cursor-pointer"
+                            title="Add H3 Sub-heading"
+                          >
+                            H3
+                          </button>
+
+                          {/* Bullet List button */}
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const listSnippet = '\n\n- Key takeaway point 1\n- Key takeaway point 2\n\n';
+                              setFormData(prev => ({ ...prev, content: (prev.content ? prev.content.trim() + listSnippet : listSnippet).trim() }));
+                            }}
+                            className="px-2.5 py-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-medium cursor-pointer"
+                            title="Add Bullet List"
+                          >
+                            • List
+                          </button>
+                        </div>
+
+                        {/* Image URL Insertion Dropdown / Modal */}
+                        {showInsertImageModal && (
+                          <div className="p-4 rounded-xl bg-red-50/70 border border-red-200 space-y-3">
+                            <div className="flex items-center justify-between">
+                              <span className="text-xs font-bold text-red-900">Insert Photo via URL</span>
+                              <button 
+                                type="button" 
+                                onClick={() => setShowInsertImageModal(false)}
+                                className="text-xs text-slate-500 hover:text-slate-800"
+                              >
+                                ✕ Close
+                              </button>
+                            </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                              <input
+                                type="text"
+                                value={insertImageUrl}
+                                onChange={(e) => setInsertImageUrl(e.target.value)}
+                                placeholder="Image URL (e.g. https://... or /images/...)"
+                                className="px-3 py-2 rounded-lg bg-white border border-slate-300 text-xs text-slate-800"
+                              />
+                              <input
+                                type="text"
+                                value={insertImageCaption}
+                                onChange={(e) => setInsertImageCaption(e.target.value)}
+                                placeholder="Photo Caption / Description (optional)"
+                                className="px-3 py-2 rounded-lg bg-white border border-slate-300 text-xs text-slate-800"
+                              />
+                            </div>
+                            <button
+                              type="button"
+                              onClick={handleInsertImageUrlToContent}
+                              disabled={!insertImageUrl.trim()}
+                              className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 disabled:opacity-50 text-white text-xs font-semibold cursor-pointer transition-colors"
+                            >
+                              Insert Into Article
+                            </button>
+                          </div>
+                        )}
+
                         <textarea
                           rows={14}
                           value={formData.content}
                           onChange={(e) => setFormData(prev => ({ ...prev, content: e.target.value }))}
-                          placeholder="Write your article content here...&#10;&#10;Separate each paragraph by pressing Enter twice. Each paragraph will be formatted automatically into clean readable blocks on the website!"
+                          placeholder="Write your article content here...&#10;&#10;Separate each paragraph by pressing Enter twice.&#10;&#10;To add photos inside content, use the 'Upload Photo' button above or write:&#10;![Photo Description](/images/blog/your-image.jpg)"
                           className="w-full p-4 rounded-xl bg-white border border-slate-300 text-slate-800 text-sm leading-relaxed focus:outline-none focus:border-red-600 focus:ring-2 focus:ring-red-500/10"
                         />
                       </div>
@@ -1390,24 +1592,38 @@ export default function AdminBlogPage() {
 
                       {/* Cover Image */}
                       <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-4">
-                        <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700">
-                          Cover Image
-                        </label>
+                        <div className="flex items-center justify-between">
+                          <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700">
+                            Cover Image
+                          </label>
+                          <span className="text-[10px] font-mono text-slate-400">16:9 Recommended</span>
+                        </div>
 
                         {/* Preview */}
                         <div className="relative w-full aspect-[16/9] rounded-xl overflow-hidden bg-slate-100 border border-slate-200">
-                          <Image
-                            src={formData.image}
-                            alt="Preview"
-                            fill
-                            className="object-cover"
-                          />
+                          {formData.image ? (
+                            <Image
+                              src={formData.image}
+                              alt="Cover Preview"
+                              fill
+                              className="object-cover"
+                            />
+                          ) : (
+                            <div className="w-full h-full flex flex-col items-center justify-center text-slate-400 text-xs">
+                              <ImageIcon className="w-8 h-8 mb-1 opacity-50" />
+                              <span>No cover photo selected</span>
+                            </div>
+                          )}
                         </div>
 
-                        {/* Upload */}
-                        <label className="w-full py-2.5 px-4 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300 text-xs font-medium flex items-center justify-center gap-2 cursor-pointer transition-colors">
-                          <Upload className="w-4 h-4 text-red-600" />
-                          <span>{uploadingImage ? 'Uploading...' : 'Upload Image from Computer'}</span>
+                        {/* Upload from PC */}
+                        <label className="w-full py-3 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300 text-xs font-medium flex items-center justify-center gap-2 cursor-pointer transition-colors shadow-2xs">
+                          {uploadingImage ? (
+                            <RefreshCw className="w-4 h-4 text-red-600 animate-spin" />
+                          ) : (
+                            <Upload className="w-4 h-4 text-red-600" />
+                          )}
+                          <span>{uploadingImage ? 'Uploading Image...' : '📁 Upload Photo from Computer'}</span>
                           <input
                             type="file"
                             accept="image/*"
@@ -1417,6 +1633,33 @@ export default function AdminBlogPage() {
                           />
                         </label>
 
+                        {/* Direct URL Input Toggle */}
+                        <div className="space-y-1.5">
+                          <button
+                            type="button"
+                            onClick={() => setShowUrlInput(prev => !prev)}
+                            className="text-xs font-medium text-red-600 hover:text-red-700 flex items-center gap-1 cursor-pointer"
+                          >
+                            <LinkIcon className="w-3.5 h-3.5" />
+                            <span>{showUrlInput ? 'Hide URL input' : 'Or paste direct image URL / link'}</span>
+                          </button>
+
+                          {showUrlInput && (
+                            <div className="flex gap-2 pt-1">
+                              <input
+                                type="text"
+                                value={customImageUrl || formData.image}
+                                onChange={(e) => {
+                                  setCustomImageUrl(e.target.value);
+                                  setFormData(prev => ({ ...prev, image: e.target.value }));
+                                }}
+                                placeholder="https://... or /images/blog/photo.jpg"
+                                className="flex-1 px-3 py-2 rounded-lg bg-white border border-slate-300 text-xs text-slate-800 focus:outline-none focus:border-red-600"
+                              />
+                            </div>
+                          )}
+                        </div>
+
                         {/* Preset Covers */}
                         <div>
                           <span className="text-xs text-slate-500 block mb-2 font-medium">Or choose ready image:</span>
@@ -1425,7 +1668,10 @@ export default function AdminBlogPage() {
                               <button
                                 key={i}
                                 type="button"
-                                onClick={() => setFormData(prev => ({ ...prev, image: preset.url }))}
+                                onClick={() => {
+                                  setFormData(prev => ({ ...prev, image: preset.url }));
+                                  setCustomImageUrl(preset.url);
+                                }}
                                 className={`relative aspect-[16/9] rounded-lg overflow-hidden border-2 transition-all cursor-pointer ${
                                   formData.image === preset.url ? 'border-red-600 scale-95 shadow-sm' : 'border-slate-200 opacity-70 hover:opacity-100'
                                 }`}

@@ -200,7 +200,7 @@ export default function BlogClientPage({ initialPosts }: { initialPosts: Post[] 
                 {/* Visual Cover */}
                 <div className="lg:col-span-7 relative h-72 sm:h-96 lg:h-auto min-h-[320px] bg-slate-950 overflow-hidden">
                   <Image
-                    src={featuredPost.image}
+                    src={featuredPost.image || '/images/blog/staff-aug-guide.jpg'}
                     alt={featuredPost.title}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-700 opacity-90 group-hover:opacity-100"
@@ -280,7 +280,7 @@ export default function BlogClientPage({ initialPosts }: { initialPosts: Post[] 
                     {/* Card Thumbnail */}
                     <div className="relative h-52 w-full bg-slate-950 overflow-hidden">
                       <Image
-                        src={post.image}
+                        src={post.image || '/images/blog/staff-aug-guide.jpg'}
                         alt={post.title}
                         fill
                         className="object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
