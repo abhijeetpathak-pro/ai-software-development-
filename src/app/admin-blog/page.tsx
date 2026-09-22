@@ -92,15 +92,27 @@ export default function AdminBlogPage() {
   const [insertImageUrl, setInsertImageUrl] = useState('');
   const [insertImageCaption, setInsertImageCaption] = useState('');
   const [imageLoadError, setImageLoadError] = useState(false);
+  const [dbStatus, setDbStatus] = useState<{ configured: boolean; connected: boolean; engine: string } | null>(null);
   const [copiedSlug, setCopiedSlug] = useState<string | null>(null);
 
-  // Check saved PIN in sessionStorage on mount
+  // Check saved PIN in sessionStorage on mount and check DB status
   useEffect(() => {
     const savedPin = sessionStorage.getItem('witqualis_admin_pin');
     if (savedPin) {
       setPin(savedPin);
       validatePin(savedPin);
     }
+
+    fetch('/api/admin/blog?check_db=true')
+      .then(res => res.json())
+      .then(data => {
+        setDbStatus({
+          configured: Boolean(data.dbConfigured),
+          connected: Boolean(data.dbConnected),
+          engine: data.engine || 'Local Storage'
+        });
+      })
+      .catch(() => {});
   }, []);
 
   const validatePin = async (candidatePin: string) => {
@@ -884,10 +896,15 @@ export default function AdminBlogPage() {
               W
             </div>
             <div>
-              <h1 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+              <h1 className="text-sm font-bold text-slate-900 flex flex-wrap items-center gap-2">
                 <span>WitQualis Blog Manager</span>
-                <span className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
-                  SEO Suite Enabled
+                <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full flex items-center gap-1.5 ${
+                  dbStatus?.connected
+                    ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                    : 'bg-amber-50 text-amber-700 border border-amber-200'
+                }`}>
+                  <span className={`w-1.5 h-1.5 rounded-full ${dbStatus?.connected ? 'bg-emerald-500 animate-pulse' : 'bg-amber-500'}`} />
+                  <span>{dbStatus?.connected ? 'SQL Cloud Database' : 'Local Storage'}</span>
                 </span>
               </h1>
             </div>

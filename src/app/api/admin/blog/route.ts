@@ -1,6 +1,9 @@
 // src/app/api/admin/blog/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { getAllBlogPosts, getBlogPostBySlug, saveBlogPost, deleteBlogPost } from '@/lib/blog-storage';
+import { isDbConfigured, initDb } from '@/lib/db';
+
+export const dynamic = 'force-dynamic';
 
 const ADMIN_PIN = process.env.ADMIN_BLOG_PIN || 'witqualis2026';
 
@@ -9,10 +12,28 @@ function isAuthorized(req: NextRequest, bodyPin?: string): boolean {
   return headerPin === ADMIN_PIN || bodyPin === ADMIN_PIN;
 }
 
-// GET: Fetch all posts or single post by slug
+// GET: Fetch all posts or single post by slug (or check DB status)
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
+
+    // Database connection status check
+    const checkDb = searchParams.get('check_db');
+    if (checkDb) {
+      const configured = isDbConfigured();
+      let connected = false;
+      if (configured) {
+        try {
+          connected = await initDb();
+        } catch {}
+      }
+      return NextResponse.json({
+        dbConfigured: configured,
+        dbConnected: connected,
+        engine: connected ? 'PostgreSQL Cloud Database (SQL)' : 'Local JSON Storage'
+      });
+    }
+
     const slug = searchParams.get('slug');
 
     if (slug) {
