@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
-import { Zap, Bot, ArrowDownRight, Sparkles, Terminal, Code2, Users, ShieldCheck } from 'lucide-react';
+import { Zap, Bot, ArrowDownRight, Sparkles, Terminal, CheckCircle2 } from 'lucide-react';
 import { ClutchIcon, LinkedinIcon } from './SocialIcons';
 import { soundFx } from '@/lib/AudioEngine';
 import PhysicsBadge from './PhysicsBadge';
@@ -12,6 +12,7 @@ export default function HeroSection() {
   const [timeStr, setTimeStr] = useState('');
   const [zapActive, setZapActive] = useState(false);
   const [botActive, setBotActive] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
 
   // Scroll Parallax Controls
@@ -28,6 +29,32 @@ export default function HeroSection() {
   const spotlightRightY = useTransform(smoothProgress, [0, 1], [0, -70]);
   const lanyardY = useTransform(smoothProgress, [0, 1], [0, 50]);
   const lanyardRotate = useTransform(smoothProgress, [0, 1], [0, -6]);
+
+  // Robust Autoplay Initialization for all browsers
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.defaultMuted = true;
+      videoRef.current.muted = true;
+      const playPromise = videoRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // If browser blocked initial autoplay, play on first user interaction
+          const unlockPlay = () => {
+            if (videoRef.current) {
+              videoRef.current.muted = true;
+              videoRef.current.play().catch(() => {});
+            }
+            window.removeEventListener('click', unlockPlay);
+            window.removeEventListener('touchstart', unlockPlay);
+            window.removeEventListener('scroll', unlockPlay);
+          };
+          window.addEventListener('click', unlockPlay, { once: true });
+          window.addEventListener('touchstart', unlockPlay, { once: true });
+          window.addEventListener('scroll', unlockPlay, { once: true });
+        });
+      }
+    }
+  }, []);
 
   useEffect(() => {
     const updateTime = () => {
@@ -68,17 +95,38 @@ export default function HeroSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-[92vh] w-full flex flex-col justify-between overflow-hidden pt-28 pb-12 selection:bg-cyan-500/20"
+      className="relative min-h-[85vh] w-full flex flex-col justify-between overflow-hidden pt-16 sm:pt-20 lg:pt-24 pb-8 sm:pb-10 selection:bg-cyan-500/20"
     >
-      {/* Background Dot Matrix */}
-      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle,_#71717a_0.6px,_transparent_0.6px)] dark:bg-[radial-gradient(circle,_#52525b_0.6px,_transparent_0.6px)] opacity-20 [background-size:24px_24px] pointer-events-none" />
+      {/* 1. Full-Bleed Ambient Background Video on Mute & Loop */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <video
+          ref={videoRef}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          className="w-full h-full object-cover opacity-75 dark:opacity-60 scale-105 transform filter saturate-125 contrast-105 transition-opacity duration-700"
+        >
+          <source src="/video/hand_shake.mp4" type="video/mp4" />
+          <source src="/video/hand_shake.webm" type="video/webm" />
+          <source src="/video/hand%20shake.webm" type="video/webm" />
+        </video>
 
-      {/* Dynamic Angled Spotlight Beams with Scroll Parallax */}
-      <div className="absolute inset-0 z-[1] pointer-events-none overflow-hidden">
+        {/* Crisp Gradient Overlays: keeps video motion visible while ensuring high text contrast */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/25 to-background/85 z-[1]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_30%,_var(--tw-gradient-stops))] from-transparent via-background/15 to-background/75 z-[1]" />
+      </div>
+
+      {/* 2. Background Dot Matrix */}
+      <div className="absolute inset-0 z-[2] bg-[radial-gradient(circle,_#71717a_0.6px,_transparent_0.6px)] dark:bg-[radial-gradient(circle,_#52525b_0.6px,_transparent_0.6px)] opacity-15 [background-size:24px_24px] pointer-events-none" />
+
+      {/* 3. Dynamic Angled Spotlight Beams with Scroll Parallax */}
+      <div className="absolute inset-0 z-[3] pointer-events-none overflow-hidden">
         {/* Left Spotlight */}
         <motion.div
           style={{ y: spotlightLeftY }}
-          className="absolute -top-40 -left-20 w-[600px] h-[1200px] opacity-25 dark:opacity-20 transform -rotate-45"
+          className="absolute -top-40 -left-20 w-[600px] h-[1100px] opacity-25 dark:opacity-20 transform -rotate-45"
         >
           <div
             className="w-full h-full"
@@ -123,107 +171,112 @@ export default function HeroSection() {
         style={{ y: contentY, scale: contentScale, opacity: contentOpacity }}
         className="relative z-10 max-w-7xl w-full mx-auto px-6 sm:px-8 lg:px-12 flex-1 flex flex-col justify-center"
       >
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          {/* Main Kinetic Typography Column */}
-          <div className="lg:col-span-8 flex flex-col justify-center gap-1 sm:gap-2">
-            {/* Top Subtitle Badge - Slide Up */}
-            <motion.div {...slideUp(0.1)} className="flex items-center gap-3 mb-2">
-              <span className="flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/25 text-primary text-[11px] font-mono font-semibold tracking-wider">
-                <Sparkles className="w-3.5 h-3.5 animate-spin" style={{ animationDuration: '4s' }} />
-                <span>WITQUALIS TECHNOLOGIES — AI &amp; SOFTWARE ENGINEERING</span>
-              </span>
-            </motion.div>
-
-            {/* Line 1: AI & DATA - Slide Up from bottom */}
-            <div className="relative group">
-              <motion.div {...slideUp(0.25)} className="flex items-center justify-between">
-                <h1 className="text-[clamp(3.2rem,8.5vw,9.5rem)] font-black leading-[0.88] tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-zinc-900 via-zinc-600 to-zinc-900 dark:from-white dark:via-zinc-300 dark:to-zinc-500 select-none animate-shimmer">
-                  <span className="sr-only">Staff Augmentation Company in India for Global Engineering Teams — </span>AI &amp; DATA
-                </h1>
-
-                {/* Floating Social / Links */}
-                <div className="hidden sm:flex items-center gap-3 opacity-70 group-hover:opacity-100 transition-opacity">
-                  <a
-                    href="https://clutch.co/profile/witqualis"
-                    target="_blank"
-                    rel="noreferrer"
-                    onMouseEnter={() => soundFx.playHover()}
-                    className="p-2.5 rounded-full bg-muted/60 hover:bg-primary/20 hover:text-primary transition-all duration-300 border border-border/50 hover:scale-110"
-                    aria-label="Clutch Profile"
-                  >
-                    <ClutchIcon className="w-4 h-4" />
-                  </a>
-                  <a
-                    href="https://linkedin.com/company/witqualis"
-                    target="_blank"
-                    rel="noreferrer"
-                    onMouseEnter={() => soundFx.playHover()}
-                    className="p-2.5 rounded-full bg-muted/60 hover:bg-primary/20 hover:text-primary transition-all duration-300 border border-border/50 hover:scale-110"
-                    aria-label="LinkedIn Profile"
-                  >
-                    <LinkedinIcon className="w-4 h-4" />
-                  </a>
-                </div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+          {/* Main Kinetic Typography & H1 Heading Column */}
+          <div className="lg:col-span-8 flex flex-col justify-center gap-2 sm:gap-3">
+            {/* Semantic H1 Title Header Container */}
+            <h1 className="flex flex-col gap-1 sm:gap-2">
+              {/* Top Subtitle Badge - Slide Up */}
+              <motion.div {...slideUp(0.1)} className="flex flex-wrap items-center gap-2.5 mb-1">
+                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/25 text-primary text-[11px] sm:text-xs font-mono font-bold tracking-wider">
+                  <Sparkles className="w-3.5 h-3.5 animate-spin text-teal" style={{ animationDuration: '4s' }} />
+                  <span>WITQUALIS TECHNOLOGIES</span>
+                </span>
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-[10px] sm:text-[11px] font-mono font-medium">
+                  <CheckCircle2 className="w-3 h-3 text-emerald-500" />
+                  <span>Staff Augmentation &amp; Software Development</span>
+                </span>
               </motion.div>
-            </div>
 
-            {/* Line 2: SOFT [⚡] WARE - Slide Up from bottom */}
-            <div className="relative">
-              <motion.div {...slideUp(0.4)} className="flex items-center flex-wrap">
-                <div className="text-[clamp(3.2rem,8.5vw,9.5rem)] font-black leading-[0.88] tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-zinc-900 via-zinc-600 to-zinc-900 dark:from-white dark:via-zinc-300 dark:to-zinc-500 select-none flex items-center">
-                  <span>SOFT</span>
-                  <button
-                    onClick={triggerZap}
-                    onMouseEnter={() => soundFx.playHover()}
-                    className={`inline-flex items-center justify-center mx-1 sm:mx-2 p-1.5 sm:p-2.5 rounded-2xl bg-sky-500/10 border border-sky-500/30 hover:border-sky-400 cursor-pointer transition-all duration-300 hover:scale-115 ${
-                      zapActive ? 'ring-4 ring-sky-400/50 shadow-[0_0_30px_rgba(56,189,248,0.8)] scale-125' : ''
-                    }`}
-                    title="Click for Electric Charge"
-                    aria-label="Interactive Zap Icon"
-                  >
-                    <Zap
-                      className={`w-[0.65em] h-[0.65em] text-sky-400 transition-transform ${
-                        zapActive ? 'fill-sky-400 rotate-12 scale-125' : 'group-hover:text-sky-300'
-                      }`}
-                    />
-                  </button>
-                  <span>WARE</span>
-                </div>
-              </motion.div>
-            </div>
+              {/* Line 1: AI & DATA - Slide Up from bottom */}
+              <div className="relative group">
+                <motion.div {...slideUp(0.25)} className="flex items-center justify-between">
+                  <span className="text-[clamp(3.2rem,8.5vw,9.2rem)] font-black leading-[0.88] tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-zinc-900 via-zinc-600 to-zinc-900 dark:from-white dark:via-zinc-300 dark:to-zinc-500 select-none animate-shimmer">
+                    AI &amp; DATA
+                  </span>
 
-            {/* Line 3: EN [🤖] GINEER - Slide Up from bottom */}
-            <div className="relative">
-              <motion.div {...slideUp(0.55)} className="flex items-center flex-wrap justify-between">
-                <div className="text-[clamp(3.2rem,8.5vw,9.5rem)] font-black leading-[0.88] tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-zinc-900 via-zinc-600 to-zinc-900 dark:from-white dark:via-zinc-300 dark:to-zinc-500 select-none flex items-center">
-                  <span>EN</span>
-                  <button
-                    onClick={triggerBot}
-                    onMouseEnter={() => soundFx.playHover()}
-                    className={`inline-flex items-center justify-center mx-1 sm:mx-2 p-1.5 sm:p-2.5 rounded-2xl bg-amber-500/10 border border-amber-500/30 hover:border-amber-400 cursor-pointer transition-all duration-300 hover:scale-115 ${
-                      botActive ? 'ring-4 ring-amber-400/50 shadow-[0_0_30px_rgba(251,191,36,0.8)] scale-125' : ''
-                    }`}
-                    title="Click to Activate Bot AI"
-                    aria-label="Interactive Bot Icon"
-                  >
-                    <Bot
-                      className={`w-[0.65em] h-[0.65em] text-amber-400 transition-transform ${
-                        botActive ? 'fill-amber-400 -rotate-12 scale-125' : 'group-hover:text-amber-300'
-                      }`}
-                    />
-                  </button>
-                  <span>GINEER</span>
-                </div>
+                  {/* Floating Social / Links */}
+                  <div className="hidden sm:flex items-center gap-3 opacity-70 group-hover:opacity-100 transition-opacity">
+                    <a
+                      href="https://clutch.co/profile/witqualis"
+                      target="_blank"
+                      rel="noreferrer"
+                      onMouseEnter={() => soundFx.playHover()}
+                      className="p-2.5 rounded-full bg-muted/60 hover:bg-primary/20 hover:text-primary transition-all duration-300 border border-border/50 hover:scale-110"
+                      aria-label="Clutch Profile"
+                    >
+                      <ClutchIcon className="w-4 h-4" />
+                    </a>
+                    <a
+                      href="https://linkedin.com/company/witqualis"
+                      target="_blank"
+                      rel="noreferrer"
+                      onMouseEnter={() => soundFx.playHover()}
+                      className="p-2.5 rounded-full bg-muted/60 hover:bg-primary/20 hover:text-primary transition-all duration-300 border border-border/50 hover:scale-110"
+                      aria-label="LinkedIn Profile"
+                    >
+                      <LinkedinIcon className="w-4 h-4" />
+                    </a>
+                  </div>
+                </motion.div>
+              </div>
 
-                {/* Subtext description */}
-                <p className="text-xs md:text-sm text-muted-foreground max-w-[260px] font-medium leading-relaxed uppercase tracking-wider pt-2 lg:pt-0">
-                  Custom Software Development, Enterprise AI &amp; Pre-Vetted Dedicated Developer Squads.
-                </p>
-              </motion.div>
-            </div>
+              {/* Line 2: SOFT [⚡] WARE - Slide Up from bottom */}
+              <div className="relative">
+                <motion.div {...slideUp(0.4)} className="flex items-center flex-wrap">
+                  <span className="text-[clamp(3.2rem,8.5vw,9.2rem)] font-black leading-[0.88] tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-zinc-900 via-zinc-600 to-zinc-900 dark:from-white dark:via-zinc-300 dark:to-zinc-500 select-none flex items-center">
+                    <span>SOFT</span>
+                    <button
+                      type="button"
+                      onClick={triggerZap}
+                      onMouseEnter={() => soundFx.playHover()}
+                      className={`inline-flex items-center justify-center mx-1 sm:mx-2 p-1.5 sm:p-2.5 rounded-2xl bg-sky-500/10 border border-sky-500/30 hover:border-sky-400 cursor-pointer transition-all duration-300 hover:scale-115 ${zapActive ? 'ring-4 ring-sky-400/50 shadow-[0_0_30px_rgba(56,189,248,0.8)] scale-125' : ''
+                        }`}
+                      title="Click for Electric Charge"
+                      aria-label="Interactive Zap Icon"
+                    >
+                      <Zap
+                        className={`w-[0.65em] h-[0.65em] text-sky-400 transition-transform ${zapActive ? 'fill-sky-400 rotate-12 scale-125' : 'group-hover:text-sky-300'
+                          }`}
+                      />
+                    </button>
+                    <span>WARE</span>
+                  </span>
+                </motion.div>
+              </div>
+
+              {/* Line 3: EN [🤖] GINEER - Slide Up from bottom */}
+              <div className="relative">
+                <motion.div {...slideUp(0.55)} className="flex items-center flex-wrap justify-between">
+                  <span className="text-[clamp(3.2rem,8.5vw,9.2rem)] font-black leading-[0.88] tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-zinc-900 via-zinc-600 to-zinc-900 dark:from-white dark:via-zinc-300 dark:to-zinc-500 select-none flex items-center">
+                    <span>EN</span>
+                    <button
+                      type="button"
+                      onClick={triggerBot}
+                      onMouseEnter={() => soundFx.playHover()}
+                      className={`inline-flex items-center justify-center mx-1 sm:mx-2 p-1.5 sm:p-2.5 rounded-2xl bg-amber-500/10 border border-amber-500/30 hover:border-amber-400 cursor-pointer transition-all duration-300 hover:scale-115 ${botActive ? 'ring-4 ring-amber-400/50 shadow-[0_0_30px_rgba(251,191,36,0.8)] scale-125' : ''
+                        }`}
+                      title="Click to Activate Bot AI"
+                      aria-label="Interactive Bot Icon"
+                    >
+                      <Bot
+                        className={`w-[0.65em] h-[0.65em] text-amber-400 transition-transform ${botActive ? 'fill-amber-400 -rotate-12 scale-125' : 'group-hover:text-amber-300'
+                          }`}
+                      />
+                    </button>
+                    <span>GINEER</span>
+                  </span>
+
+                  {/* Subtext description */}
+                  <p className="text-xs md:text-sm text-muted-foreground max-w-[280px] font-medium leading-relaxed uppercase tracking-wider pt-2 lg:pt-0">
+                    Custom Software Development, Enterprise AI &amp; Pre-Vetted Dedicated Developer Squads.
+                  </p>
+                </motion.div>
+              </div>
+            </h1>
           </div>
 
-          {/* Right Column: Physics Lanyard Simulation with Slide Up */}
+          {/* Right Column: Physics Lanyard Simulation Badge */}
           <motion.div
             {...slideUp(0.4)}
             style={{ y: lanyardY, rotate: lanyardRotate }}
@@ -236,7 +289,7 @@ export default function HeroSection() {
         {/* Hero Bottom Bar: Slide Up from bottom */}
         <motion.div
           {...slideUp(0.7)}
-          className="mt-12 pt-6 border-t border-border/40 flex flex-col sm:flex-row items-center justify-between gap-6"
+          className="mt-8 pt-4 border-t border-border/40 flex flex-col sm:flex-row items-center justify-between gap-6"
         >
           {/* Location & Status Indicator */}
           <div className="flex items-center gap-3">
@@ -284,3 +337,4 @@ export default function HeroSection() {
     </section>
   );
 }
+
