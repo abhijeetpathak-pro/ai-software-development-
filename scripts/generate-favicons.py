@@ -12,12 +12,11 @@ bbox = alpha.getbbox()
 if bbox:
     source = source.crop(bbox)
 
-# Keep the complete logo mark, centered on a white square for reliable contrast
-# in light and dark browser chrome. The source artwork is never modified.
+# Keep the complete logo mark centered on a transparent canvas (no background color)
 canvas_size = 512
-inner_size = 420
+inner_size = 480
 mark = ImageOps.contain(source, (inner_size, inner_size), Image.Resampling.LANCZOS)
-canvas = Image.new("RGBA", (canvas_size, canvas_size), (255, 255, 255, 255))
+canvas = Image.new("RGBA", (canvas_size, canvas_size), (0, 0, 0, 0))
 canvas.alpha_composite(mark, ((canvas_size - mark.width) // 2, (canvas_size - mark.height) // 2))
 
 # Modern Next.js App Router conventions.
