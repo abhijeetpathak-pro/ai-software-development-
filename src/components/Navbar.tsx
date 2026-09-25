@@ -36,9 +36,15 @@ export default function Navbar() {
         
         {/* LOGO */}
         <Link href="/" className="flex items-center gap-2 z-10">
-          <Image src="/images/logo.png" alt="WitQualis Technologies" width={65} height={65} priority />
+          <Image 
+            src="/images/logo.png" 
+            alt="WitQualis Technologies" 
+            width={120} 
+            height={90} 
+            className="h-11 sm:h-13 w-auto object-contain"
+            priority 
+          />
         </Link>
-        <br></br>
 
         {/* DESKTOP NAVIGATION */}
         <nav className="hidden items-center gap-6 lg:flex">
