@@ -34,7 +34,7 @@ const departments: DepartmentItem[] = [
     icon: Code2,
     roleCount: 6,
     description: 'Building distributed cloud architectures, high-performance web & mobile applications, and AI vector pipelines.',
-    keySkills: ['Next.js 15 & React', 'Node.js & Python', 'AWS & Kubernetes', 'AI & LangChain']
+    keySkills: ['AWS & MLOps', 'Databricks & Lakehouse', 'Angular & Python', 'React Native', 'Salesforce Multi-Cloud', 'Azure OpenAI & Agents']
   },
   {
     id: 'design',

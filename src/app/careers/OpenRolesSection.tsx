@@ -39,177 +39,159 @@ export interface JobRole {
 
 export const initialJobs: JobRole[] = [
   {
-    id: 'frontend-dev-react',
-    title: 'Frontend Developer',
+    id: 'aws-devops-data-ml',
+    title: 'AWS DevOps Engineer (Data & ML)',
     department: 'Engineering',
-    location: 'Remote / Faridabad (HQ)',
+    location: 'Noida, Chennai, Pune',
     type: 'Full-Time',
-    experience: '2–4 years',
-    salary: '₹8,00,000 – ₹16,00,000 / year',
+    experience: '7–10+ years',
+    salary: '₹2,00,000 / month (2.0 LPM)',
     featured: true,
-    skills: ['React', 'JavaScript', 'HTML5', 'CSS3', 'Next.js', 'Tailwind CSS'],
-    description: 'We are seeking a talented Frontend Developer to build high-performance, responsive web applications using React and Next.js for international enterprise clients.',
+    skills: ['CI/CD', 'AWS Platform', 'Design', 'Azure DevOps', 'Kubernetes (EKS)', 'Terraform', 'MLOps', 'Docker', 'Python'],
+    description: 'Lead and architect end-to-end cloud infrastructure, CI/CD automation pipelines, and MLOps platforms across AWS and Azure DevOps environments supporting large-scale Data and Machine Learning workloads.',
     requirements: [
-      '2–4 years of hands-on experience with modern React, JavaScript (ES6+), HTML5, and CSS3.',
-      'Proficiency in responsive design, CSS Modules / Tailwind CSS, and state management (Zustand/Redux).',
-      'Solid understanding of REST APIs, asynchronous programming, and Core Web Vitals optimization.',
-      'Experience with Next.js (App Router, Server Components) is a strong plus.'
+      '7–10+ years of hands-on experience in DevOps, Cloud Architecture, and Infrastructure Engineering across AWS and Azure DevOps.',
+      'Deep expertise in core AWS services (EKS, ECS, S3, IAM, CloudWatch, Lambda, SageMaker) and Azure DevOps CI/CD pipelines.',
+      'Proven track record in designing resilient CI/CD release pipelines, Kubernetes container orchestration, and IaC with Terraform.',
+      'Strong background in MLOps, automated training/inference pipeline deployment, and data platform scalability.',
+      'Proficiency in Linux internals, shell scripting, and Python automation for cloud engineering.'
     ],
     responsibilities: [
-      'Develop pixel-perfect, accessible, and high-performance UI components.',
-      'Collaborate closely with UI/UX designers and backend engineers to integrate APIs.',
-      'Write clean, modular, and maintainable TypeScript/JavaScript code with unit tests.',
-      'Participate in sprint planning, code reviews, and agile retrospectives.'
+      'Architect, deploy, and manage highly scalable and secure AWS cloud environments for Data & ML squads.',
+      'Build and optimize automated CI/CD pipelines using AWS CodePipeline, Azure DevOps, and GitOps practices.',
+      'Implement MLOps frameworks, model monitoring, automated artifact versioning, and continuous deployment.',
+      'Define and enforce Infrastructure as Code (IaC) standards using Terraform, CloudFormation, and Helm.',
+      'Collaborate with Data Scientists, ML Engineers, and Product Squads to ensure 99.99% infrastructure uptime.'
     ]
   },
   {
-    id: 'fullstack-architect',
-    title: 'Senior Full-Stack Architect',
+    id: 'databricks-data-engineer',
+    title: 'Databricks Data Engineer',
     department: 'Engineering',
-    location: 'Remote / Faridabad (HQ)',
+    location: 'Noida, Gurgaon, Jaipur',
     type: 'Full-Time',
-    experience: '4–7 years',
-    salary: '₹18,00,000 – ₹32,00,000 / year',
+    experience: '5–10+ years',
+    salary: '₹1,20,000 / month (1.2 LPM)',
     featured: true,
-    skills: ['Next.js 15', 'Node.js', 'PostgreSQL', 'TypeScript', 'Docker', 'AWS'],
-    description: 'Lead end-to-end technical architecture for enterprise clients, designing scalable microservices, database schemas, and cloud-native deployments.',
+    skills: ['Databricks', 'AWS', 'DevOps', 'Git', 'CI/CD', 'GitLab', 'PySpark', 'Delta Lake', 'SQL'],
+    description: 'Architect and build enterprise Lakehouse solutions, high-volume ETL/ELT pipelines, and automated DataOps workflows utilizing Databricks, AWS, and GitLab CI/CD.',
     requirements: [
-      '4+ years architecting full-stack web applications with Node.js, Next.js, and TypeScript.',
-      'Deep expertise in PostgreSQL / MongoDB, Redis caching, and database indexing.',
-      'Experience deploying on AWS/GCP with Docker and automated CI/CD pipelines.'
+      '5–10+ years of specialized experience in Data Engineering with deep expertise in Databricks, Apache Spark, and Delta Lake.',
+      'Strong proficiency with AWS data ecosystem (S3, Glue, EMR, Redshift, Athena, IAM) and cloud data warehousing.',
+      'Hands-on experience implementing DataOps and CI/CD pipelines using GitLab CI, Git, and automated testing suites.',
+      'Proficiency in PySpark, Python, advanced SQL, and data orchestration tools (Airflow / Databricks Workflows).',
+      'Expertise in data lakehouse design, data governance, performance tuning, and cluster cost optimization.'
     ],
     responsibilities: [
-      'Design high-throughput backend APIs and modern frontend interfaces.',
-      'Conduct rigorous architecture reviews and mentor junior and mid-level engineers.',
-      'Support service uptime and security compliance for enterprise clients.'
+      'Design, develop, and maintain scalable data pipelines and Delta Lake architectures on Databricks.',
+      'Implement automated DataOps CI/CD workflows using GitLab for continuous testing, validation, and multi-environment deployment.',
+      'Integrate Databricks seamlessly with AWS cloud storage, data lakes, and enterprise analytical warehouses.',
+      'Optimize Databricks cluster configurations, query performance, and compute costs.',
+      'Ensure enterprise-grade data security, data lineage, quality checks, and regulatory compliance across data pipelines.'
     ]
   },
   {
-    id: 'ai-llm-engineer',
-    title: 'AI & LLM Solutions Engineer',
+    id: 'sr-fullstack-developer',
+    title: 'SR. Full Stack Developer',
     department: 'Engineering',
-    location: 'Remote / Faridabad (HQ)',
+    location: 'Remote',
     type: 'Full-Time',
-    experience: '2–5 years',
-    salary: '₹16,00,000 – ₹28,00,000 / year',
+    experience: '8+ years',
+    salary: '$1,200 USD / month',
     featured: true,
-    skills: ['Python', 'LangChain', 'OpenAI APIs', 'Vector DBs (Pinecone/Qdrant)', 'RAG Pipelines', 'FastAPI'],
-    description: 'Build enterprise AI agents, multi-modal vector search pipelines, and custom RAG applications integrated into business workflows.',
+    skills: ['Angular', 'Python', 'UI/UX', 'QA', 'DevOps', 'FastAPI / Django', 'TypeScript', 'Docker', 'REST APIs'],
+    description: 'Architect and build dynamic, high-performance web applications using Angular on the frontend and Python microservices on the backend, driving UI/UX excellence, QA automation, and DevOps.',
     requirements: [
-      'Strong proficiency in Python, FastAPI, LangChain / LlamaIndex, and embedding models.',
-      'Hands-on experience building production RAG pipelines and vector database indexing.',
-      'Knowledge of prompt engineering, fine-tuning, and LLM evaluation frameworks.'
+      '8+ years of proven full-stack development experience building enterprise-grade applications with Angular and Python.',
+      'Expert knowledge of modern Angular (v12+ / latest, RxJS, NgRx) and Python frameworks (FastAPI, Django, or Flask).',
+      'Strong understanding of UI/UX design principles, responsive UI development, and accessibility standards.',
+      'Solid experience with QA automation testing (PyTest, Cypress, Jest) and comprehensive test-driven development.',
+      'Hands-on experience with DevOps practices including Docker containerization, CI/CD pipelines, and cloud hosting.'
     ],
     responsibilities: [
-      'Build and deploy production-ready AI vector pipelines and autonomous agent workflows.',
-      'Optimize latency and token costs for large-scale enterprise LLM deployments.',
-      'Integrate AI services seamlessly with modern Next.js/React frontend portals.'
+      'Architect and build robust, user-centric web frontends in Angular and high-throughput microservices in Python.',
+      'Collaborate with designers to implement intuitive, responsive, and pixel-perfect UI/UX components.',
+      'Implement end-to-end automated QA testing suites and integrate quality gates into CI/CD deployment pipelines.',
+      'Design clean, secure RESTful / GraphQL APIs and manage database schema design and optimizations (PostgreSQL/MongoDB).',
+      'Work directly with international clients and cross-functional teams in an agile, remote-first environment.'
     ]
   },
   {
-    id: 'ui-ux-designer',
-    title: 'Senior UI/UX Product Designer',
-    department: 'Design',
-    location: 'Remote / Faridabad (HQ)',
-    type: 'Full-Time',
-    experience: '3–6 years',
-    salary: '₹12,00,000 – ₹20,00,000 / year',
-    skills: ['Figma', 'Design Systems', 'User Research', 'Prototyping', 'Wireframing'],
-    description: 'Design intuitive, world-class user experiences and multi-brand design systems for web and mobile SaaS platforms.',
-    requirements: [
-      '3+ years designing complex enterprise SaaS or web applications with Figma.',
-      'Demonstrated portfolio showcasing end-to-end UX wireframing to high-fidelity UI.',
-      'Strong understanding of design tokens, auto-layout, and developer handoff.'
-    ],
-    responsibilities: [
-      'Create comprehensive design systems and interactive clickable prototypes in Figma.',
-      'Conduct user interviews, usability testing, and wireframing iterations.',
-      'Collaborate with engineers to ensure pixel-perfect CSS implementation.'
-    ]
-  },
-  {
-    id: 'qa-automation-lead',
-    title: 'QA Automation Engineer',
-    department: 'QA & Testing',
-    location: 'Remote / Faridabad (HQ)',
-    type: 'Full-Time',
-    experience: '2–4 years',
-    salary: '₹7,00,000 – ₹14,00,000 / year',
-    skills: ['Cypress', 'Playwright', 'Selenium', 'Postman API', 'CI/CD Automation', 'Jest'],
-    description: 'Establish automated test suites, end-to-end regression pipelines, and API load testing for high-traffic enterprise applications.',
-    requirements: [
-      '2+ years in automated web and API testing using Playwright, Cypress, or Selenium.',
-      'Experience integrating automated test runs in GitHub Actions or GitLab CI.',
-      'Strong analytical debugging skills and understanding of edge cases.'
-    ],
-    responsibilities: [
-      'Write and maintain end-to-end automated test suites for web and mobile platforms.',
-      'Perform rigorous API validation and load testing before sprint releases.',
-      'Report bugs with clear reproduction steps and collaborate with dev squads.'
-    ]
-  },
-  {
-    id: 'cloud-devops-sre',
-    title: 'Cloud & DevOps SRE',
+    id: 'react-native-developer',
+    title: 'Senior React Native Developer',
     department: 'Engineering',
-    location: 'Remote / Faridabad (HQ)',
+    location: 'Remote, Bangalore, Chennai',
     type: 'Full-Time',
-    experience: '3–6 years',
-    salary: '₹14,00,000 – ₹26,00,000 / year',
-    skills: ['AWS', 'Kubernetes (K8s)', 'Terraform', 'Docker', 'GitHub Actions', 'Prometheus'],
-    description: 'Maintain robust cloud infrastructure, container orchestration, and continuous deployment for international client products.',
-    requirements: [
-      '3+ years managing AWS/GCP cloud environments, Kubernetes clusters, and Terraform IaC.',
-      'Proficiency in Docker containerization and automated blue/green CI/CD pipelines.',
-      'Experience with observability tools like Prometheus, Grafana, and Datadog.'
-    ],
-    responsibilities: [
-      'Architect and provision multi-region, fault-tolerant cloud environments.',
-      'Automate deployment pipelines and maintain strict infrastructure security.',
-      'Monitor application telemetry and resolve infrastructure bottlenecks proactively.'
-    ]
-  },
-  {
-    id: 'graduate-engineer-trainee',
-    title: 'Software Engineer Trainee (Freshers)',
-    department: 'Engineering',
-    location: 'Faridabad (HQ) (In-Office) / Hybrid',
-    type: 'Internship / Fresher',
-    experience: 'Freshers (0–1 year)',
-    salary: '₹4,00,000 – ₹6,50,000 / year (Stipend during training)',
+    experience: '7–10+ years',
+    salary: '₹1,20,000 / month (1.2 LPM)',
     featured: true,
-    skills: ['JavaScript', 'React', 'HTML/CSS', 'Data Structures', 'Git', 'Problem Solving'],
-    description: 'Accelerated bootcamp-style training for passionate graduates. Learn directly under senior architects and convert to full-time engineer upon graduation.',
+    skills: ['React Native', 'Swift', 'Kotlin', 'Java', 'Objective-C', 'APIs', 'TypeScript', 'Redux', 'Mobile CI/CD'],
+    description: 'Lead the engineering and architecture of world-class cross-platform mobile applications in React Native with deep native integration in Swift, Kotlin, Java, and Objective-C.',
     requirements: [
-      'B.Tech / BCA / MCA / B.Sc in Computer Science or related degree with strong CS fundamentals.',
-      'Good understanding of JavaScript, HTML/CSS, and basic React principles.',
-      'High curiosity, problem-solving mindset, and passion for software engineering.'
+      '7–10+ years of professional mobile development experience with deep expertise in React Native and TypeScript.',
+      'Strong hands-on native development experience on iOS (Swift, Objective-C) and Android (Kotlin, Java).',
+      'Extensive experience in custom Native Module bridging, complex animations (Reanimated), and UI performance tuning.',
+      'Proficiency in integrating complex REST / GraphQL APIs, offline caching, push notifications, and biometric auth.',
+      'Experience with mobile build automation (Fastlane), App Store and Google Play Console release management.'
     ],
     responsibilities: [
-      'Complete intensive structured hands-on sprints on modern web stacks.',
-      'Pair-program with senior engineers on real customer-facing modules.',
-      'Learn best practices in Git version control, unit testing, and agile workflows.'
+      'Architect and deploy production-grade, highly responsive cross-platform mobile applications for iOS and Android.',
+      'Build and maintain custom native modules and bridging layers using Swift, Kotlin, Java, and Objective-C.',
+      'Integrate complex RESTful APIs, third-party SDKs, payment gateways, and real-time streaming services.',
+      'Optimize application performance, bundle size, memory usage, and 60 FPS UI rendering.',
+      'Manage automated testing, CI/CD deployment pipelines, and App Store / Play Store release lifecycles.'
     ]
   },
   {
-    id: 'b2b-sales-marketing',
-    title: 'Enterprise Technical Sales Executive',
-    department: 'Sales & Marketing',
-    location: 'Faridabad (HQ) / Remote',
+    id: 'salesforce-multi-solution',
+    title: 'Salesforce Multi-Solution Architect',
+    department: 'Engineering',
+    location: 'Remote',
     type: 'Full-Time',
-    experience: '2–5 years',
-    salary: '₹8,00,000 – ₹18,00,000 + Attractive Commission',
-    skills: ['B2B Sales', 'Tech Scoping', 'Lead Generation', 'CRM', 'Client Relationship'],
-    description: 'Drive international enterprise software partnerships across North America, Europe, UAE, and Australia.',
+    experience: '10–15+ years',
+    salary: '₹1,30,000 / month (1.3 LPM)',
+    featured: true,
+    skills: ['RFD/RFP', 'Solution Design', 'Stakeholder Management', 'Service Cloud', 'Sales Cloud', 'Apex & LWC', 'Integrations'],
+    description: 'Drive enterprise Salesforce architecture, lead RFD/RFP technical solutioning, engage senior stakeholders, and deliver multi-cloud Salesforce transformations across Sales, Service, and Experience Clouds.',
     requirements: [
-      '2+ years experience in IT services / software consulting B2B sales.',
-      'Excellent verbal and written English communication for US/UK client interactions.',
-      'Proven track record in client acquisition, proposal scoping, and contract closing.'
+      '10–15+ years of extensive IT experience with demonstrated mastery in multi-cloud Salesforce solution architecture.',
+      'Proven track record in RFD/RFP responses, technical estimations, architectural blueprints, and client presentations.',
+      'Deep expertise in Salesforce Service Cloud, Sales Cloud, Experience Cloud, Lightning Web Components (LWC), and Apex.',
+      'Hands-on experience architecting complex enterprise integrations (REST/SOAP, MuleSoft, Middleware, ERP connections).',
+      'Exceptional stakeholder management, client-facing consultation skills, and team leadership capability.'
     ],
     responsibilities: [
-      'Identify enterprise prospects and conduct discovery consultation calls.',
-      'Collaborate with CTO to formulate technical estimates and commercial SOWs.',
-      'Nurture long-term client relationships and ensure high renewal satisfaction.'
+      'Lead enterprise-level Salesforce solution design, governance models, and multi-cloud architectural blueprints.',
+      'Author technical responses for RFDs, RFPs, scope definitions, SOWs, and architectural risk assessments.',
+      'Serve as trusted advisor to global C-level stakeholders, translating business goals into robust Salesforce solutions.',
+      'Provide technical guidance and oversight to Salesforce developers, ensuring high code quality and architectural integrity.',
+      'Design secure, scalable enterprise integration patterns connecting Salesforce with third-party ERP and data systems.'
+    ]
+  },
+  {
+    id: 'ai-lead-architect',
+    title: 'AI Lead / Architect',
+    department: 'Engineering',
+    location: 'Remote',
+    type: 'Full-Time',
+    experience: '7+ years',
+    salary: '₹1,40,000 / month (1.4 LPM)',
+    featured: true,
+    skills: ['Azure OpenAI', 'AI Agents', 'AI Solutions', 'Prompt Engineering', 'LLM & AI Platforms', 'LangChain', 'Python', 'RAG'],
+    description: 'Lead the strategy, architecture, and deployment of cutting-edge AI Agents, enterprise Azure OpenAI platforms, advanced RAG systems, and next-generation Generative AI solutions.',
+    requirements: [
+      '7+ years of total software engineering and AI experience, with proven leadership in building production Generative AI / LLM solutions.',
+      'Hands-on expertise with Azure OpenAI services, enterprise OpenAI/Anthropic APIs, and open-weight LLMs.',
+      'Demonstrated success in building autonomous AI Agents (LangGraph, CrewAI, AutoGen) and production RAG pipelines.',
+      'Deep mastery of Prompt Engineering, LLM evaluation, fine-tuning, embedding models, and Vector DBs (Pinecone, Qdrant, Milvus).',
+      'Strong programming proficiency in Python, FastAPI, LangChain, LlamaIndex, Docker, and scalable cloud AI infrastructure.'
+    ],
+    responsibilities: [
+      'Architect and deliver enterprise-grade AI Agents, generative applications, and cognitive automation platforms.',
+      'Drive the implementation of Azure OpenAI services, custom LLM fine-tuning, and robust multi-modal search pipelines.',
+      'Establish best-in-class Prompt Engineering standards, guardrails, LLM observability, and token cost optimization.',
+      'Mentor and lead engineering squads in AI adoption, rapid prototyping, and production deployment.',
+      'Partner with client leadership to scope high-value AI use cases and formulate comprehensive technical roadmaps.'
     ]
   }
 ];
@@ -228,7 +210,7 @@ export default function OpenRolesSection() {
     name: '',
     email: '',
     phone: '',
-    experienceYears: '2-4 years',
+    experienceYears: '7-10+ years',
     linkedinUrl: '',
     portfolioUrl: '',
     coverNote: ''
@@ -261,21 +243,29 @@ export default function OpenRolesSection() {
     const matchSearch =
       job.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       job.skills.some((s) => s.toLowerCase().includes(searchQuery.toLowerCase())) ||
-      job.department.toLowerCase().includes(searchQuery.toLowerCase());
+      job.department.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      job.location.toLowerCase().includes(searchQuery.toLowerCase());
 
-    const matchDept = selectedDept === 'All' || job.department === selectedDept;
+    const matchDept = selectedDept === 'All' || job.department.toLowerCase() === selectedDept.toLowerCase();
     
     const matchLocation =
       selectedLocation === 'All' ||
-      (selectedLocation === 'Remote' && job.location.includes('Remote')) ||
-      (selectedLocation === 'Faridabad (HQ)' && job.location.includes('Faridabad'));
+      (selectedLocation === 'Remote' && job.location.toLowerCase().includes('remote')) ||
+      (selectedLocation === 'Noida' && job.location.toLowerCase().includes('noida')) ||
+      (selectedLocation === 'Gurgaon' && job.location.toLowerCase().includes('gurgaon')) ||
+      (selectedLocation === 'Bangalore' && job.location.toLowerCase().includes('bangalore')) ||
+      (selectedLocation === 'Chennai' && job.location.toLowerCase().includes('chennai')) ||
+      (selectedLocation === 'Pune' && job.location.toLowerCase().includes('pune')) ||
+      (selectedLocation === 'Jaipur' && job.location.toLowerCase().includes('jaipur')) ||
+      job.location.toLowerCase().includes(selectedLocation.toLowerCase());
 
     const matchExp =
       selectedExp === 'All' ||
-      (selectedExp === 'Freshers (0-1 yr)' && job.experience.includes('Freshers')) ||
-      (selectedExp === '2-4 yrs' && job.experience.includes('2–4')) ||
-      (selectedExp === '4-7 yrs' && job.experience.includes('4–7')) ||
-      (selectedExp === '3-6 yrs' && job.experience.includes('3–6'));
+      (selectedExp === '5-10+ yrs' && (job.experience.includes('5') || job.experience.includes('7') || job.experience.includes('8') || job.experience.includes('10'))) ||
+      (selectedExp === '7-10+ yrs' && (job.experience.includes('7') || job.experience.includes('8') || job.experience.includes('10'))) ||
+      (selectedExp === '8+ yrs' && (job.experience.includes('8') || job.experience.includes('10') || job.experience.includes('15'))) ||
+      (selectedExp === '10-15+ yrs' && (job.experience.includes('10') || job.experience.includes('15'))) ||
+      job.experience.toLowerCase().includes(selectedExp.toLowerCase());
 
     const matchType = selectedType === 'All' || job.type === selectedType;
 
@@ -295,7 +285,7 @@ export default function OpenRolesSection() {
     setApplyStep('details');
   };
 
-  const handleApplicationSubmit = (e: React.FormEvent) => {
+  const handleApplicationSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const newErrors: { [key: string]: string } = {};
 
@@ -316,7 +306,25 @@ export default function OpenRolesSection() {
     setSubmitting(true);
     soundFx.playClick();
 
-    setTimeout(() => {
+    try {
+      if (activeModalJob) {
+        await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: applicantData.name,
+            email: applicantData.email,
+            phone: applicantData.phone,
+            stack: `Job Application: ${activeModalJob.title} (${activeModalJob.location})`,
+            experienceYears: applicantData.experienceYears,
+            portfolioUrl: applicantData.portfolioUrl || applicantData.linkedinUrl,
+            message: `Applicant for ${activeModalJob.title} | Budget: ${activeModalJob.salary} | Cover Note: ${applicantData.coverNote || 'Direct Job Requisition Application'}`
+          })
+        });
+      }
+    } catch (err) {
+      console.error('Job application submission error:', err);
+    } finally {
       setSubmitting(false);
       soundFx.playSuccess();
       setApplyStep('success');
@@ -333,13 +341,13 @@ export default function OpenRolesSection() {
           name: '',
           email: '',
           phone: '',
-          experienceYears: '2-4 years',
+          experienceYears: '7-10+ years',
           linkedinUrl: '',
           portfolioUrl: '',
           coverNote: ''
         });
       }, 3000);
-    }, 700);
+    }
   };
 
   return (
@@ -364,7 +372,7 @@ export default function OpenRolesSection() {
           </h2>
 
           <p className="mt-4 text-xs sm:text-sm text-slate-600 font-normal max-w-xl mx-auto">
-            Browse our open opportunities across frontend, backend, AI, and design. Filter by department, experience, or work preference.
+            Browse our open opportunities across DevOps, Databricks, Full Stack, React Native, Salesforce, and AI. Filter by location, experience, or tech stack.
           </p>
         </div>
 
@@ -378,7 +386,7 @@ export default function OpenRolesSection() {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search by job title, skill (React, Next.js, Python), or department..."
+              placeholder="Search by job title, skill (AWS, Databricks, Python, React Native, Salesforce, AI), or location..."
               className="w-full pl-12 pr-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 focus:border-[#E31E24] focus:bg-white focus:outline-none text-sm text-slate-900 placeholder:text-slate-400 transition-colors"
             />
             {searchQuery && (
@@ -432,7 +440,12 @@ export default function OpenRolesSection() {
               >
                 <option value="All">All Locations</option>
                 <option value="Remote">Remote Only</option>
-                <option value="Faridabad (HQ)">Faridabad (HQ) / Hybrid</option>
+                <option value="Noida">Noida</option>
+                <option value="Gurgaon">Gurgaon</option>
+                <option value="Bangalore">Bangalore</option>
+                <option value="Chennai">Chennai</option>
+                <option value="Pune">Pune</option>
+                <option value="Jaipur">Jaipur</option>
               </select>
             </div>
 
@@ -450,9 +463,10 @@ export default function OpenRolesSection() {
                 className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-mono text-slate-900 focus:border-[#E31E24] focus:outline-none cursor-pointer"
               >
                 <option value="All">All Experience Levels</option>
-                <option value="Freshers (0-1 yr)">Freshers (0–1 yr)</option>
-                <option value="2-4 yrs">Mid-Level (2–4 yrs)</option>
-                <option value="4-7 yrs">Senior (4–7 yrs)</option>
+                <option value="5-10+ yrs">5–10+ Years</option>
+                <option value="7-10+ yrs">7–10+ Years</option>
+                <option value="8+ yrs">8+ Years / Lead</option>
+                <option value="10-15+ yrs">10–15+ Years / Architect</option>
               </select>
             </div>
 
@@ -471,7 +485,7 @@ export default function OpenRolesSection() {
               >
                 <option value="All">All Employment Types</option>
                 <option value="Full-Time">Full-Time</option>
-                <option value="Internship / Fresher">Internship / Fresher</option>
+                <option value="Contract / Remote">Contract / Remote</option>
               </select>
             </div>
 
@@ -772,10 +786,11 @@ export default function OpenRolesSection() {
                           onChange={(e) => setApplicantData({ ...applicantData, experienceYears: e.target.value })}
                           className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-300 text-sm text-slate-900 focus:border-[#E31E24] focus:outline-none"
                         >
-                          <option value="Fresher / 0-1 year">Fresher / 0–1 year</option>
-                          <option value="1-3 years">1–3 years</option>
-                          <option value="3-5 years">3–5 years</option>
-                          <option value="5+ years">5+ years</option>
+                          <option value="5-7 years">5–7 years</option>
+                          <option value="7-10+ years">7–10+ years</option>
+                          <option value="8+ years (Senior / Lead)">8+ years (Senior / Lead)</option>
+                          <option value="10-15+ years (Architect)">10–15+ years (Architect)</option>
+                          <option value="15+ years (Principal)">15+ years (Principal)</option>
                         </select>
                       </div>
                     </div>

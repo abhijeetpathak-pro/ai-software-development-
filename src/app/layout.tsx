@@ -45,6 +45,9 @@ export const metadata: Metadata = {
     title: 'WitQualis Technologies',
     description: 'Staff augmentation and software development, built stack by stack.',
   },
+  verification: {
+    google: '4UqggHPbXffAiGLcuC6mv5K4K6sENqxQ1hgZf_9LBP0',
+  },
 };
 
 const organizationJsonLd = {
@@ -105,6 +108,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <meta name="google-site-verification" content="4UqggHPbXffAiGLcuC6mv5K4K6sENqxQ1hgZf_9LBP0" />
         {/* Google Tag Manager */}
         <script
           dangerouslySetInnerHTML={{
