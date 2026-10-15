@@ -84,12 +84,14 @@ export async function initDb(): Promise<boolean> {
         image TEXT,
         content JSONB NOT NULL,
         related_links JSONB,
+        tags JSONB,
         focus_keyword VARCHAR(255),
         seo_title VARCHAR(255),
         meta_description TEXT,
         created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
       );
+      ALTER TABLE blog_posts ADD COLUMN IF NOT EXISTS tags JSONB;
       CREATE INDEX IF NOT EXISTS idx_blog_posts_slug ON blog_posts(slug);
       CREATE INDEX IF NOT EXISTS idx_blog_posts_category ON blog_posts(category);
     `);
@@ -118,14 +120,15 @@ export async function initDb(): Promise<boolean> {
       for (const p of seedPosts) {
         const contentArr = Array.isArray(p.content) ? p.content : [String(p.content || '')];
         const linksArr = p.relatedLinks || [];
+        const tagsArr = p.tags || [];
 
         await db.query(
           `
           INSERT INTO blog_posts (
             slug, title, excerpt, date, updated_date, author, reviewed_by,
             read_time, category, image, content, related_links, focus_keyword,
-            seo_title, meta_description
-          ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
+            seo_title, meta_description, tags
+          ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)
           ON CONFLICT (slug) DO NOTHING;
           `,
           [
@@ -144,6 +147,7 @@ export async function initDb(): Promise<boolean> {
             p.focusKeyword || '',
             p.seoTitle || '',
             p.metaDescription || '',
+            JSON.stringify(tagsArr)
           ]
         );
       }

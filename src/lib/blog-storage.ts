@@ -33,6 +33,21 @@ function mapDbRowToPost(row: any): Post {
     relatedLinks = [];
   }
 
+  let tags: string[] = [];
+  if (row.tags) {
+    if (Array.isArray(row.tags)) {
+      tags = row.tags;
+    } else if (typeof row.tags === 'string') {
+      try {
+        const parsed = JSON.parse(row.tags);
+        if (Array.isArray(parsed)) tags = parsed;
+        else tags = [row.tags];
+      } catch {
+        tags = row.tags.split(',').map((t: string) => t.trim()).filter(Boolean);
+      }
+    }
+  }
+
   return {
     slug: row.slug,
     title: row.title,
@@ -46,6 +61,7 @@ function mapDbRowToPost(row: any): Post {
     image: row.image || '/images/blog/staff-aug-guide.jpg',
     content: content,
     relatedLinks: relatedLinks,
+    tags: tags,
     focusKeyword: row.focus_keyword || '',
     seoTitle: row.seo_title || '',
     metaDescription: row.meta_description || ''
@@ -139,9 +155,17 @@ export async function saveBlogPost(postData: Partial<Post> & { title: string }):
     contentArray = postData.content.map((p) => p.trim()).filter(Boolean);
   } else if (typeof postData.content === 'string') {
     contentArray = (postData.content as string)
-      .split('\n\n')
+      .split(/\r?\n\s*\r?\n/)
       .map((p) => p.trim())
       .filter(Boolean);
+  }
+
+  // Parse and normalize tags
+  let tags: string[] = [];
+  if (Array.isArray(postData.tags)) {
+    tags = postData.tags.map((t) => String(t).trim()).filter(Boolean);
+  } else if (typeof (postData as any)?.tags === 'string') {
+    tags = (postData as any).tags.split(',').map((t: string) => t.trim()).filter(Boolean);
   }
 
   const newPost: Post = {
@@ -157,6 +181,7 @@ export async function saveBlogPost(postData: Partial<Post> & { title: string }):
     image: postData.image?.trim() || '/images/blog/staff-aug-guide.jpg',
     content: contentArray.length > 0 ? contentArray : [postData.excerpt || ''],
     relatedLinks: postData.relatedLinks || [],
+    tags: tags,
     focusKeyword: postData.focusKeyword?.trim() || '',
     seoTitle: postData.seoTitle?.trim() || '',
     metaDescription: postData.metaDescription?.trim() || ''
@@ -170,8 +195,8 @@ export async function saveBlogPost(postData: Partial<Post> & { title: string }):
         INSERT INTO blog_posts (
           slug, title, excerpt, date, updated_date, author, reviewed_by,
           read_time, category, image, content, related_links, focus_keyword,
-          seo_title, meta_description, updated_at
-        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, CURRENT_TIMESTAMP)
+          seo_title, meta_description, tags, updated_at
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, CURRENT_TIMESTAMP)
         ON CONFLICT (slug) DO UPDATE SET
           title = EXCLUDED.title,
           excerpt = EXCLUDED.excerpt,
@@ -186,6 +211,7 @@ export async function saveBlogPost(postData: Partial<Post> & { title: string }):
           focus_keyword = EXCLUDED.focus_keyword,
           seo_title = EXCLUDED.seo_title,
           meta_description = EXCLUDED.meta_description,
+          tags = EXCLUDED.tags,
           updated_at = CURRENT_TIMESTAMP
         RETURNING *;
         `,
@@ -204,7 +230,8 @@ export async function saveBlogPost(postData: Partial<Post> & { title: string }):
           JSON.stringify(newPost.relatedLinks),
           newPost.focusKeyword,
           newPost.seoTitle,
-          newPost.metaDescription
+          newPost.metaDescription,
+          JSON.stringify(newPost.tags || [])
         ]
       );
 

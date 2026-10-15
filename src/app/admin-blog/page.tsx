@@ -11,11 +11,20 @@ import {
   FileText, Link2, Copy, Check, LogOut, CheckCircle,
   HelpCircle, Globe, Smartphone, Monitor, BarChart3,
   Sliders, ShieldCheck, Sparkles, ChevronDown, ChevronUp,
-  Image as ImageIcon, Link as LinkIcon
+  Image as ImageIcon, Link as LinkIcon, Tag, Bold, Italic,
+  Heading1, Heading2, Heading3, List, ListOrdered, Quote, Code,
+  Columns
 } from 'lucide-react';
 import { Post, RelatedLink } from '@/data/blog';
+import BlogContentRenderer from '@/components/blog/BlogContentRenderer';
 
 const PRESET_CATEGORIES = ['Engineering', 'AI & Technology', 'Hiring', 'Web Development', 'Cloud', 'Product'];
+
+const POPULAR_TAGS = [
+  'Software Engineering', 'AI & ML', 'Full Stack', 'React', 'Next.js',
+  'TypeScript', 'Node.js', 'System Design', 'Cloud Architecture',
+  'DevOps', 'Staff Augmentation', 'Web Development', 'Performance', 'Database'
+];
 
 const PRESET_IMAGES = [
   { label: 'Staff Augmentation', url: '/images/blog/staff-aug-guide.jpg' },
@@ -36,6 +45,7 @@ const INITIAL_FORM: {
   image: string;
   excerpt: string;
   content: string;
+  tags: string[];
   relatedLinks: RelatedLink[];
   focusKeyword: string;
   seoTitle: string;
@@ -50,6 +60,7 @@ const INITIAL_FORM: {
   image: '/images/blog/staff-aug-guide.jpg',
   excerpt: '',
   content: '',
+  tags: ['Engineering'],
   relatedLinks: [
     { label: 'Web Development Services', href: '/services/web-development/' },
     { label: 'Contact Us', href: '/contact-us/' }
@@ -94,6 +105,56 @@ export default function AdminBlogPage() {
   const [imageLoadError, setImageLoadError] = useState(false);
   const [dbStatus, setDbStatus] = useState<{ configured: boolean; connected: boolean; engine: string } | null>(null);
   const [copiedSlug, setCopiedSlug] = useState<string | null>(null);
+  const [tagInput, setTagInput] = useState('');
+  const [editorSplitView, setEditorSplitView] = useState(false);
+  const [showFormatHelp, setShowFormatHelp] = useState(false);
+  const contentTextareaRef = React.useRef<HTMLTextAreaElement>(null);
+
+  const handleAddTag = (tagToAdd?: string) => {
+    const raw = tagToAdd !== undefined ? tagToAdd : tagInput;
+    const trimmed = raw.trim().replace(/^#/, '');
+    if (!trimmed) return;
+    if (!formData.tags.includes(trimmed)) {
+      setFormData(prev => ({ ...prev, tags: [...prev.tags, trimmed] }));
+    }
+    if (tagToAdd === undefined) setTagInput('');
+  };
+
+  const handleRemoveTag = (tagToRemove: string) => {
+    setFormData(prev => ({
+      ...prev,
+      tags: prev.tags.filter(t => t !== tagToRemove)
+    }));
+  };
+
+  const applyFormatting = (prefix: string, suffix = '', defaultText = '') => {
+    const textarea = contentTextareaRef.current;
+    if (!textarea) return;
+
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const val = textarea.value;
+    const selected = val.substring(start, end);
+
+    let replacement = '';
+    let cursorOffset = 0;
+
+    if (selected) {
+      replacement = `${prefix}${selected}${suffix}`;
+      cursorOffset = start + prefix.length + selected.length + suffix.length;
+    } else {
+      replacement = `${prefix}${defaultText}${suffix}`;
+      cursorOffset = start + prefix.length + defaultText.length;
+    }
+
+    const updated = val.substring(0, start) + replacement + val.substring(end);
+    setFormData(prev => ({ ...prev, content: updated }));
+
+    setTimeout(() => {
+      textarea.focus();
+      textarea.setSelectionRange(cursorOffset, cursorOffset);
+    }, 10);
+  };
 
   // Check saved PIN in sessionStorage on mount and check DB status
   useEffect(() => {
@@ -222,6 +283,7 @@ export default function AdminBlogPage() {
       image: post.image,
       excerpt: post.excerpt,
       content: Array.isArray(post.content) ? post.content.join('\n\n') : String(post.content || ''),
+      tags: post.tags && post.tags.length > 0 ? post.tags : [post.category || 'Engineering'],
       relatedLinks: post.relatedLinks || [],
       focusKeyword: post.focusKeyword || '',
       seoTitle: post.seoTitle || `${post.title} | WitQualis`,
@@ -723,9 +785,10 @@ export default function AdminBlogPage() {
     }
 
     setSaving(true);
-    setStatusMessage(null);
-
     try {
+      const rawContent = formData.content.trim();
+      const contentArray = rawContent ? rawContent.split(/\r?\n\s*\r?\n/).map(p => p.trim()).filter(Boolean) : [];
+
       const payload = {
         title: formData.title,
         slug: formData.slug || generateSlugFromTitle(formData.title),
@@ -735,7 +798,8 @@ export default function AdminBlogPage() {
         readTime: formData.readTime,
         image: formData.image,
         excerpt: formData.excerpt,
-        content: formData.content.split('\n\n').map(p => p.trim()).filter(Boolean),
+        content: contentArray.length > 0 ? contentArray : [rawContent || formData.excerpt],
+        tags: formData.tags,
         relatedLinks: formData.relatedLinks,
         focusKeyword: formData.focusKeyword,
         seoTitle: formData.seoTitle,
@@ -1110,6 +1174,17 @@ export default function AdminBlogPage() {
                           )}
                         </button>
                       </div>
+
+                      {post.tags && post.tags.length > 0 && (
+                        <div className="flex flex-wrap items-center gap-1.5 pt-1.5">
+                          <Tag className="w-3 h-3 text-red-500" />
+                          {post.tags.map((t) => (
+                            <span key={t} className="px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 text-[10px] font-mono">
+                              #{t}
+                            </span>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   </div>
 
@@ -1275,9 +1350,21 @@ export default function AdminBlogPage() {
             {previewMode ? (
               <div className="p-8 rounded-2xl bg-white text-slate-900 border border-slate-200 shadow-sm space-y-6">
                 <div className="border-b border-slate-200 pb-5">
-                  <span className="px-3 py-1 rounded-full bg-red-50 text-red-700 border border-red-200 text-xs font-semibold">
-                    {formData.category || 'Category'}
-                  </span>
+                  <div className="flex flex-wrap items-center gap-2 mb-2">
+                    <span className="px-3 py-1 rounded-full bg-red-50 text-red-700 border border-red-200 text-xs font-semibold">
+                      {formData.category || 'Category'}
+                    </span>
+                    {formData.tags && formData.tags.length > 0 && (
+                      <div className="flex flex-wrap items-center gap-1.5 ml-2">
+                        <Tag className="w-3.5 h-3.5 text-red-600" />
+                        {formData.tags.map((t) => (
+                          <span key={t} className="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200 text-xs font-mono font-medium">
+                            #{t}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                   <h1 className="text-3xl font-bold text-slate-950 mt-3 mb-3">
                     {formData.title || 'Untitled Post'}
                   </h1>
@@ -1308,50 +1395,8 @@ export default function AdminBlogPage() {
                   )}
                 </div>
 
-                <div className="space-y-4 text-slate-700 text-base leading-relaxed">
-                  {formData.content ? (
-                    formData.content.split('\n\n').map((para, i) => {
-                      const trimmed = para.trim();
-                      const mdImgMatch = trimmed.match(/^!\[(.*?)\]\((.*?)\)$/);
-                      if (mdImgMatch) {
-                        const altText = mdImgMatch[1] || 'Blog Photo';
-                        const imgSrc = mdImgMatch[2].trim();
-                        return (
-                          <figure key={i} className="my-6 rounded-2xl overflow-hidden border border-slate-200 bg-slate-900 shadow-md">
-                            <div className="relative w-full aspect-[16/9]">
-                              <Image src={imgSrc} alt={altText} fill className="object-cover" />
-                            </div>
-                            {altText && (
-                              <figcaption className="p-2.5 text-center text-xs text-slate-400 bg-slate-900 border-t border-slate-800">
-                                {altText}
-                              </figcaption>
-                            )}
-                          </figure>
-                        );
-                      }
-                      if (trimmed.startsWith('## ')) {
-                        return (
-                          <h2 key={i} className="text-xl sm:text-2xl font-black uppercase text-slate-950 font-display mt-6 mb-2">
-                            {trimmed.replace(/^##\s+/, '')}
-                          </h2>
-                        );
-                      }
-                      if (trimmed.startsWith('### ')) {
-                        return (
-                          <h3 key={i} className="text-lg sm:text-xl font-bold uppercase text-slate-900 font-display mt-4 mb-2">
-                            {trimmed.replace(/^###\s+/, '')}
-                          </h3>
-                        );
-                      }
-                      return (
-                        <p key={i} className="p-4 rounded-xl bg-slate-50 border border-slate-200/80 leading-relaxed">
-                          {para}
-                        </p>
-                      );
-                    })
-                  ) : (
-                    <p className="text-slate-400 italic">No content written yet.</p>
-                  )}
+                <div className="pt-4">
+                  <BlogContentRenderer content={formData.content} postTitle={formData.title} />
                 </div>
               </div>
             ) : (
@@ -1419,23 +1464,157 @@ export default function AdminBlogPage() {
                         />
                       </div>
 
-                      {/* Content Editor */}
+                      {/* Content Editor with Rich Toolbar & Split Preview */}
                       <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-3">
                         <div className="flex flex-wrap items-center justify-between gap-2">
                           <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700">
-                            Blog Content (Paragraphs & Images)
+                            Blog Content (Headings, Bold, Lists, Media & Text)
                           </label>
-                          <span className="text-[11px] text-slate-500">
-                            Word Count: <strong className={seoAnalysis.wordCount >= 300 ? 'text-emerald-600' : 'text-amber-600'}>{seoAnalysis.wordCount}</strong> words
-                          </span>
+                          <div className="flex items-center gap-3">
+                            <span className="text-[11px] text-slate-500">
+                              Word Count: <strong className={seoAnalysis.wordCount >= 300 ? 'text-emerald-600' : 'text-amber-600'}>{seoAnalysis.wordCount}</strong> words
+                            </span>
+                            <button
+                              type="button"
+                              onClick={() => setEditorSplitView(prev => !prev)}
+                              className={`px-2.5 py-1 rounded-lg text-xs font-semibold flex items-center gap-1.5 cursor-pointer transition-colors ${
+                                editorSplitView
+                                  ? 'bg-red-50 text-red-700 border border-red-200'
+                                  : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200'
+                              }`}
+                              title="Toggle side-by-side live formatted preview"
+                            >
+                              <Columns className="w-3.5 h-3.5" />
+                              <span>{editorSplitView ? 'Close Split View' : 'Live Split Preview'}</span>
+                            </button>
+                          </div>
                         </div>
 
-                        {/* Article Quick Formatting & Media Toolbar */}
-                        <div className="flex flex-wrap items-center gap-2 p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs">
-                          <span className="text-[11px] font-semibold text-slate-500 uppercase mr-1">Insert:</span>
+                        {/* Rich Formatting Toolbar */}
+                        <div className="flex flex-wrap items-center gap-1.5 p-2 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+                          {/* Heading 1 */}
+                          <button
+                            type="button"
+                            onClick={() => applyFormatting('\n\n# ', '\n\n', 'Main Section Heading')}
+                            className="px-2.5 py-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-800 border border-slate-300 font-mono font-bold cursor-pointer shadow-2xs hover:border-slate-400 transition-colors"
+                            title="Add H1 Heading (# Heading)"
+                          >
+                            H1
+                          </button>
+
+                          {/* Heading 2 */}
+                          <button
+                            type="button"
+                            onClick={() => applyFormatting('\n\n## ', '\n\n', 'Major Section Heading')}
+                            className="px-2.5 py-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-800 border border-slate-300 font-mono font-bold cursor-pointer shadow-2xs hover:border-slate-400 transition-colors"
+                            title="Add H2 Heading (## Heading)"
+                          >
+                            H2
+                          </button>
+
+                          {/* Heading 3 */}
+                          <button
+                            type="button"
+                            onClick={() => applyFormatting('\n\n### ', '\n\n', 'Section Sub-heading')}
+                            className="px-2.5 py-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-800 border border-slate-300 font-mono font-bold cursor-pointer shadow-2xs hover:border-slate-400 transition-colors"
+                            title="Add H3 Subheading (### Heading)"
+                          >
+                            H3
+                          </button>
+
+                          <span className="w-px h-5 bg-slate-300 mx-1" />
+
+                          {/* Bold */}
+                          <button
+                            type="button"
+                            onClick={() => applyFormatting('**', '**', 'bold text')}
+                            className="px-2.5 py-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-800 border border-slate-300 font-bold cursor-pointer shadow-2xs hover:border-slate-400 transition-colors flex items-center gap-1"
+                            title="Format text as Bold (**text**)"
+                          >
+                            <Bold className="w-3.5 h-3.5" />
+                            <span>B</span>
+                          </button>
+
+                          {/* Italic */}
+                          <button
+                            type="button"
+                            onClick={() => applyFormatting('*', '*', 'italic text')}
+                            className="px-2.5 py-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-800 border border-slate-300 italic cursor-pointer shadow-2xs hover:border-slate-400 transition-colors flex items-center gap-1"
+                            title="Format text as Italic (*text*)"
+                          >
+                            <Italic className="w-3.5 h-3.5" />
+                            <span>I</span>
+                          </button>
+
+                          {/* Bullet List */}
+                          <button
+                            type="button"
+                            onClick={() => applyFormatting('\n\n- ', '\n- Key point 2\n\n', 'Key point 1')}
+                            className="px-2.5 py-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-medium cursor-pointer shadow-2xs hover:border-slate-400 transition-colors flex items-center gap-1"
+                            title="Add Bulleted List (- Item)"
+                          >
+                            <List className="w-3.5 h-3.5" />
+                            <span>• List</span>
+                          </button>
+
+                          {/* Numbered List */}
+                          <button
+                            type="button"
+                            onClick={() => applyFormatting('\n\n1. ', '\n2. Next step\n\n', 'Step one')}
+                            className="px-2.5 py-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-medium cursor-pointer shadow-2xs hover:border-slate-400 transition-colors flex items-center gap-1"
+                            title="Add Numbered List (1. Item)"
+                          >
+                            <ListOrdered className="w-3.5 h-3.5" />
+                            <span>1. List</span>
+                          </button>
+
+                          {/* Blockquote */}
+                          <button
+                            type="button"
+                            onClick={() => applyFormatting('\n\n> ', '\n\n', 'Key takeaway or quote')}
+                            className="px-2.5 py-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-medium cursor-pointer shadow-2xs hover:border-slate-400 transition-colors flex items-center gap-1"
+                            title="Add Quote / Callout (> Quote)"
+                          >
+                            <Quote className="w-3.5 h-3.5" />
+                            <span>Quote</span>
+                          </button>
+
+                          {/* Code Block */}
+                          <button
+                            type="button"
+                            onClick={() => applyFormatting('\n\n```javascript\n', '\n```\n\n', '// Add your code here')}
+                            className="px-2.5 py-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-mono text-xs cursor-pointer shadow-2xs hover:border-slate-400 transition-colors flex items-center gap-1"
+                            title="Add Code Block"
+                          >
+                            <Code className="w-3.5 h-3.5" />
+                            <span>Code</span>
+                          </button>
+
+                          {/* Link */}
+                          <button
+                            type="button"
+                            onClick={() => applyFormatting('[', '](https://www.witqualis.com/)', 'Link text')}
+                            className="px-2.5 py-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 text-xs cursor-pointer shadow-2xs hover:border-slate-400 transition-colors flex items-center gap-1"
+                            title="Add Link [Text](URL)"
+                          >
+                            <LinkIcon className="w-3.5 h-3.5" />
+                            <span>Link</span>
+                          </button>
+
+                          {/* Horizontal Divider */}
+                          <button
+                            type="button"
+                            onClick={() => applyFormatting('\n\n---\n\n', '', '')}
+                            className="px-2 py-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 text-xs cursor-pointer shadow-2xs hover:border-slate-400 transition-colors"
+                            title="Add Horizontal Divider Line"
+                          >
+                            ―
+                          </button>
+
+                          <span className="w-px h-5 bg-slate-300 mx-1" />
 
                           {/* Upload Photo from PC into Content */}
-                          <label className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-800 border border-slate-300 font-medium cursor-pointer shadow-2xs transition-colors">
+                          <label className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-800 border border-slate-300 font-medium cursor-pointer shadow-2xs hover:border-slate-400 transition-colors">
                             {uploadingContentImage ? (
                               <RefreshCw className="w-3.5 h-3.5 text-red-600 animate-spin" />
                             ) : (
@@ -1455,51 +1634,63 @@ export default function AdminBlogPage() {
                           <button
                             type="button"
                             onClick={() => setShowInsertImageModal(prev => !prev)}
-                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-800 border border-slate-300 font-medium cursor-pointer shadow-2xs transition-colors"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-800 border border-slate-300 font-medium cursor-pointer shadow-2xs hover:border-slate-400 transition-colors"
                           >
                             <ImageIcon className="w-3.5 h-3.5 text-red-600" />
-                            <span>Photo Link / URL</span>
+                            <span>Photo URL</span>
                           </button>
 
-                          {/* Heading button */}
+                          {/* Format Guide Toggle */}
                           <button
                             type="button"
-                            onClick={() => {
-                              const headingSnippet = '\n\n## New Section Heading\n\n';
-                              setFormData(prev => ({ ...prev, content: (prev.content ? prev.content.trim() + headingSnippet : headingSnippet).trim() }));
-                            }}
-                            className="px-2.5 py-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-mono font-bold cursor-pointer"
-                            title="Add H2 Heading"
+                            onClick={() => setShowFormatHelp(prev => !prev)}
+                            className="ml-auto inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-slate-500 hover:text-slate-800 hover:bg-slate-200/60 transition-colors cursor-pointer"
+                            title="View formatting tips & cheat sheet"
                           >
-                            H2
-                          </button>
-
-                          {/* Subheading button */}
-                          <button
-                            type="button"
-                            onClick={() => {
-                              const headingSnippet = '\n\n### Section Sub-heading\n\n';
-                              setFormData(prev => ({ ...prev, content: (prev.content ? prev.content.trim() + headingSnippet : headingSnippet).trim() }));
-                            }}
-                            className="px-2.5 py-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-mono font-bold cursor-pointer"
-                            title="Add H3 Sub-heading"
-                          >
-                            H3
-                          </button>
-
-                          {/* Bullet List button */}
-                          <button
-                            type="button"
-                            onClick={() => {
-                              const listSnippet = '\n\n- Key takeaway point 1\n- Key takeaway point 2\n\n';
-                              setFormData(prev => ({ ...prev, content: (prev.content ? prev.content.trim() + listSnippet : listSnippet).trim() }));
-                            }}
-                            className="px-2.5 py-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-medium cursor-pointer"
-                            title="Add Bullet List"
-                          >
-                            • List
+                            <HelpCircle className="w-3.5 h-3.5 text-red-500" />
+                            <span className="text-[11px] font-semibold">Guide</span>
                           </button>
                         </div>
+
+                        {/* Formatting Cheat-Sheet Banner */}
+                        {showFormatHelp && (
+                          <div className="p-4 rounded-xl bg-gradient-to-r from-red-50/70 via-slate-50 to-white border border-red-200 text-xs text-slate-700 space-y-2">
+                            <div className="flex items-center justify-between pb-1 border-b border-red-200/60 font-bold text-red-900">
+                              <span>Markdown & Pasting Formatting Cheat Sheet</span>
+                              <button
+                                type="button"
+                                onClick={() => setShowFormatHelp(false)}
+                                className="text-slate-400 hover:text-slate-700"
+                              >
+                                ✕ Close
+                              </button>
+                            </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 pt-1 font-mono text-[11px]">
+                              <div>
+                                <span className="text-slate-500 block text-[10px] font-sans font-bold uppercase">Headings:</span>
+                                <div><code># Heading 1</code></div>
+                                <div><code>## Heading 2</code></div>
+                                <div><code>### Heading 3</code></div>
+                              </div>
+                              <div>
+                                <span className="text-slate-500 block text-[10px] font-sans font-bold uppercase">Text Styling:</span>
+                                <div><code>**Bold Text**</code> or <code>&lt;b&gt;text&lt;/b&gt;</code></div>
+                                <div><code>*Italic Text*</code> or <code>&lt;i&gt;text&lt;/i&gt;</code></div>
+                                <div><code>`inline code`</code></div>
+                              </div>
+                              <div>
+                                <span className="text-slate-500 block text-[10px] font-sans font-bold uppercase">Lists & Media:</span>
+                                <div><code>- Bullet point</code></div>
+                                <div><code>1. Numbered step</code></div>
+                                <div><code>&gt; Quote block</code></div>
+                                <div><code>![Photo alt](/images/...)</code></div>
+                              </div>
+                            </div>
+                            <p className="text-[11px] text-slate-500 pt-1 border-t border-slate-200 font-sans">
+                              Tip: You can highlight any text in the box and click <strong>B</strong> or <strong>H1/H2</strong> to format it directly. When you paste full content from ChatGPT or Notion, headings and bold are automatically recognized!
+                            </p>
+                          </div>
+                        )}
 
                         {/* Image URL Insertion Dropdown / Modal */}
                         {showInsertImageModal && (
@@ -1541,13 +1732,129 @@ export default function AdminBlogPage() {
                           </div>
                         )}
 
-                        <textarea
-                          rows={14}
-                          value={formData.content}
-                          onChange={(e) => setFormData(prev => ({ ...prev, content: e.target.value }))}
-                          placeholder="Write your article content here...&#10;&#10;Separate each paragraph by pressing Enter twice.&#10;&#10;To add photos inside content, use the 'Upload Photo' button above or write:&#10;![Photo Description](/images/blog/your-image.jpg)"
-                          className="w-full p-4 rounded-xl bg-white border border-slate-300 text-slate-800 text-sm leading-relaxed focus:outline-none focus:border-red-600 focus:ring-2 focus:ring-red-500/10"
-                        />
+                        {/* Editor Layout: Standard vs Split View */}
+                        {editorSplitView ? (
+                          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                            <div>
+                              <div className="text-[11px] font-mono text-slate-400 mb-1 font-semibold uppercase">Editor (Markdown & Text)</div>
+                              <textarea
+                                ref={contentTextareaRef}
+                                rows={18}
+                                value={formData.content}
+                                onChange={(e) => setFormData(prev => ({ ...prev, content: e.target.value }))}
+                                placeholder="Write or paste your complete article here...&#10;&#10;Use # for H1, ## for H2, ### for H3.&#10;Use **bold** for bold text.&#10;Use - for bullet points.&#10;Or paste full article from ChatGPT/Notion directly!"
+                                className="w-full p-4 rounded-xl bg-white border border-slate-300 text-slate-900 font-mono text-xs sm:text-sm leading-relaxed focus:outline-none focus:border-red-600 focus:ring-2 focus:ring-red-500/10"
+                              />
+                            </div>
+                            <div className="flex flex-col">
+                              <div className="text-[11px] font-mono text-slate-400 mb-1 font-semibold uppercase flex items-center justify-between">
+                                <span>Live Formatted Preview</span>
+                                <span className="text-red-600 font-bold">Real-Time</span>
+                              </div>
+                              <div className="flex-1 p-5 rounded-xl bg-white border border-slate-200 overflow-y-auto max-h-[500px] shadow-inner">
+                                <BlogContentRenderer content={formData.content} postTitle={formData.title} />
+                              </div>
+                            </div>
+                          </div>
+                        ) : (
+                          <textarea
+                            ref={contentTextareaRef}
+                            rows={15}
+                            value={formData.content}
+                            onChange={(e) => setFormData(prev => ({ ...prev, content: e.target.value }))}
+                            placeholder="Write or paste your complete article here...&#10;&#10;• Headings: Type # for H1, ## for H2, ### for H3&#10;• Bold text: Select words and click Bold, or write **bold words**&#10;• Lists: Use - for bullet points, or 1. for numbered lists&#10;• When you paste complete text from ChatGPT, Word, or Notion, all headings, bold, and lists will be formatted automatically!"
+                            className="w-full p-4 rounded-xl bg-white border border-slate-300 text-slate-900 text-sm leading-relaxed focus:outline-none focus:border-red-600 focus:ring-2 focus:ring-red-500/10 font-sans"
+                          />
+                        )}
+                      </div>
+
+                      {/* Article Tags & Topics Section */}
+                      <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-4">
+                        <div className="flex items-center justify-between">
+                          <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
+                            <Tag className="w-3.5 h-3.5 text-red-600" />
+                            <span>Article Tags & Topics ({formData.tags.length})</span>
+                          </label>
+                          <span className="text-[11px] text-slate-400">
+                            Tags help readers discover related blueprints
+                          </span>
+                        </div>
+
+                        {/* Current Tags Badges */}
+                        <div className="flex flex-wrap items-center gap-2 min-h-[42px] p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                          {formData.tags.length === 0 ? (
+                            <span className="text-xs text-slate-400 italic">No tags added yet. Type a tag below or click suggestions.</span>
+                          ) : (
+                            formData.tags.map((tag) => (
+                              <span
+                                key={tag}
+                                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-slate-800 border border-slate-300 text-xs font-mono font-medium shadow-2xs group"
+                              >
+                                <span>#{tag}</span>
+                                <button
+                                  type="button"
+                                  onClick={() => handleRemoveTag(tag)}
+                                  className="text-slate-400 hover:text-red-600 transition-colors cursor-pointer"
+                                  title="Remove tag"
+                                >
+                                  ✕
+                                </button>
+                              </span>
+                            ))
+                          )}
+                        </div>
+
+                        {/* Add Custom Tag Input */}
+                        <div className="flex gap-2">
+                          <input
+                            type="text"
+                            value={tagInput}
+                            onChange={(e) => setTagInput(e.target.value)}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter') {
+                                e.preventDefault();
+                                handleAddTag();
+                              }
+                            }}
+                            placeholder="Add tag (e.g. Next.js, AI, Full-Stack) & press Enter..."
+                            className="flex-1 px-3.5 py-2.5 rounded-xl bg-white border border-slate-300 text-xs text-slate-800 focus:outline-none focus:border-red-600 focus:ring-2 focus:ring-red-500/10"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => handleAddTag()}
+                            className="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold flex items-center gap-1 cursor-pointer transition-colors"
+                          >
+                            <Plus className="w-3.5 h-3.5" />
+                            <span>Add Tag</span>
+                          </button>
+                        </div>
+
+                        {/* Popular Tag Suggestions */}
+                        <div>
+                          <span className="text-[11px] font-mono text-slate-400 block mb-2 uppercase">Quick add popular tags:</span>
+                          <div className="flex flex-wrap gap-1.5">
+                            {POPULAR_TAGS.map((t) => {
+                              const alreadyAdded = formData.tags.includes(t);
+                              return (
+                                <button
+                                  key={t}
+                                  type="button"
+                                  onClick={() => {
+                                    if (alreadyAdded) handleRemoveTag(t);
+                                    else handleAddTag(t);
+                                  }}
+                                  className={`px-2.5 py-1 rounded-lg text-xs font-mono transition-all cursor-pointer ${
+                                    alreadyAdded
+                                      ? 'bg-red-50 text-red-700 border border-red-200 font-bold'
+                                      : 'bg-slate-100 hover:bg-slate-200 text-slate-600 border border-slate-200/80'
+                                  }`}
+                                >
+                                  {alreadyAdded ? `✓ #${t}` : `+ #${t}`}
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
                       </div>
 
                       {/* Related Links */}

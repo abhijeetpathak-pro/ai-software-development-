@@ -18,6 +18,7 @@ export type Post = {
   image: string;
   content: string[];
   relatedLinks: RelatedLink[];
+  tags?: string[];
   focusKeyword?: string;
   seoTitle?: string;
   metaDescription?: string;
@@ -52,7 +53,8 @@ export const posts: Post[] = [
     relatedLinks: [
       { label: 'IT Staff Augmentation Services', href: '/staff-augmentation/' },
       { label: 'Meet the Witqualis Team', href: '/our-team/' }
-    ]
+    ],
+    tags: ['Staff Augmentation', 'Hiring', 'Engineering Leadership', 'Agile']
   },
   {
     slug: 'mern-vs-mean-choosing-your-stack-in-2026',
@@ -81,7 +83,8 @@ export const posts: Post[] = [
     relatedLinks: [
       { label: 'Web Development Services', href: '/services/web-development/' },
       { label: 'Hire Node.js Developers', href: '/hire/node-js-developers/' }
-    ]
+    ],
+    tags: ['React', 'Angular', 'Node.js', 'Web Development', 'Full Stack']
   },
   {
     slug: 'core-web-vitals-checklist-for-product-teams',
@@ -110,7 +113,8 @@ export const posts: Post[] = [
     relatedLinks: [
       { label: 'Web Development Services', href: '/services/web-development/' },
       { label: 'Cloud Solutions', href: '/solutions/cloud-solutions/' }
-    ]
+    ],
+    tags: ['Performance', 'Core Web Vitals', 'Frontend', 'Next.js']
   },
   {
     slug: 'generative-ai-development-company-what-to-look-for',
@@ -139,7 +143,8 @@ export const posts: Post[] = [
     relatedLinks: [
       { label: 'Generative AI Solutions', href: '/solutions/generative-ai-solutions/' },
       { label: 'AI Consulting', href: '/solutions/ai-consulting/' }
-    ]
+    ],
+    tags: ['Generative AI', 'Enterprise AI', 'LLM', 'AI Architecture']
   },
   {
     slug: 'rag-vs-fine-tuning-choosing-the-right-approach',
@@ -167,7 +172,8 @@ export const posts: Post[] = [
     relatedLinks: [
       { label: 'Machine Learning Development', href: '/solutions/machine-learning-development/' },
       { label: 'Generative AI Solutions', href: '/solutions/generative-ai-solutions/' }
-    ]
+    ],
+    tags: ['RAG', 'Fine-Tuning', 'Vector DB', 'Machine Learning']
   },
   {
     slug: 'ai-consulting-first-90-days',
@@ -196,7 +202,8 @@ export const posts: Post[] = [
     relatedLinks: [
       { label: 'AI Consulting Services', href: '/solutions/ai-consulting/' },
       { label: 'AI Development Solutions', href: '/solutions/ai-development/' }
-    ]
+    ],
+    tags: ['AI Consulting', 'Product Strategy', 'AI Roadmap']
   }
 ];
 
